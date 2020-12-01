@@ -1,0 +1,24 @@
+
+# HEY! This file is used in the tsql_utils integrations tests with CircleCI.
+# You should __NEVER__ check credentials into version control. Thanks for reading :)
+
+config:
+    send_anonymous_usage_stats: False
+    use_colors: True
+
+integration_tests:
+  target: sqlserver
+  outputs:
+  
+    sqlserver:
+      type: sqlserver
+      driver: "ODBC Driver 17 for SQL Server"
+      port: 1433
+      host: "{{ env_var('DBT_SYNAPSE_SERVER') }}"
+      database: "{{ env_var('DBT_SYNAPSE_DB') }}"
+      username: "{{ env_var('DBT_SYNAPSE_UID') }}"
+      password: "{{ env_var('DBT_SYNAPSE_PWD') }}"
+      schema: tsql_utils_integration_tests_synapse
+      encrypt: 'yes'
+      trust_cert: 'yes'
+      threads: 1

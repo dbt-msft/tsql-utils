@@ -14,4 +14,4 @@ for more information on installing packages.
 ## Compatibility
 
 This package provides "shims" for:
-- [dbt_utils](https://github.com/fishtown-analytics/dbt-utils) (subset: cross-db utilities)
+- [dbt_utils](https://github.com/fishtown-analytics/dbt-utils) (partial)

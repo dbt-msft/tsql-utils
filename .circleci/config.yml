@@ -33,25 +33,23 @@ jobs:
           name: "move files"
           command: |
             pwd
-            ls -R
-            cp integration_tests/ci/sample.profiles.yml /root/project/profiles.yml
+            ls -R -A
+            cp integration_tests/ci/sample.profiles.yml profiles.yml
       
       - run: &setup-dbt
           name: "test profile exists in correct spot"
           command: |
             pwd
-            FILE=/root/project/profiles.yml
+            FILE=profiles.yml
             if test -f "$FILE"; then
                 echo "$FILE exists."
             fi
-            cd /root/project/dbt-utils
-            ls
 
       - run:
           name: "Run Tests - dbt-utils"
           command: |
             . venv/bin/activate
-            cd integration_tests/dbt_utils
+            cd /root/project/integration_tests/dbt_utils
             dbt deps --target sqlserver
             dbt seed --target sqlserver --full-refresh
             dbt run --target sqlserver --full-refresh

@@ -33,7 +33,7 @@ jobs:
           name: "move files"
           command: |
             pwd
-            ls -R -A --ignore='venv'
+            ls -R -A --ignore='venv' --ignore='git'
             cp integration_tests/ci/sample.profiles.yml profiles.yml
       
       - run: &setup-dbt

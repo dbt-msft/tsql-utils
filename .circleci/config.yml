@@ -29,14 +29,18 @@ jobs:
             pip install --upgrade pip setuptools
             pip install dbt-sqlserver
 
-      - run: &setup-dbt
+      - run:
           name: "move files"
           command: |
+            echo 'current folder'
             pwd
+            echo 'recursive list of all files and dirs'
             ls -R -A --ignore='venv' --ignore='git'
             cp integration_tests/ci/sample.profiles.yml profiles.yml
+            echo 'is profiles.yml here?'
+            ls
       
-      - run: &setup-dbt
+      - run:
           name: "test profile exists in correct spot"
           command: |
             pwd

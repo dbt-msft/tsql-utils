@@ -32,12 +32,13 @@ jobs:
       - run: &setup-dbt
           name: "move files"
           command: |
-            mkdir -p /root/project
+            pwd
             cp integration_tests/ci/sample.profiles.yml /root/project/profiles.yml
       
       - run: &setup-dbt
           name: "test profile exists in correct spot"
           command: |
+          pwd
             FILE=/root/project/profiles.yml
             if test -f "$FILE"; then
                 echo "$FILE exists."

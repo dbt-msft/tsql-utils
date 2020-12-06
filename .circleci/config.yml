@@ -33,6 +33,7 @@ jobs:
           name: "move files"
           command: |
             pwd
+            ls -R
             cp integration_tests/ci/sample.profiles.yml /root/project/profiles.yml
       
       - run: &setup-dbt

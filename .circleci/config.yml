@@ -38,7 +38,7 @@ jobs:
       - run: &setup-dbt
           name: "test profile exists in correct spot"
           command: |
-          pwd
+            pwd
             FILE=/root/project/profiles.yml
             if test -f "$FILE"; then
                 echo "$FILE exists."

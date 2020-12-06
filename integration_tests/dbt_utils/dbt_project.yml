@@ -18,3 +18,18 @@ clean-targets:         # directories to be removed by `dbt clean`
     
 vars:
   dbt_utils_dispatch_list: ['tsql_utils']
+
+models:
+  dbt_utils_integration_tests:
+    cross_db_utils:
+      +enabled: true
+    datetime:
+      +enabled: true
+    materializations:
+      +enabled: false
+    schema_tests:
+      +enabled: false
+    sql:
+      +enabled: true
+    web:
+      +enabled: false

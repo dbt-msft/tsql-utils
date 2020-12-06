@@ -21,15 +21,27 @@ jobs:
             git submodule update --remote
       
       - run: &setup-dbt
-          name: "Setup dbt"
+          name: "install python deps"
           command: |
             python3 -m venv venv
             . venv/bin/activate
             pip install --upgrade pip setuptools
             pip install dbt-sqlserver
+
+      - run: &setup-dbt
+          name: "move files"
+          command: |
             mkdir -p ~/.dbt
             cp integration_tests/ci/sample.profiles.yml ~/.dbt/profiles.yml
       
+      - run: &setup-dbt
+          name: "test profile exists in correct spot"
+          command: |
+            FILE=~/.dbt/profiles.yml
+            if test -f "$FILE"; then
+                echo "$FILE exists."
+            fi
+
       - run:
           name: "Run Tests - dbt-utils"
           command: |

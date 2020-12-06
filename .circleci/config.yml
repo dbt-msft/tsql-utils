@@ -10,6 +10,11 @@ jobs:
       - checkout
       
       - run: &pull-submodules
+          name: "TEMP: install Git"
+          command: |
+            apt-get install -y git
+
+      - run: &pull-submodules
           name: "Pull Submodules"
           command: |
             git submodule init

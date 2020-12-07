@@ -55,3 +55,5 @@ workflows:
   test-all:
     jobs:
       - integration-dbt-utils-sqlserver
+        context:
+          - DBT_SYNAPSE_PROFILE

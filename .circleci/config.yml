@@ -99,5 +99,7 @@ workflows:
   version: 2
   test-all:
     jobs:
-      - integration-dbt-utils-sqlserver:
+      - integration-dbt-utils-azuresql:
+          context: DBT_SYNAPSE_PROFILE
+      - integration-dbt-utils-synapse:
           context: DBT_SYNAPSE_PROFILE

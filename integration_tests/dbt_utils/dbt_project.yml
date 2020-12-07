@@ -33,3 +33,25 @@ models:
       +enabled: true
     web:
       +enabled: false
+
+seeds:
+
+  +quote_columns: false
+  dbt_utils_integration_tests:
+
+    cross_db:
+      data_date_trunc:
+        +column_types:
+          updated_at: datetime
+          day: date
+          month: date
+
+      data_dateadd:
+        +column_types:
+          from_time: datetime
+          result: datetime
+
+      data_datediff:
+        +column_types:
+          first_date: datetime
+          second_date: datetime

@@ -7,6 +7,12 @@ jobs:
     docker:
       - image: dataders/pyodbc:1.2
     steps:
+      # only needed until I add Git to the Docker container
+      - run:
+          name: "TEMP: install Git"
+          command: |
+            apt-get install -y git
+
       - checkout
       
       - run: &pull-submodules

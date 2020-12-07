@@ -39,7 +39,7 @@ jobs:
             echo 'current folder'
             pwd
             echo 'recursive list of all files and dirs'
-            ls -R -A --ignore='venv' --ignore='git'
+            ls -R -A -I 'venv' -I '.git'
             cp integration_tests/ci/sample.profiles.yml profiles.yml
             echo 'is profiles.yml here?'
             ls

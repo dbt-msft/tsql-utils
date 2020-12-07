@@ -3,10 +3,16 @@ version: 2.1
 
 jobs:
   
-  integration-dbt-utils-sqlserver:
+  integration-dbt-utils-azuresql:
     docker:
       - image: dataders/pyodbc:1.2
     steps:
+      # only needed until I add Git to the Docker container
+      - run: &install-git
+          name: "TEMP: install Git"
+          command: |
+            apt-get install -y git
+
       - checkout
       
       - run: &pull-submodules
@@ -14,7 +20,7 @@ jobs:
           command: |
             git submodule init
             git submodule update --remote
-      
+
       - run: &setup-dbt
           name: "Setup dbt"
           command: |
@@ -30,10 +36,43 @@ jobs:
           command: |
             . venv/bin/activate
             cd integration_tests/dbt_utils
-            dbt deps --target sqlserver
-            dbt seed --target sqlserver --full-refresh
-            dbt run --target sqlserver --full-refresh
-            dbt test --target sqlserver
+            dbt deps --target azuresql
+            dbt seed --target azuresql --full-refresh
+            dbt run --target azuresql --full-refresh
+            dbt test --target azuresql
+      
+      - store_artifacts:
+          path: ./logs
+  integration-dbt-utils-synapse:
+    docker:
+      - image: dataders/pyodbc:1.2
+    steps:
+      # only needed until I add Git to the Docker container
+      - run: *install-git
+
+      - checkout
+      
+      - run: *pull-submodules
+
+      - run:
+          name: "Setup dbt"
+          command: |
+            python3 -m venv venv
+            . venv/bin/activate
+            pip install --upgrade pip setuptools
+            pip install git+https://github.com/dbt-msft/dbt-synapse.git
+            mkdir -p ~/.dbt
+            cp integration_tests/ci/sample.profiles.yml ~/.dbt/profiles.yml
+      
+      - run:
+          name: "Run Tests - dbt-utils"
+          command: |
+            . venv/bin/activate
+            cd integration_tests/dbt_utils
+            dbt deps --target synapse
+            dbt seed --target synapse --full-refresh
+            dbt run --target synapse --full-refresh
+            dbt test --target synapse
       
       - store_artifacts:
           path: ./logs
@@ -43,4 +82,6 @@ workflows:
   version: 2
   test-all:
     jobs:
-      - integration-dbt-utils-sqlserver
+      - integration-dbt-utils-azuresql: &dbt-context
+          context: DBT_SYNAPSE_PROFILE
+      - integration-dbt-utils-synapse: *dbt-context

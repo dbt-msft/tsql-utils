@@ -58,6 +58,7 @@ jobs:
           command: |
             . venv/bin/activate
             cd /root/project/integration_tests/dbt_utils
+            dbt debug --target sqlserver
             dbt deps --target sqlserver
             dbt seed --target sqlserver --full-refresh
             dbt run --target sqlserver --full-refresh

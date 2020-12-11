@@ -19,7 +19,7 @@ packages:
 
 ### Redirect dbt_utils to tsql_utils
 
-Add to you dbt_project.yml
+Add to your dbt_project.yml
 
 ```
 vars:

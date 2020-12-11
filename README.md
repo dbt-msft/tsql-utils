@@ -26,7 +26,7 @@ vars:
   dbt_utils_dispatch_list: ['tsql_utils']
 ```
 
-Wherever a custom tsql package exists, dbt_utils adapter dispatch will pass to tsq_utils. This means you can just do `{{dbt_utils.hash('mycolumnname')}}` just like you're friends with Snowflake. 
+Wherever a custom tsql package exists, dbt_utils adapter dispatch will pass to tsq_utils. This means you can just do `{{dbt_utils.hash('mycolumnname')}}` just like your friends with Snowflake. 
 
 Check [dbt Hub](https://hub.getdbt.com) for the latest installation 
 instructions, or [read the docs](https://docs.getdbt.com/docs/package-management) 

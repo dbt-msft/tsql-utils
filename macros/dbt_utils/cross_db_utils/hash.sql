@@ -1,5 +1,5 @@
 {% macro sqlserver__hash(field) %}
-    hashbytes('md5', {{field}})
+    CONVERT(VARCHAR(32), HASHBYTES('MD5',  COALESCE(CAST({{field}} AS VARCHAR(MAX) ), '')), 2)
 {% endmacro %}
 
 

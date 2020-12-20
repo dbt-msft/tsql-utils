@@ -60,6 +60,8 @@ jobs:
             python3 -m venv venv
             . venv/bin/activate
             pip install --upgrade pip setuptools
+            # TODO fix this once this PR is approved
+            # https://github.com/dbt-msft/dbt-synapse/pull/31
             pip install git+https://github.com/dbt-msft/dbt-synapse.git@Seed_File
             mkdir -p ~/.dbt
             cp integration_tests/ci/sample.profiles.yml ~/.dbt/profiles.yml

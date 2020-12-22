@@ -1,7 +1,5 @@
 {% macro sqlserver__length(expression) %}
 
-    len(
-        {{ expression }}
-    )
-    
+    len( {{ expression }} )
+
 {%- endmacro -%}

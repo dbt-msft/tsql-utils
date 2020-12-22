@@ -33,13 +33,14 @@ jobs:
       
       - run:
           name: "Run Tests - dbt-utils"
+          # TODO re-implement dbt-utils's data tests
           command: |
             . venv/bin/activate
             cd integration_tests/dbt_utils
             dbt deps --target azuresql
             dbt seed --target azuresql --full-refresh
             dbt run --target azuresql --full-refresh
-            dbt test --target azuresql
+            dbt test --target azuresql --schema
       
       - store_artifacts:
           path: ./logs

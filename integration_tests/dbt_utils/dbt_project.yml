@@ -25,12 +25,19 @@ models:
       +enabled: true
     datetime:
       +enabled: true
-    materializations:
-      +enabled: false
+      test_date_spine: &disabled
+        +enabled: false
+    materializations: *disabled
+      
     schema_tests:
       +enabled: false
     sql:
       +enabled: true
+      test_generate_series: *disabled
+      test_get_column_values: *disabled
+      test_get_relations_by_pattern: *disabled
+      test_get_relations_by_prefix_and_union: *disabled
+      test_groupby: *disabled
     web:
       +enabled: false
 

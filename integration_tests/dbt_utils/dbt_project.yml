@@ -28,6 +28,8 @@ models:
       test_datediff: *disabled
       test_hash: *disabled
       test_last_day: *disabled
+      test_split_part:
+        +enabled: "{{ target.name != 'synapse' }}"
     datetime:
       test_date_spine: *disabled
     materializations: *disabled
@@ -70,6 +72,8 @@ seeds:
           updated_at: datetime
           day: date
           month: date
+      data_split_part:
+        +enabled: "{{ target.name != 'synapse' }}"
 
       data_dateadd:
         +column_types:

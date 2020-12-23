@@ -41,6 +41,11 @@ This package provides "shims" for:
 
 ## Contributions
 
+### Help out!
+
+There are a number of macros that have yet to be implemented for T-SQL. Check out [this file](integration_tests/dbt_utils/dbt_project.yml) for an idea of which macros are not currently supported.
+### Multi-Adapter Support
+
 t-sql-utils applies for 2 adapters, sqlserver and synapse.
 
 Therefore, for the time being, a macro should be implemented twice, once for the functionality and once as a reference for the second adapter. 

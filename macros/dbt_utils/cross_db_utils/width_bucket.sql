@@ -18,10 +18,9 @@
     {%- set ceil_val -%}
     CEILING(({{ expr }} - {{ min_value }})/{{ bin_size }})
     {%- endset %}
-    IIF(
-          {{ ceil_val }} > {{ num_buckets }} + 1
-        , {{ num_buckets }} + 1
-        , {{ ceil_val }}
-    )
+    (case when {{ ceil_val }} > ({{ num_buckets }} + 1)
+        then {{ num_buckets }} + 1
+        else {{ ceil_val }}
+    end)
    
 {%- endmacro %}

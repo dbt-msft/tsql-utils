@@ -15,11 +15,13 @@
         end
     ) +
       -- Anything over max_value goes the N+1 bucket
+    {%- set ceil_val -%}
+    CEILING(({{ expr }} - {{ min_value }})/{{ bin_size }})
+    {%- endset %}
     IIF(
-    	  CEILING(({{ expr }} - {{ min_value }})/{{ bin_size }})
-          > {{ num_buckets }} + 1
+          {{ ceil_val }} > {{ num_buckets }} + 1
         , {{ num_buckets }} + 1
-        , CEILING(({{ expr }} - {{ min_value }})/{{ bin_size }})
+        , {{ ceil_val }}
     )
    
 {%- endmacro %}

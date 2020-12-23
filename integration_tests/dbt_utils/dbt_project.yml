@@ -23,14 +23,24 @@ models:
   dbt_utils_integration_tests:
     cross_db_utils:
       +enabled: true
+      test_dateadd: &disabled
+        +enabled: false
+      test_datediff: *disabled
+      test_hash: *disabled
+      test_last_day: *disabled
     datetime:
       +enabled: true
-      test_date_spine: &disabled
-        +enabled: false
+      test_date_spine: *disabled
     materializations: *disabled
       
     schema_tests:
-      +enabled: false
+      # +enabled: false
+      data_test_mutually_exclusive_ranges_no_gaps: *disabled
+      data_test_mutually_exclusive_ranges_with_gaps: *disabled
+      data_test_not_constant: *disabled
+      data_test_relationships_where_table_2: *disabled
+      data_test_unique_where: *disabled
+      data_test_not_null_where: *disabled
     sql:
       +enabled: true
       test_generate_series: *disabled
@@ -38,6 +48,9 @@ models:
       test_get_relations_by_pattern: *disabled
       test_get_relations_by_prefix_and_union: *disabled
       test_groupby: *disabled
+      get_query_results_as_dict: *disabled
+      test_surrogate_key: *disabled
+      test_union: *disabled
     web:
       +enabled: false
 

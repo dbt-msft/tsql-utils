@@ -40,7 +40,7 @@ jobs:
             dbt deps --target azuresql
             dbt seed --target azuresql --full-refresh
             dbt run --target azuresql --full-refresh
-            dbt test --target azuresql --schema
+            dbt test --target azuresql --schema --exclude data_test_unique_where data_test_not_null_where data_test_mutually_exclusive_ranges_no_gaps data_test_mutually_exclusive_ranges_with_gaps data_test_relationships_where_table_2
       
       - store_artifacts:
           path: ./logs
@@ -73,7 +73,7 @@ jobs:
             dbt deps --target synapse
             dbt seed --target synapse --full-refresh
             dbt run --target synapse --full-refresh
-            dbt test --target synapse
+            dbt test --target synapse --schema --exclude data_test_unique_where data_test_not_null_where data_test_mutually_exclusive_ranges_no_gaps data_test_mutually_exclusive_ranges_with_gaps data_test_relationships_where_table_2
       
       - store_artifacts:
           path: ./logs

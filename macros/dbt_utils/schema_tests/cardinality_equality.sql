@@ -1,4 +1,4 @@
-{% macro test_cardinality_equality(model, to, field) %}
+{% macro sqlserver__test_cardinality_equality(model, to, field) %}
 {# T-SQL doesn't let you use numbers as aliases for columns #}
 {# Thus, no "GROUP BY 1" #}
 {% set column_name = kwargs.get('column_name', kwargs.get('from')) %}

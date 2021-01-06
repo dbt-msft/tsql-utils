@@ -1,5 +1,5 @@
 
-{% macro test_not_constant(model) %}
+{% macro sqlserver__test_not_constant(model) %}
 
 {% set column_name = kwargs.get('column_name', kwargs.get('arg')) %}
 

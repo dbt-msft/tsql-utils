@@ -1,4 +1,4 @@
-{% macro test_at_least_one(model) %}
+{% macro sqlserver__test_at_least_one(model) %}
 
 {% set column_name = kwargs.get('column_name', kwargs.get('arg')) %}
 

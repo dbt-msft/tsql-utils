@@ -73,8 +73,9 @@ seeds:
           updated_at: datetime
           day: date
           month: date
-      data_split_part:
+      data_split_part: &not-synapse
         +enabled: "{{ target.name != 'synapse' }}"
+      test_split_part: *not-synapse
 
       data_dateadd:
         +column_types:

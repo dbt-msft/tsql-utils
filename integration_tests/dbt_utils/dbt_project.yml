@@ -43,11 +43,6 @@ models:
       # data_test_unique_where: *disabled
       # data_test_not_null_where: *disabled
       # the following work but only when
-      # the dbt-utils submodule macros are overwritten 
-      # data_test_at_least_one: *disabled
-      # data_people: *disabled
-      # data_test_expression_is_true: *disabled
-      # data_test_not_constant: *disabled
     sql: # BROKEN DUE TO MODEL DEFS
       test_generate_series: *disabled
       test_get_column_values: *disabled

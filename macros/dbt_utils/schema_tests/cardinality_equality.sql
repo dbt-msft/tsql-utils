@@ -1,4 +1,4 @@
-{% macro test_cardinality_equality(model, to, field) %}
+{% macro sqlserver__test_cardinality_equality(model, to, field) %}
 {# T-SQL doesn't let you use numbers as aliases for columns #}
 {# Thus, no "GROUP BY 1" #}
 {% set column_name = kwargs.get('column_name', kwargs.get('from')) %}
@@ -47,4 +47,8 @@ unioned as (
 select count(*)
 from unioned
 
+{% endmacro %}
+
+{% macro synapse__test_cardinality_equality(model, to, field) %}
+    {% do return(sqlserver__test_cardinality_equality(model, to, field)) %}
 {% endmacro %}

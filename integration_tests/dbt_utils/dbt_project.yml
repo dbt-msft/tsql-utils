@@ -21,42 +21,43 @@ vars:
 
 models:
   dbt_utils_integration_tests:
-    +enabled: true
-    cross_db_utils:
-      test_dateadd: &disabled
-        +enabled: false
-      test_datediff: *disabled
-      test_hash: *disabled
-      test_last_day: *disabled
-      test_split_part:
-        +enabled: "{{ target.name != 'synapse' }}"
+#     +enabled: true
+#     cross_db_utils:
+#       test_dateadd: &disabled
+#         +enabled: false
+#       test_datediff: *disabled
+#       test_hash: *disabled
+#       test_last_day: *disabled
+#       test_split_part:
+#         +enabled: "{{ target.name != 'synapse' }}"
     datetime:
-      test_date_spine: *disabled
-    materializations: *disabled
+      test_date_spine: &disabled # BROKEN DUE TO MODEL DEF
+        +enabled: false
+#     materializations: *disabled
       
-    schema_tests:
-      data_test_mutually_exclusive_ranges_no_gaps: *disabled
-      data_test_mutually_exclusive_ranges_with_gaps: *disabled
-      data_test_not_constant: *disabled
-      data_test_relationships_where_table_2: *disabled
-      data_test_unique_where: *disabled
-      data_test_not_null_where: *disabled
+    # schema_tests:
+      # data_test_mutually_exclusive_ranges_no_gaps: *disabled
+      # data_test_mutually_exclusive_ranges_with_gaps: *disabled
+      # data_test_not_constant: *disabled
+      # data_test_relationships_where_table_2: *disabled
+      # data_test_unique_where: *disabled
+      # data_test_not_null_where: *disabled
       # the following work but only when
       # the dbt-utils submodule macros are overwritten 
-      data_test_at_least_one: *disabled
-      data_people: *disabled
-      data_test_expression_is_true: *disabled
-      data_test_not_constant: *disabled
-    sql:
+      # data_test_at_least_one: *disabled
+      # data_people: *disabled
+      # data_test_expression_is_true: *disabled
+      # data_test_not_constant: *disabled
+    sql: # BROKEN DUE TO MODEL DEFS
       test_generate_series: *disabled
       test_get_column_values: *disabled
       test_get_relations_by_pattern: *disabled
       test_get_relations_by_prefix_and_union: *disabled
       test_groupby: *disabled
-      get_query_results_as_dict: *disabled
-      test_surrogate_key: *disabled
-      test_union: *disabled
-    web:
+    #   get_query_results_as_dict: *disabled
+    #   test_surrogate_key: *disabled
+    #   test_union: *disabled
+    web: # BROKEN DUE TO TEST DEFS
       test_url_host: *disabled
       test_url_path: *disabled
       test_urls: *disabled

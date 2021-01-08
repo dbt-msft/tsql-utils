@@ -17,7 +17,7 @@ clean-targets:         # directories to be removed by `dbt clean`
     - "dbt_modules"
     
 vars:
-  dbt_utils_dispatch_list: ['tsql_utils']
+  dbt_utils_dispatch_list: ['tsql_utils', 'dbt_utils']
 
 models:
   dbt_utils_integration_tests:

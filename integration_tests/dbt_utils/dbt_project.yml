@@ -25,6 +25,9 @@ models:
     cross_db_utils:
       test_split_part: &not-synapse
         +enabled: "{{ target.name != 'synapse' }}"
+      # Synapse does not support timestamp datatype see:
+      # https://docs.microsoft.com/en-us/azure/synapse-analytics/sql-data-warehouse/sql-data-warehouse-tables-data-types#unsupported-data-types
+      test_dateadd: *not-synapse
     datetime:
       test_date_spine: &disabled # BROKEN DUE TO MODEL DEF
         +enabled: false

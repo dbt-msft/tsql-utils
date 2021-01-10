@@ -25,6 +25,13 @@ models:
     cross_db_utils:
       test_split_part: &not-synapse
         +enabled: "{{ target.name != 'synapse' }}"
+      # BROKEN DUE TO SYNAPSE SEED LOADING EMPTY CSV VALS AS EMPTY STRINGS
+      # see: https://github.com/dbt-msft/dbt-synapse/issues/36
+      test_dateadd: *not-synapse
+      test_datediff: *not-synapse
+      test_hash: *not-synapse
+      test_last_day: *not-synapse
+      test_union: *not-synapse
     datetime:
       test_date_spine: &disabled # BROKEN DUE TO MODEL DEF
         +enabled: false
@@ -36,13 +43,6 @@ models:
       test_get_relations_by_pattern: *disabled
       test_get_relations_by_prefix_and_union: *disabled
       test_groupby: *disabled # TSQL doesn't let you group by column numbers
-      # BROKEN DUE TO SYNAPSE SEED LOADING EMPTY CSV VALS AS EMPTY STRINGS
-      # see: https://github.com/dbt-msft/dbt-synapse/issues/36
-      test_dateadd: *not-synapse
-      test_datediff: *not-synapse
-      test_hash: *not-synapse
-      test_last_day: *not-synapse
-      test_union: *not-synapse
     web: # BROKEN DUE TO TEST DEFS
       test_url_host: *disabled
       test_url_path: *disabled

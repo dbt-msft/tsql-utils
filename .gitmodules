@@ -1,4 +1,4 @@
 [submodule "dbt-utils"]
 	path = dbt-utils
-	url = https://github.com/swanderz/dbt-utils
-	branch = tsql_compat
+	url = https://github.com/fishtown-analytics/dbt-utils
+	branch = master

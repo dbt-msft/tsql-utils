@@ -37,10 +37,10 @@ models:
     materializations:
       test_insert_by_period: *disabled
     sql: # BROKEN BC MACROS ARE UNPORTED STILL
-      test_generate_series: *disabled
-      test_get_column_values: *disabled
-      test_get_relations_by_pattern: *disabled
-      test_get_relations_by_prefix_and_union: *disabled
+      # test_generate_series: *disabled
+      # test_get_column_values: *disabled
+      # test_get_relations_by_pattern: *disabled
+      # test_get_relations_by_prefix_and_union: *disabled
       test_groupby: *disabled # TSQL doesn't let you group by column numbers
       test_union: *not-synapse
     web: # BROKEN DUE TO TEST DEFS

@@ -24,3 +24,7 @@
     end)
    
 {%- endmacro %}
+
+{% macro synapse__width_bucket(expr, min_value, max_value, num_buckets) -%}
+    {% do return(sqlserver__width_bucket(expr, min_value, max_value, num_buckets)) %}
+{%- endmacro %}

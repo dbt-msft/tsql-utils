@@ -11,3 +11,7 @@
     {%- endif -%}
 
 {%- endmacro %}
+
+{% macro synapse__last_day(date, datepart) -%}
+    {% do return(sqlserver__last_day(date, datepart)) %}
+{%- endmacro %}

@@ -3,7 +3,7 @@ version: 2.1
 
 jobs:
   
-  integration-dbt-utils-azuresql:
+  integration-tsql-utils:
     docker:
       - image: dataders/pyodbc:1.2
     steps:
@@ -15,25 +15,27 @@ jobs:
 
       - checkout
       
-      - run: &pull-submodules
+      - run:
           name: "Pull Submodules"
           command: |
             git submodule init
             git submodule update --remote
 
-      - run: &setup-dbt
+      - run:
           name: "Setup dbt"
           command: |
             python3 -m venv venv
             . venv/bin/activate
             pip install --upgrade pip setuptools
-            pip install git+https://github.com/dbt-msft/dbt-sqlserver.git@v0.19.0rc1
+            pip install  \
+              git+https://github.com/dbt-msft/dbt-sqlserver.git@v0.19.0rc1 \
+              git+https://github.com/dbt-msft/dbt-synapse.git@v0.19.0rc1
             mkdir -p ~/.dbt
             cp integration_tests/ci/sample.profiles.yml ~/.dbt/profiles.yml
             pip list | grep "dbt"
       
       - run:
-          name: "Run Tests - dbt-utils"
+          name: "Test Azure SQL - dbt-utils"
           # TODO re-implement dbt-utils's data tests
           command: |
             . venv/bin/activate
@@ -43,32 +45,8 @@ jobs:
             dbt run --target azuresql --full-refresh
             dbt test --target azuresql --schema --exclude data_test_unique_where data_test_not_null_where data_test_mutually_exclusive_ranges_no_gaps data_test_mutually_exclusive_ranges_with_gaps data_test_relationships_where_table_2 test_urls test_url_host test_url_path data_test_at_least_one data_people data_test_expression_is_true data_test_not_constant
       
-      - store_artifacts:
-          path: ./logs
-  integration-dbt-utils-synapse:
-    docker:
-      - image: dataders/pyodbc:1.2
-    steps:
-      # only needed until I add Git to the Docker container
-      - run: *install-git
-
-      - checkout
-      
-      - run: *pull-submodules
-
       - run:
-          name: "Setup dbt"
-          command: |
-            python3 -m venv venv
-            . venv/bin/activate
-            pip install --upgrade pip setuptools
-            pip install git+https://github.com/dbt-msft/dbt-synapse.git@v0.19.0rc1
-            mkdir -p ~/.dbt
-            cp integration_tests/ci/sample.profiles.yml ~/.dbt/profiles.yml
-            pip list | grep "dbt"
-      
-      - run:
-          name: "Run Tests - dbt-utils"
+          name: "Test Synapse - dbt-utils"
           command: |
             . venv/bin/activate
             cd integration_tests/dbt_utils
@@ -80,11 +58,9 @@ jobs:
       - store_artifacts:
           path: ./logs
 
-
 workflows:
   version: 2
   test-all:
     jobs:
-      - integration-dbt-utils-azuresql: &dbt-context
+      - integration-tsql-utils:
           context: DBT_SYNAPSE_PROFILE
-      - integration-dbt-utils-synapse: *dbt-context

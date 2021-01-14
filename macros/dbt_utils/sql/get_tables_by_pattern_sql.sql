@@ -20,5 +20,5 @@
     inheritance of other adapter objects, and render the following code redundant.
 #}
 {% macro synapse__get_tables_by_pattern_sql(field) %}
-    {% do return(sqlserver__get_tables_by_pattern_sql(schema_pattern, table_pattern, exclude='', database=target.database)) %}
+    {% do return( tsql_utils.sqlserver__get_tables_by_pattern_sql(schema_pattern, table_pattern, exclude='', database=target.database)) %}
 {% endmacro %}

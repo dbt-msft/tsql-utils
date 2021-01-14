@@ -18,5 +18,5 @@ from (
 {% endmacro %}
 
 {% macro synapse__test_at_least_one(model) %}
-    {% do return(sqlserver__test_at_least_one(model)) %}
+    {% do return( tsql_utils.sqlserver__test_at_least_one(model)) %}
 {% endmacro %}

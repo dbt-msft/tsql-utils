@@ -3,5 +3,5 @@
 {%- endmacro %}
 
 {% macro synapse__concat(fields) -%}
-    {% do return(sqlserver__concat(fields)) %}
+    {% do return( tsql_utils.sqlserver__concat(fields)) %}
 {%- endmacro %}

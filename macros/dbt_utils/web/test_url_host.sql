@@ -3,5 +3,5 @@
 {%- endmacro %}
 
 {% macro synapse__get_url_host(model) %}
-    {% do return(sqlserver__get_url_host(model)) %}
+    {% do return( tsql_utils.sqlserver__get_url_host(model)) %}
 {% endmacro %}

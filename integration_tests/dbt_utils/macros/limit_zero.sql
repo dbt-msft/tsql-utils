@@ -3,5 +3,5 @@
 {% endmacro %}
 
 {% macro synapse__limit_zero() %}
-  {{ return( tsql_utils.sqlserver__limit_zero() ) }} 
+  {{ return( tsql_utils_dbt_utils_integration_tests.sqlserver__limit_zero() ) }} 
 {% endmacro %}

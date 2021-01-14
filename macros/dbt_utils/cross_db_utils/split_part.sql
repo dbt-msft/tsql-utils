@@ -19,5 +19,5 @@
     inheritance of other adapter objects, and render the following code redundant.
 #}
 {% macro synapse__split_part(string_text, delimiter_text, part_number) %}
-    {% do return(sqlserver__split_part(string_text, delimiter_text, part_number)) %}
+    {% do return( tsql_utils.sqlserver__split_part(string_text, delimiter_text, part_number)) %}
 {% endmacro %}

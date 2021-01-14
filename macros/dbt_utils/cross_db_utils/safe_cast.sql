@@ -3,5 +3,5 @@
 {% endmacro %}
 
 {% macro synapse__safe_cast(field, type) %}
-    {% do return(sqlserver__safe_cast(field, type)) %}
+    {% do return( tsql_utils.sqlserver__safe_cast(field, type)) %}
 {% endmacro %}

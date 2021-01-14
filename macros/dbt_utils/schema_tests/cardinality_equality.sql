@@ -50,5 +50,5 @@ from unioned
 {% endmacro %}
 
 {% macro synapse__test_cardinality_equality(model, to, field) %}
-    {% do return(sqlserver__test_cardinality_equality(model, to, field)) %}
+    {% do return( tsql_utils.sqlserver__test_cardinality_equality(model, to, field)) %}
 {% endmacro %}

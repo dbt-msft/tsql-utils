@@ -19,7 +19,7 @@
     inheritance of other adapter objects, and render the following code redundant.
 #}
 {% macro synapse__type_string(field) %}
-    {% do return(sqlserver__type_string()) %}
+    {% do return( tsql_utils.sqlserver__type_string()) %}
 {% endmacro %}
 
 

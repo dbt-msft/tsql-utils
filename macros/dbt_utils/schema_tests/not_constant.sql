@@ -20,5 +20,5 @@ from (
 {% endmacro %}
 
 {% macro synapse__test_not_constant(model) %}
-    {% do return(sqlserver__test_not_constant(model)) %}
+    {% do return( tsql_utils.sqlserver__test_not_constant(model)) %}
 {% endmacro %}

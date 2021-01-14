@@ -13,5 +13,5 @@
     inheritance of other adapter objects, and render the following code redundant.
 #}
 {% macro synapse__hash(field) %}
-    {% do return(sqlserver__hash(field)) %}
+    {% do return( tsql_utils.sqlserver__hash(field)) %}
 {% endmacro %}

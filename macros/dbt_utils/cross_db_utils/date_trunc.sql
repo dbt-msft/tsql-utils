@@ -3,5 +3,5 @@
 {% endmacro %}
 
 {% macro synapse__date_trunc(datepart, date) %}
-    {% do return(sqlserver__date_trunc(datepart, date)) %}
+    {% do return( tsql_utils.sqlserver__date_trunc(datepart, date)) %}
 {% endmacro %}

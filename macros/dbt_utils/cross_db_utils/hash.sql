@@ -1,5 +1,5 @@
 {% macro sqlserver__hash(field) %}
-    hashbytes('md5', {{field}})
+    convert(varchar(50), hashbytes('md5', {{field}}), 2)
 {% endmacro %}
 
 

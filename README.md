@@ -7,7 +7,7 @@ that:
 
 ## Installation Instructions
 
-To get make use of these TSQL adaptations in your dbt project, you must do two things:
+To make use of these TSQL adaptations in your dbt project, you must do two things:
 1. Install both `dbt-utils` and `tsql-utils` by adding the following to your `packages.yml`
     ```yaml
     packages:

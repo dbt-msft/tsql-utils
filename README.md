@@ -5,29 +5,20 @@ that:
 
 ## Installation Instructions
 
-tsql-utils is not currently published, but you can use a git install like this. 
-
-### Install the Package: 
-Add to your packages yml, if you also want to install dbt_utils, you're package should look like: 
-
-```
-packages:
-  - package: fishtown-analytics/dbt_utils
-    version: 0.6.2
-  - git: https://github.com/dbt-msft/tsql-utils.git
-```
-
-### Redirect dbt_utils to tsql_utils
-
-Add to your dbt_project.yml
-
-```
-vars:
-  dbt_utils_dispatch_list: ['tsql_utils']
-```
-
-Wherever a custom tsql package exists, dbt_utils adapter dispatch will pass to tsq_utils. This means you can just do `{{dbt_utils.hash('mycolumnname')}}` just like your friends with Snowflake. 
-
+To get make use of these TSQL adaptations in your dbt project, you must do two things:
+1. Install both `dbt-utils` and `tsql-utils` by adding the following to your `packages.yml`
+    ```yaml
+    packages:
+      - package: fishtown-analytics/dbt_utils
+        version: 0.6.4
+      - package: dbt-msft/tsql_utils
+        version: 0.6.4
+    ```
+2. Tell `dbt-utils` to also look for the `tsql-utils` macros by adding this section to your `dbt_project.yml`
+    ```yaml
+    vars:
+      dbt_utils_dispatch_list: ['tsql_utils']
+    ```
 Check [dbt Hub](https://hub.getdbt.com) for the latest installation 
 instructions, or [read the docs](https://docs.getdbt.com/docs/package-management) 
 for more information on installing packages.

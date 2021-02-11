@@ -31,9 +31,6 @@ models:
       test_datediff: *not-synapse
       test_hash: *not-synapse
       test_last_day: *not-synapse
-    datetime:
-      test_date_spine: &disabled # BROKEN DUE TO MODEL DEF
-        +enabled: false
     materializations:
       test_insert_by_period: *disabled
     sql: # BROKEN BC MACROS ARE UNPORTED STILL

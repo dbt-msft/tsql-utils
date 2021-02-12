@@ -54,7 +54,7 @@
 
     rawdata as (
 
-        select top ({{dbt_utils.datediff(start_date, end_date, datepart)}})  + rownum -1 as n
+        select top ({{dbt_utils.datediff(start_date, end_date, datepart)}}) rownum -1 as n
         from nums
         order by rownum
     ),

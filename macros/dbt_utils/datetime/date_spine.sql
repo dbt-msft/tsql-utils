@@ -90,7 +90,7 @@
 
     {% set date_spine_query %}
 
-        {{sqlserver__date_spine_sql(start_date, end_date, datepart)}} order by 1
+        {{tsql_utils.sqlserver__date_spine_sql(start_date, end_date, datepart)}} order by 1
 
     {% endset %}
 

@@ -32,7 +32,8 @@ models:
       test_hash: *not-synapse
       test_last_day: *not-synapse
     materializations:
-      test_insert_by_period: *disabled
+      test_insert_by_period: &disabled
+        +enabled: false
     sql: # BROKEN BC MACROS ARE UNPORTED STILL
       test_generate_series: *disabled
       test_get_column_values: *disabled

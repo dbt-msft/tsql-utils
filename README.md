@@ -12,9 +12,9 @@ To make use of these TSQL adaptations in your dbt project, you must do two thing
     ```yaml
     packages:
       - package: fishtown-analytics/dbt_utils
-        version: 0.6.4
+        version: 0.6.4.1
       - package: dbt-msft/tsql_utils
-        version: 0.6.4
+        version: 0.6.4.1
     ```
 2. Tell `dbt-utils` to also look for the `tsql-utils` macros by adding this section to your `dbt_project.yml`
     ```yaml

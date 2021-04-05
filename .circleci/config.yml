@@ -5,16 +5,9 @@ jobs:
   
   integration-dbt-utils-azuresql:
     docker:
-      - image: dataders/pyodbc:1.2
+      - image: dbtmsft/msodbc_py:0.5
     steps:
-      # only needed until I add Git to the Docker container
-      - run: &install-git
-          name: "TEMP: install Git"
-          command: |
-            apt-get install -y git
-
       - checkout
-      
       - run: &pull-submodules
           name: "Pull Submodules"
           command: |
@@ -61,7 +54,7 @@ jobs:
             python3 -m venv venv
             . venv/bin/activate
             pip install --upgrade pip setuptools
-            pip install dbt-synapse==0.18.1
+            pip install dbt-synapse
             mkdir -p ~/.dbt
             cp integration_tests/ci/sample.profiles.yml ~/.dbt/profiles.yml
       

@@ -21,7 +21,7 @@ vars:
 
 models:
   dbt_utils_integration_tests:
-   +as_columnstore: {{ target.type != 'sqlserver' }}
+    +as_columnstore: "{{ target.type != 'sqlserver' }}"
     +enabled: true
     cross_db_utils:
       test_split_part: &not-synapse

@@ -8,6 +8,12 @@ jobs:
       - image: dbtmsft/msodbc_py:0.5
     steps:
       - checkout
+      - azure-cli/install
+      - azure-cli/login-with-user: &azure-creds
+          azure-username: DBT_AZURE_USERNAME
+          azure-password: DBT_AZURE_PASSWORD
+          alternate-tenant: true
+          azure-tenant: DBT_AZURE_TENANT
       - run: &pull-submodules
           name: "Pull Submodules"
           command: |
@@ -39,13 +45,11 @@ jobs:
           path: ./logs
   integration-dbt-utils-synapse:
     docker:
-      - image: dataders/pyodbc:1.2
+      - image: dbtmsft/msodbc_py:0.5
     steps:
-      # only needed until I add Git to the Docker container
-      - run: *install-git
-
       - checkout
-      
+      - azure-cli/install
+      - azure-cli/login-with-user: *azure-creds
       - run: *pull-submodules
 
       - run:

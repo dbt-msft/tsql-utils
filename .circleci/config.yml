@@ -12,11 +12,10 @@ jobs:
     steps:
       - checkout
       - azure-cli/install
-      - azure-cli/login-with-user: &azure-creds
-          azure-username: DBT_AZURE_USERNAME
-          azure-password: DBT_AZURE_PASSWORD
-          alternate-tenant: true
-          azure-tenant: DBT_AZURE_TENANT
+      - azure-cli/login-with-service-principal: &azure-creds
+          azure-sp: DBT_AZURE_SP_NAME
+          azure-sp-password: DBT_AZURE_SP_SECRET
+          azure-sp-tenant: DBT_AZURE_TENANT
       - run: &pull-submodules
           name: "Pull Submodules"
           command: |
@@ -52,9 +51,8 @@ jobs:
     steps:
       - checkout
       - azure-cli/install
-      - azure-cli/login-with-user: *azure-creds
+      - azure-cli/login-with-service-principal: *azure-creds
       - run: *pull-submodules
-
       - run:
           name: "Setup dbt"
           command: |

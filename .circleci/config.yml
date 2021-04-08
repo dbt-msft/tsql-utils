@@ -50,9 +50,12 @@ jobs:
       - image: dbtmsft/msodbc_py:0.5
     steps:
       - checkout
+      - run: *pull-submodules
       - azure-cli/install
       - azure-cli/login-with-service-principal: *azure-creds
-      - run: *pull-submodules
+      - run:
+          name: resume Synapse pool/db
+          command: az synapse sql pool resume --name $DBT_SYNAPSE_DB --workspace-name $DBT_SYNAPSE_SERVER --resource-group dbt-msft
       - run:
           name: "Setup dbt"
           command: |
@@ -62,7 +65,6 @@ jobs:
             pip install dbt-synapse
             mkdir -p ~/.dbt
             cp integration_tests/ci/sample.profiles.yml ~/.dbt/profiles.yml
-      
       - run:
           name: "Run Tests - dbt-utils"
           command: |
@@ -72,7 +74,9 @@ jobs:
             dbt seed --target synapse --full-refresh
             dbt run --target synapse --full-refresh
             dbt test --target synapse --schema --exclude data_test_unique_where data_test_not_null_where data_test_mutually_exclusive_ranges_no_gaps data_test_mutually_exclusive_ranges_with_gaps data_test_relationships_where_table_2 test_urls test_url_host test_url_path data_test_at_least_one data_people data_test_expression_is_true data_test_not_constant
-      
+      - run:
+          name: pause Synapse pool/db
+          command: az synapse sql pool resume --name $DBT_SYNAPSE_DB --workspace-name $DBT_SYNAPSE_SERVER --resource-group dbt-msft
       - store_artifacts:
           path: ./logs
 

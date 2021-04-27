@@ -78,7 +78,7 @@ jobs:
       - run: *setup-dbt
       - run: &start-synapse
           name: resume Synapse pool/db
-          command: az synapse sql pool resume --name $DBT_SYNAPSE_DB --workspace-name $DBT_SYNAPSE_SERVER --resource-group dbt-msf
+          command: az synapse sql pool resume --name $DBT_SYNAPSE_DB --workspace-name $DBT_SYNAPSE_SERVER --resource-group dbt-msft
       - run:
           name: "Run Tests - dbt-utils"
           # TODO: data test is faailing

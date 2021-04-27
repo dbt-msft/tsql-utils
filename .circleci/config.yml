@@ -1,20 +1,21 @@
 
 version: 2.1
 
+orbs:
+  azure-cli: circleci/azure-cli@1.1.0
+
 jobs:
   
   integration-dbt-utils-azuresql:
     docker:
-      - image: dataders/pyodbc:1.2
+      - image: dbtmsft/msodbc_py:0.5
     steps:
-      # only needed until I add Git to the Docker container
-      - run: &install-git
-          name: "TEMP: install Git"
-          command: |
-            apt-get install -y git
-
       - checkout
-      
+      - azure-cli/install
+      - azure-cli/login-with-service-principal: &azure-creds
+          azure-sp: DBT_AZURE_SP_NAME
+          azure-sp-password: DBT_AZURE_SP_SECRET
+          azure-sp-tenant: DBT_AZURE_TENANT
       - run: &pull-submodules
           name: "Pull Submodules"
           command: |
@@ -40,62 +41,44 @@ jobs:
             dbt deps --target azuresql
             dbt seed --target azuresql --full-refresh
             dbt run --target azuresql --full-refresh
-            dbt test --target azuresql --schema --exclude data_test_unique_where data_test_not_null_where data_test_mutually_exclusive_ranges_no_gaps data_test_mutually_exclusive_ranges_with_gaps data_test_relationships_where_table_2 test_urls test_url_host test_url_path data_test_at_least_one data_people data_test_expression_is_true data_test_not_constant
-
-      - run:
-          name: "Run Tests - dbt-expectations"
-          # TODO re-implement dbt-utils's data tests
-          command: |
-            . venv/bin/activate
-            cd integration_tests/dbt_expectations
-            dbt deps --target azuresql
-            dbt seed --target azuresql --full-refresh
-            dbt run --target azuresql --full-refresh
             dbt test --target azuresql
-      
+
       - store_artifacts:
           path: ./logs
   integration-dbt-utils-synapse:
     docker:
-      - image: dataders/pyodbc:1.2
+      - image: dbtmsft/msodbc_py:0.5
     steps:
-      # only needed until I add Git to the Docker container
-      - run: *install-git
-
       - checkout
-      
       - run: *pull-submodules
-
+      - azure-cli/install
+      - azure-cli/login-with-service-principal: *azure-creds
+      - run:
+          name: resume Synapse pool/db
+          command: az synapse sql pool resume --name $DBT_SYNAPSE_DB --workspace-name $DBT_SYNAPSE_SERVER --resource-group dbt-msft
       - run:
           name: "Setup dbt"
           command: |
             python3 -m venv venv
             . venv/bin/activate
             pip install --upgrade pip setuptools
-            pip install dbt-synapse==0.18.1
+            pip install dbt-synapse
             mkdir -p ~/.dbt
             cp integration_tests/ci/sample.profiles.yml ~/.dbt/profiles.yml
-      
       - run:
           name: "Run Tests - dbt-utils"
+          # TODO: data test is faailing
+          # assert_get_query_results_as_dict_objects_equal
           command: |
             . venv/bin/activate
             cd integration_tests/dbt_utils
             dbt deps --target synapse
             dbt seed --target synapse --full-refresh
             dbt run --target synapse --full-refresh
-            dbt test --target synapse --schema --exclude data_test_unique_where data_test_not_null_where data_test_mutually_exclusive_ranges_no_gaps data_test_mutually_exclusive_ranges_with_gaps data_test_relationships_where_table_2 test_urls test_url_host test_url_path data_test_at_least_one data_people data_test_expression_is_true data_test_not_constant
-
+            dbt test --target synapse --schema
       - run:
-          name: "Run Tests - dbt-expectations"
-          # TODO re-implement dbt-utils's data tests
-          command: |
-            . venv/bin/activate
-            cd integration_tests/dbt_expectations
-            dbt deps --target azuresql
-            dbt seed --target azuresql --full-refresh
-            dbt run --target azuresql --full-refresh
-            dbt test --target azuresql
+          name: pause Synapse pool/db
+          command: az synapse sql pool resume --name $DBT_SYNAPSE_DB --workspace-name $DBT_SYNAPSE_SERVER --resource-group dbt-msft
       - store_artifacts:
           path: ./logs
 

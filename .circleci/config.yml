@@ -73,7 +73,8 @@ jobs:
             pwd
             ls
       - store_artifacts:
-          path: ./logs
+          path: ./integration_tests/dbt_expectations/logs
+
       - run:
           name: "Run Tests - dbt-expectations"
           # TODO re-implement dbt-utils's data tests

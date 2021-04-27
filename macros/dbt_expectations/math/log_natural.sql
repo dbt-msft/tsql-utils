@@ -6,5 +6,5 @@
 
 
 {% macro synapse__log_natural(x) -%}
-    {% do return( dbt_expectations.sqlserver__log_natural(x)) %}
+    {% do return( tsql_utils.sqlserver__log_natural(x)) %}
 {%- endmacro -%}

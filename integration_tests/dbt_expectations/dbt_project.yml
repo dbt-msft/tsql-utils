@@ -1,0 +1,28 @@
+
+name: 'tsql_utils_dbt_expectations_integration_tests'
+version: '1.0'
+config-version: 2
+
+profile: 'integration_tests'
+
+source-paths: ["models"]
+analysis-paths: ["analysis"] 
+test-paths: ["tests"]
+data-paths: ["data"]
+macro-paths: ["macros"]
+
+target-path: "target"  # directory which will store compiled SQL files
+clean-targets:         # directories to be removed by `dbt clean`
+    - "target"
+    - "dbt_modules"
+    
+vars:
+  dbt_utils_dispatch_list: ['tsql_utils']
+  dbt_expectations_dispatch_list: ['tsql_utils']
+  dbt_date_dispatch_list: ['tsql_utils']
+  'dbt_date:time_zone': 'Pacific Standard Time'
+
+models:
+  dbt_expectations_integration_tests:
+    data_test_factored:
+      +materialized: table

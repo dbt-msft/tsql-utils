@@ -56,6 +56,25 @@ jobs:
       - run: *pull-submodules
       - run: *setup-dbt
       - run:
+          name: "debug"
+          # TODO re-implement dbt-utils's data tests
+          command: |
+            . venv/bin/activate
+            cd integration_tests/dbt_expectations
+            echo "local folder"
+            pwd
+            ls
+            cd ..
+            echo "integration_tests folder"
+            pwd
+            ls
+            cd ..
+            echo "tsql-utils folder"
+            pwd
+            ls
+      - store_artifacts:
+          path: ./logs
+      - run:
           name: "Run Tests - dbt-expectations"
           # TODO re-implement dbt-utils's data tests
           command: |
@@ -124,8 +143,8 @@ workflows:
   version: 2
   test-all:
     jobs:
-      - integration-dbt-utils-azuresql: &dbt-context
+      - integration-dbt-expectations-azuresql: &dbt-context
           context: DBT_SYNAPSE_PROFILE
-      - integration-dbt-utils-synapse: *dbt-context
-      - integration-dbt-expectations-azuresql: *dbt-context
-      - integration-dbt-expectations-synapse: *dbt-context
+      # - integration-dbt-utils-azuresql: *dbt-context
+      # - integration-dbt-utils-synapse: *dbt-context
+      # - integration-dbt-expectations-synapse: *dbt-context

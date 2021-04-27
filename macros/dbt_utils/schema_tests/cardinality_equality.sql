@@ -50,5 +50,6 @@ from unioned
 {% endmacro %}
 
 {% macro synapse__test_cardinality_equality(model, to, field) %}
+{% set column_name = kwargs.get('column_name', kwargs.get('from')) %}
     {% do return( tsql_utils.sqlserver__test_cardinality_equality(model, to, field)) %}
 {% endmacro %}

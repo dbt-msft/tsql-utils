@@ -20,5 +20,6 @@ from (
 {% endmacro %}
 
 {% macro synapse__test_not_constant(model) %}
+    {% set column_name = kwargs.get('column_name', kwargs.get('arg')) %}
     {% do return( tsql_utils.sqlserver__test_not_constant(model)) %}
 {% endmacro %}

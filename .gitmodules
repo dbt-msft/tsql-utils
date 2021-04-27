@@ -4,5 +4,5 @@
 	branch = master
 [submodule "dbt-expectations"]
 	path = dbt-expectations
-	url = https://github.com/swanderz/dbt-expectations
-	branch = compat_integration
+	url = https://github.com/calogica/dbt-expectations
+	branch = main

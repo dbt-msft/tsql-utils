@@ -2,5 +2,4 @@
 packages:
   - local: ../../../tsql-utils # tsql_utils empty tho
   - local: ../../dbt-expectations # actual dbt-expectations package as submodule
-  - local: ../../dbt-utils # actual dbt-utils package as submodule
   - local: ../../dbt-expectations/integration_tests # nothing here for now

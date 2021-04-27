@@ -3,6 +3,6 @@
 {%- endmacro -%}
 
 {% macro synapse__convert_timezone(column, target_tz, source_tz) -%}
-    {% do return( dbt_date.sqlserver__convert_timezone(column, target_tz, source_tz)) %}
+    {% do return( tsql_utils.sqlserver__convert_timezone(column, target_tz, source_tz)) %}
 {%- endmacro -%}
 

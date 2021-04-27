@@ -23,5 +23,5 @@
       {% set where = '_deleted = 0' %}
   {% endif %}
 
-    {% do return( tsql_utils.sqlserver__test_unique_where(model)) %}
+    {% do return( tsql_utils.sqlserver__test_unique_where(model, **kwargs)) %}
 {% endmacro %}

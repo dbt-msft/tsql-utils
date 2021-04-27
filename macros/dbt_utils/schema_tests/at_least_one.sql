@@ -19,5 +19,5 @@ from (
 
 {% macro synapse__test_at_least_one(model) %}
     {% set column_name = kwargs.get('column_name', kwargs.get('arg')) %}
-    {% do return( tsql_utils.sqlserver__test_at_least_one(model)) %}
+    {% do return( tsql_utils.sqlserver__test_at_least_one(model, **kwargs)) %}
 {% endmacro %}

@@ -1,0 +1,33 @@
+name: 'tsql_utils_dbt_date_integration_tests'
+version: '1.0'
+config-version: 2
+
+profile: 'integration_tests'
+
+source-paths: ["models"]
+analysis-paths: ["analysis"]
+test-paths: ["tests"]
+data-paths: ["data"]
+macro-paths: ["macros"]
+
+target-path: "target"
+clean-targets:
+    - "target"
+    - "dbt_modules"
+
+require-dbt-version: ">=0.18.1"
+
+vars:
+  'dbt_date:time_zone': 'Pacific Standard Time'
+  dbt_utils_dispatch_list: ['tsql_utils']
+  dbt_date_dispatch_list: ['tsql_utils']
+
+quoting:
+    database: true
+    identifier: true
+    schema: true
+
+models:
+  dbt_date_integration_tests:
+    +schema: dbt_date_integration_tests
+    +materialized: table

@@ -85,7 +85,9 @@ jobs:
             dbt run --target azuresql --full-refresh
             dbt test --target azuresql
       - store_artifacts:
-          path: ./logs
+          path: /root/project/integration_tests/dbt_expectations/logs/dbt.log
+      - store_artifacts:
+          path: /root/project/integration_tests/dbt_expectations/target
 
   integration-dbt-utils-synapse:
     docker:

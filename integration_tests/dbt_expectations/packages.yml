@@ -1,5 +1,5 @@
 
 packages:
-  - local: ../../../tsql-utils # tsql_utils empty tho
+  - local: ../../../ # tsql_utils main macros
   - local: ../../dbt-expectations # actual dbt-expectations package as submodule
   - local: ../../dbt-expectations/integration_tests # nothing here for now

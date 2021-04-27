@@ -6,7 +6,7 @@ config-version: 2
 profile: 'integration_tests'
 
 source-paths: ["models"]
-analysis-paths: ["analysis"] 
+analysis-paths: ["analysis"]
 test-paths: ["tests"]
 data-paths: ["data"]
 macro-paths: ["macros"]
@@ -15,12 +15,13 @@ target-path: "target"  # directory which will store compiled SQL files
 clean-targets:         # directories to be removed by `dbt clean`
     - "target"
     - "dbt_modules"
-    
+
 vars:
   dbt_utils_dispatch_list: ['tsql_utils', 'tsql_utils_dbt_utils_integration_tests']
 
 models:
   dbt_utils_integration_tests:
+    +as_columnstore: "{{ target.type != 'sqlserver' }}"
     +enabled: true
     cross_db_utils:
       test_split_part: &not-synapse

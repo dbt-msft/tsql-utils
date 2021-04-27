@@ -145,6 +145,6 @@ workflows:
     jobs:
       - integration-dbt-expectations-azuresql: &dbt-context
           context: DBT_SYNAPSE_PROFILE
-      # - integration-dbt-utils-azuresql: *dbt-context
-      # - integration-dbt-utils-synapse: *dbt-context
-      # - integration-dbt-expectations-synapse: *dbt-context
+      - integration-dbt-utils-azuresql: *dbt-context
+      - integration-dbt-utils-synapse: *dbt-context
+      - integration-dbt-expectations-synapse: *dbt-context

@@ -41,6 +41,17 @@ jobs:
             dbt seed --target azuresql --full-refresh
             dbt run --target azuresql --full-refresh
             dbt test --target azuresql --schema --exclude data_test_unique_where data_test_not_null_where data_test_mutually_exclusive_ranges_no_gaps data_test_mutually_exclusive_ranges_with_gaps data_test_relationships_where_table_2 test_urls test_url_host test_url_path data_test_at_least_one data_people data_test_expression_is_true data_test_not_constant
+
+      - run:
+          name: "Run Tests - dbt-expectations"
+          # TODO re-implement dbt-utils's data tests
+          command: |
+            . venv/bin/activate
+            cd integration_tests/dbt_expectations
+            dbt deps --target azuresql
+            dbt seed --target azuresql --full-refresh
+            dbt run --target azuresql --full-refresh
+            dbt test --target azuresql
       
       - store_artifacts:
           path: ./logs
@@ -74,7 +85,17 @@ jobs:
             dbt seed --target synapse --full-refresh
             dbt run --target synapse --full-refresh
             dbt test --target synapse --schema --exclude data_test_unique_where data_test_not_null_where data_test_mutually_exclusive_ranges_no_gaps data_test_mutually_exclusive_ranges_with_gaps data_test_relationships_where_table_2 test_urls test_url_host test_url_path data_test_at_least_one data_people data_test_expression_is_true data_test_not_constant
-      
+
+      - run:
+          name: "Run Tests - dbt-expectations"
+          # TODO re-implement dbt-utils's data tests
+          command: |
+            . venv/bin/activate
+            cd integration_tests/dbt_expectations
+            dbt deps --target azuresql
+            dbt seed --target azuresql --full-refresh
+            dbt run --target azuresql --full-refresh
+            dbt test --target azuresql
       - store_artifacts:
           path: ./logs
 

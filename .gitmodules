@@ -9,3 +9,4 @@
 [submodule "dbt-date"]
 	path = dbt-date
 	url = https://github.com/calogica/dbt-date
+	branch = main

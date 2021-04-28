@@ -21,7 +21,6 @@ vars:
   dbt_utils_dispatch_list: ['tsql_utils']
   dbt_date_dispatch_list: ['tsql_utils']
   dbt_expectations_dispatch_list: ['tsql_utils']
-  
 
 models:
   dbt_expectations_integration_tests:

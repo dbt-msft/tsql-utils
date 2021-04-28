@@ -14,3 +14,7 @@
     {%- endif -%}
 
 {%- endmacro %}
+
+{% macro synapse__day_of_week(date, isoweek) -%}
+    {% do return( tsql_utils.sqlserver__day_of_week(date, isoweek)) %}
+{%- endmacro -%}

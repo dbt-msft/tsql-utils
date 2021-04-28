@@ -56,23 +56,6 @@ jobs:
       - run: *pull-submodules
       - run: *setup-dbt
       - run:
-          name: "debug"
-          # TODO re-implement dbt-utils's data tests
-          command: |
-            . venv/bin/activate
-            cd integration_tests/dbt_expectations
-            echo "local folder"
-            pwd
-            ls
-            cd ..
-            echo "integration_tests folder"
-            pwd
-            ls
-            cd ..
-            echo "tsql-utils folder"
-            pwd
-            ls
-      - run:
           name: "Run Tests - dbt-expectations"
           # TODO port core dbt-expectations test logic
           # TODO re-implement dbt-utils's data tests

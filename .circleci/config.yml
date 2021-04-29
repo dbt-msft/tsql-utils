@@ -64,7 +64,7 @@ jobs:
             cd integration_tests/dbt_expectations
             dbt deps --target azuresql
             dbt run --target azuresql --full-refresh
-            # dbt test --target azuresql
+            dbt test --target azuresql
       - store_artifacts:
           path: /root/project/integration_tests/dbt_expectations/logs/dbt.log
       - store_artifacts:
@@ -140,7 +140,7 @@ jobs:
             cd integration_tests/dbt_expectations
             dbt deps --target synapse
             dbt run --target synapse --full-refresh
-            # dbt test --target synapse
+            dbt test --target synapse
       - run: *pause-synapse
       - store_artifacts:
           path: ./logs
@@ -172,10 +172,11 @@ workflows:
   version: 2
   test-all:
     jobs:
-      - integration-dbt-utils-azuresql: &dbt-context
+      # - integration-dbt-utils-azuresql: &dbt-context
+      #     context: DBT_SYNAPSE_PROFILE
+      # - integration-dbt-utils-synapse: *dbt-context
+      - integration-dbt-expectations-azuresql: &dbt-context
           context: DBT_SYNAPSE_PROFILE
-      - integration-dbt-utils-synapse: *dbt-context
-      - integration-dbt-expectations-azuresql: *dbt-context
       - integration-dbt-expectations-synapse: *dbt-context
-      - integration-dbt-date-azuresql: *dbt-context
-      - integration-dbt-date-synapse: *dbt-context
+      # - integration-dbt-date-azuresql: *dbt-context
+      # - integration-dbt-date-synapse: *dbt-context

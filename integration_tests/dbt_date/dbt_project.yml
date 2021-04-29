@@ -1,5 +1,4 @@
-
-name: 'tsql_utils_dbt_expectations_integration_tests'
+name: 'tsql_utils_dbt_date_integration_tests'
 version: '1.0'
 config-version: 2
 
@@ -11,18 +10,24 @@ test-paths: ["tests"]
 data-paths: ["data"]
 macro-paths: ["macros"]
 
-target-path: "target"  # directory which will store compiled SQL files
-clean-targets:         # directories to be removed by `dbt clean`
+target-path: "target"
+clean-targets:
     - "target"
     - "dbt_modules"
+
+require-dbt-version: ">=0.18.1"
 
 vars:
   'dbt_date:time_zone': 'Pacific Standard Time'
   dbt_utils_dispatch_list: ['tsql_utils']
   dbt_date_dispatch_list: ['tsql_utils']
-  dbt_expectations_dispatch_list: ['tsql_utils']
+
+quoting:
+    database: true
+    identifier: true
+    schema: true
 
 models:
-  dbt_expectations_integration_tests:
-    data_test_factored:
-      +materialized: table
+  dbt_date_integration_tests:
+    +schema: dbt_date_integration_tests
+    +materialized: table

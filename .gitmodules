@@ -6,3 +6,7 @@
 	path = dbt-expectations
 	url = https://github.com/calogica/dbt-expectations
 	branch = main
+[submodule "dbt-date"]
+	path = dbt-date
+	url = https://github.com/calogica/dbt-date
+	branch = main

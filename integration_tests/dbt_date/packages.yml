@@ -1,0 +1,5 @@
+
+packages:
+  - local: ../../ # tsql_utils main macros
+  - local: ../../dbt-date # actual dbt-expectations package as submodule
+  - local: ../../dbt-date/integration_tests # nothing here for now

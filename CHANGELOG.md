@@ -1,5 +1,15 @@
 # Changelog
 
+## `0.6.7`
+
+## New features
+
+- shim dbt-date, currently passing all tests! [#36](https://github.com/dbt-msft/tsql-utils/pull/36)
+- support for `dbt_utils.generate_series()` [#36](https://github.com/dbt-msft/tsql-utils/pull/36)
+- support on synapse for `dbt_utils.dateadd()` and `dbt_utils.datediff()` [#36](https://github.com/dbt-msft/tsql-utils/pull/36)
+
+### Under the hood
+- add CI infrastucture for future support of dbt-expectations [#35](https://github.com/dbt-msft/tsql-utils/pull/35) thanks to [@b-per](https://github.com/b-per) for all the heaving lifting with [calogica/dbt-expectations #29](https://github.com/calogica/dbt-expectations/pull/29), [calogica/dbt-date #14](https://github.com/calogica/dbt-date/pull/14), and [calogica/dbt-date #15](https://github.com/calogica/dbt-date/pull/15) 
 
 ## `0.6.6`
 

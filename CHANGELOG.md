@@ -4,6 +4,7 @@
 
 ## New features
 
+- add support for `dbt_utils.surrogate_key()` [#32](https://github.com/dbt-msft/tsql-utils/pull/32) thanks [@infused-kim](https://github.com/infused-kim)
 - shim dbt-date, currently passing all tests! [#36](https://github.com/dbt-msft/tsql-utils/pull/36)
 - support for `dbt_utils.generate_series()` [#36](https://github.com/dbt-msft/tsql-utils/pull/36)
 - support on synapse for `dbt_utils.dateadd()` and `dbt_utils.datediff()` [#36](https://github.com/dbt-msft/tsql-utils/pull/36)

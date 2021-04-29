@@ -1,11 +1,11 @@
-{%- macro sqlserver__type_string() -%}
+{% macro sqlserver__type_string() %}
     VARCHAR(900)
 {%- endmacro -%}
 
 -- TEMP UNTIL synapse is standalone adapter type
 {% macro sqlserver__type_timestamp() %}
-    {# Synapse does not support timestamp datatype see: #}
-    {# https://docs.microsoft.com/en-us/azure/synapse-analytics/sql-data-warehouse/sql-data-warehouse-tables-data-types#unsupported-data-types #}
+    {# in TSQL timestamp is really datetime #}
+    {# https://docs.microsoft.com/en-us/sql/t-sql/functions/date-and-time-data-types-and-functions-transact-sql?view=sql-server-ver15#DateandTimeDataTypes #}
     datetime
 {% endmacro %}
 
@@ -18,13 +18,10 @@
     that will make the inheritance of dispatched macros work just like the 
     inheritance of other adapter objects, and render the following code redundant.
 #}
-{% macro synapse__type_string(field) %}
+{% macro synapse__type_string() %}
     {% do return( tsql_utils.sqlserver__type_string()) %}
 {% endmacro %}
 
-
 {% macro synapse__type_timestamp() %}
-    {# Synapse does not support timestamp datatype see: #}
-    {# https://docs.microsoft.com/en-us/azure/synapse-analytics/sql-data-warehouse/sql-data-warehouse-tables-data-types#unsupported-data-types #}
-    datetime
+    {% do return( tsql_utils.sqlserver__type_timestamp()) %}
 {% endmacro %}

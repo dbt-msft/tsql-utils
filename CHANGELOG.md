@@ -1,5 +1,12 @@
 # Changelog
 
+
+## `0.6.6`
+
+- fix for `dateadd()` macro when adding intervals smaller than a day [#35](https://github.com/dbt-msft/tsql-utils/pull/35) thanks [@b-per](https://github.com/b-per)!
+## `0.6.5`
+
+- syntactical update, because four-part version numbers aren't canonically SemVer.
 ## `0.6.4.1`
 
 ### Added

@@ -2,3 +2,7 @@
 	path = dbt-utils
 	url = https://github.com/fishtown-analytics/dbt-utils
 	branch = master
+[submodule "dbt-expectations"]
+	path = dbt-expectations
+	url = https://github.com/calogica/dbt-expectations
+	branch = main

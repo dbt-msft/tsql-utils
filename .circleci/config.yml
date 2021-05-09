@@ -6,9 +6,12 @@ orbs:
 
 jobs:
   
-  integration-dbt-utils-azuresql:
+  integration-dbt-utils-azuresql: &template
     docker:
       - image: dbtmsft/msodbc_py:0.5
+    environment:
+      FOLDER: dbt_utils
+      TARGET: azuresql
     steps:
       - checkout
       - azure-cli/install
@@ -33,15 +36,15 @@ jobs:
             cp integration_tests/ci/sample.profiles.yml ~/.dbt/profiles.yml
       
       - run:
-          name: "Run Tests - dbt-utils"
+          name: "Run Tests"
           # TODO re-implement dbt-utils's data tests
           command: |
             . venv/bin/activate
-            cd integration_tests/dbt_utils
-            dbt deps --target azuresql
-            dbt seed --target azuresql --full-refresh
-            dbt run --target azuresql --full-refresh
-            dbt test --target azuresql
+            cd "integration_tests/${FOLDER}"
+            dbt deps --target ${TARGET}
+            dbt seed --target ${TARGET} --full-refresh
+            dbt run --target ${TARGET} --full-refresh
+            dbt test --target ${TARGET}
 
       - store_artifacts:
           path: ./logs

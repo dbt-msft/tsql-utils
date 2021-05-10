@@ -92,6 +92,24 @@ jobs:
       - store_artifacts:
           path: /root/project/integration_tests/dbt_date/target
 
+  integration-dbt-audit-helper-azuresql:
+    docker:
+      - image: dbtmsft/msodbc_py:0.5
+    steps:
+      - checkout
+      - azure-cli/install
+      - azure-cli/login-with-service-principal: *azure-creds
+      - run: *pull-submodules
+      - run: *setup-dbt
+      - run:
+          name: "Run Tests - dbt-audit-helper"
+          command: |
+            . venv/bin/activate
+            cd integration_tests/dbt_audit_helper
+            dbt deps --target azuresql
+            dbt run --target azuresql --full-refresh
+            dbt test --target azuresql
+
   integration-dbt-utils-synapse:
     docker:
       - image: dbtmsft/msodbc_py:0.5
@@ -166,7 +184,28 @@ jobs:
       - run: *pause-synapse
       - store_artifacts:
           path: ./logs
-
+          
+  integration-dbt-audit-helper-synapse:
+    docker:
+      - image: dbtmsft/msodbc_py:0.5
+    steps:
+      - checkout
+      - run: *pull-submodules
+      - azure-cli/install
+      - azure-cli/login-with-service-principal: *azure-creds
+      - run: *setup-dbt
+      - run: *start-synapse
+      - run:
+          name: "Run Tests - dbt-audit-helper"
+          command: |
+            . venv/bin/activate
+            cd integration_tests/dbt_audit_helper
+            dbt deps --target synapse
+            dbt run --target synapse --full-refresh
+            dbt test --target synapse
+      - run: *pause-synapse
+      - store_artifacts:
+          path: ./logs
 
 workflows:
   version: 2
@@ -179,3 +218,5 @@ workflows:
       - integration-dbt-expectations-synapse: *dbt-context
       - integration-dbt-date-azuresql: *dbt-context
       - integration-dbt-date-synapse: *dbt-context
+      - integration-dbt-audit-helper-azuresql: *dbt-context
+      - integration-dbt-audit-helper-synapse: *dbt-context

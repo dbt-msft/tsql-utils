@@ -1,4 +1,4 @@
-{% macro compare_queries(a_query, b_query, primary_key=None) %}
+{% macro sqlserver__compare_queries(a_query, b_query, primary_key=None) %}
 
 with a as (
 

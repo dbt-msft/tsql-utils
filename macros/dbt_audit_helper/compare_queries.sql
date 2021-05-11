@@ -82,3 +82,8 @@ select
 from summary_stats
 
 {% endmacro %}
+
+
+{% macro synapse__compare_queries(a_query, b_query, primary_key=None) -%}
+    {% do return( tsql_utils.sqlserver__compare_queries(a_query, b_query, primary_key=None)) %}
+{%- endmacro %}

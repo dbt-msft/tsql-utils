@@ -23,3 +23,7 @@ from {{ b_relation }}
 {{ tsql_utils.sqlserver__compare_queries(a_query, b_query, primary_key) }}
 
 {% endmacro %}
+
+{% macro synapse__compare_relations(a_relation, b_relation, exclude_columns=[], primary_key=None) -%}
+    {% do return( tsql_utils.sqlserver__compare_relations(a_relation, b_relation, exclude_columns=[], primary_key=None)) %}
+{%- endmacro %}

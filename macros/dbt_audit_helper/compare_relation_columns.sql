@@ -28,3 +28,7 @@
             where table_name like '{{ relation.identifier }}%') cols
         {# order by ordinal_position #}
 {% endmacro %}
+
+{% macro synapse__get_columns_in_relation_sql(relation) -%}
+    {% do return( tsql_utils.sqlserver__get_columns_in_relation_sql(relation)) %}
+{%- endmacro %}

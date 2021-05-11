@@ -18,4 +18,8 @@ clean-targets:
 require-dbt-version: ">=0.18.1"
 
 vars:
-  dbt_audit_helper_dispatch_list: ['tsql_utils']
+  audit_helper_dispatch_list: ['tsql_utils']
+
+models:
+  audit_helper_integration_tests: 
+    +materialized: table

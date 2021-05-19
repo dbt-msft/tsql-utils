@@ -1,3 +1,27 @@
+{% macro sqlserver__compare_relation_columns(a_relation, b_relation) %}
+
+with a_cols as (
+    {{ audit_helper.get_columns_in_relation_sql(a_relation) }}
+),
+
+b_cols as (
+    {{ audit_helper.get_columns_in_relation_sql(b_relation) }}
+)
+
+select
+    column_name,
+    a_cols.ordinal_position as a_ordinal_position,
+    b_cols.ordinal_position as b_ordinal_position,
+    a_cols.data_type as a_data_type,
+    b_cols.data_type as b_data_type,
+    coalesce(a_cols.ordinal_position = b_cols.ordinal_position, false) as has_ordinal_position_match,
+    coalesce(a_cols.data_type = b_cols.data_type, false) as has_data_type_match
+from a_cols
+full outer join b_cols using (column_name)
+{# order by a_ordinal_position, b_ordinal_position #}
+
+{% endmacro %}
+
 {% macro sqlserver__get_columns_in_relation_sql(relation) %}
   SELECT
             column_name,

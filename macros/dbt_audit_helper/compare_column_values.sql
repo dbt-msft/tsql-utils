@@ -56,3 +56,7 @@ select
 from aggregated
 
 {% endmacro %}
+
+{% macro synapse__compare_column_values(a_query, b_query, primary_key, column_to_compare) -%}
+    {% do return( tsql_utils.sqlserver__compare_column_values(a_query, b_query, primary_key, column_to_compare)) %}
+{%- endmacro %}

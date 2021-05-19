@@ -1,11 +1,11 @@
 {% macro sqlserver__compare_relation_columns(a_relation, b_relation) %}
 
 with a_cols as (
-    {{ audit_helper.get_columns_in_relation_sql(a_relation) }}
+    {{ tsql_utils.sqlserver__get_columns_in_relation_sql(a_relation) }}
 ),
 
 b_cols as (
-    {{ audit_helper.get_columns_in_relation_sql(b_relation) }}
+    {{ tsql_utils.sqlserver__get_columns_in_relation_sql(b_relation) }}
 )
 
 select

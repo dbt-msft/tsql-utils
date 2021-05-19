@@ -55,6 +55,4 @@ select
 
 from aggregated
 
-{# order by match_order #}
-
 {% endmacro %}

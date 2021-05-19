@@ -18,7 +18,6 @@ select
     coalesce(a_cols.data_type = b_cols.data_type, false) as has_data_type_match
 from a_cols
 full outer join b_cols using (column_name)
-{# order by a_ordinal_position, b_ordinal_position #}
 
 {% endmacro %}
 
@@ -50,7 +49,6 @@ full outer join b_cols using (column_name)
                 numeric_scale
             from tempdb.INFORMATION_SCHEMA.COLUMNS
             where table_name like '{{ relation.identifier }}%') cols
-        {# order by ordinal_position #}
 {% endmacro %}
 
 {% macro synapse__get_columns_in_relation_sql(relation) -%}

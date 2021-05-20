@@ -1,6 +1,6 @@
 {% macro sqlserver__compare_relations(a_relation, b_relation, exclude_columns=[], primary_key=None) %}
 
-{%- set a_columns = tsql_utils.sqlserver__get_columns_in_relation(a_relation) -%}
+{%- set a_columns = adapter.get_columns_in_relation(a_relation) -%}
 
 {% set check_columns=audit_helper.pop_columns(a_columns, exclude_columns) %}
 

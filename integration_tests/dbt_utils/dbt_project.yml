@@ -42,6 +42,10 @@ models:
       test_get_relations_by_prefix_and_union: *disabled
       test_groupby: *disabled # TSQL doesn't let you group by column numbers
       test_union: *not-synapse
+      emails: *disabled #TODO
+      timeseries_data: *disabled #TODO
+      data_test: *not-synapse # Need to implement for synapse
+      data_test_factored: *not-synapse # Need to implement for synapse
     web: # BROKEN DUE TO TEST DEFS
       test_url_host: *disabled
       test_url_path: *disabled

@@ -4,13 +4,13 @@
 	branch = master
 [submodule "dbt-expectations"]
 	path = dbt-expectations
-	url = https://github.com/calogica/dbt-expectations
-	branch = main
+	url = https://github.com/alieus/dbt-expectations
+	branch = dispatch_macros
 [submodule "dbt-date"]
 	path = dbt-date
 	url = https://github.com/calogica/dbt-date
 	branch = main
 [submodule "dbt-audit-helper"]
 	path = dbt-audit-helper
-	url = https://github.com/fishtown-analytics/dbt-audit-helper
-    branch = master
+	url = https://github.com/alieus/dbt-audit-helper
+    branch = adapter_dispatch

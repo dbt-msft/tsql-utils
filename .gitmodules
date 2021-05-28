@@ -4,8 +4,8 @@
 	branch = master
 [submodule "dbt-expectations"]
 	path = dbt-expectations
-	url = https://github.com/alieus/dbt-expectations
-	branch = dispatch_macros
+	url = https://github.com/calogica/dbt-expectations
+	branch = main
 [submodule "dbt-date"]
 	path = dbt-date
 	url = https://github.com/calogica/dbt-date

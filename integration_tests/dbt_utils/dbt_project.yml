@@ -32,9 +32,13 @@ models:
       test_datediff: *not-synapse
       test_hash: *not-synapse
       test_last_day: *not-synapse
-    materializations:
-      test_insert_by_period: &disabled
+    geo:
+      # disable until https://github.com/fishtown-analytics/dbt-utils/pull/354  is approved
+      test_haversine_distance_km: &disabled
         +enabled: false
+      test_haversine_distance_mi: *disabled
+    materializations:
+      test_insert_by_period: *disabled
     sql: # BROKEN BC MACROS ARE UNPORTED STILL
       test_generate_series: *disabled
       test_get_column_values: *disabled
@@ -74,7 +78,6 @@ seeds:
           first_date: datetime
           second_date: datetime
     geo:
-      # disable until https://github.com/fishtown-analytics/dbt-utils/pull/354
-      # is approved
+      # disable until https://github.com/fishtown-analytics/dbt-utils/pull/354  is approved
       data_haversine_km: *disabled
       data_haversine_mi: *disabled

@@ -54,6 +54,9 @@ seeds:
     schema_tests:
       data_test_mutually_exclusive_ranges_no_gaps: *disabled
       data_test_mutually_exclusive_ranges_with_gaps: *disabled
+      data_test_sequential_timestamps:
+        +column_types:
+          my_timestamp: datetime
     cross_db:
       data_date_trunc:
         +column_types:
@@ -71,6 +74,4 @@ seeds:
         +column_types:
           first_date: datetime
           second_date: datetime
-      data_test_sequential_timestamps:
-        +column_types:
-          my_timestamp: datetime
+

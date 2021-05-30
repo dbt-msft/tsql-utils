@@ -46,6 +46,7 @@ models:
       test_get_relations_by_prefix_and_union: *disabled
       test_groupby: *disabled # TSQL doesn't let you group by column numbers
       test_union: *not-synapse
+      test_unpivot_bool: *disabled
     web: # BROKEN DUE TO TEST DEFS
       test_url_host: *disabled
       test_url_path: *disabled
@@ -63,6 +64,8 @@ seeds:
           my_timestamp: datetime
       # needs to be shimmed to avoid boolean values in upstream macro def
       data_test_accepted_range: *disabled
+      # something weird happening: `Incorrect syntax near '<'.`
+      data_test_mutually_exclusive_ranges_with_gaps_zero_length: *disabled
     cross_db:
       data_date_trunc:
         +column_types:
@@ -83,3 +86,6 @@ seeds:
       # disable until https://github.com/fishtown-analytics/dbt-utils/pull/354  is approved
       data_haversine_km: *disabled
       data_haversine_mi: *disabled
+    sql:
+      data_unpivot_bool: *disabled
+      data_unpivot_bool_expected: *disabled

@@ -61,6 +61,8 @@ seeds:
       data_test_sequential_timestamps:
         +column_types:
           my_timestamp: datetime
+      # needs to be shimmed to avoid boolean values in upstream macro def
+      data_test_accepted_range: *disabled
     cross_db:
       data_date_trunc:
         +column_types:

@@ -60,6 +60,9 @@ seeds:
       data_test_mutually_exclusive_ranges_no_gaps: *disabled
       data_test_mutually_exclusive_ranges_with_gaps: *disabled
       data_test_sequential_timestamps:
+        # disabled until this PR is merged
+        # https://github.com/fishtown-analytics/dbt-utils/pull/376
+        <<: *not-synapse
         +column_types:
           my_timestamp: datetime
       # needs to be shimmed to avoid boolean values in upstream macro def

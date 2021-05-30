@@ -71,3 +71,6 @@ seeds:
         +column_types:
           first_date: datetime
           second_date: datetime
+      data_test_sequential_timestamps:
+        +column_types:
+          my_timestamp: datetime

@@ -92,3 +92,4 @@ seeds:
     sql:
       data_unpivot_bool: *disabled
       data_unpivot_bool_expected: *disabled
+      data_get_query_results_as_dict: *not-synapse

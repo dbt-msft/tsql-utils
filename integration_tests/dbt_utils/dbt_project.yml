@@ -51,7 +51,12 @@ models:
       test_url_host: *disabled
       test_url_path: *disabled
       test_urls: *disabled
-
+  # intractable nested CTEs from
+  # https://github.com/calogica/dbt-date/pull/30
+  dbt_date_integration_tests:
+    dates: *disabled
+    dim_week: *disabled
+    dim_hour: *disabled
 seeds:
 
   +quote_columns: false

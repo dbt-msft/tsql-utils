@@ -20,7 +20,7 @@ require-dbt-version: ">=0.18.1"
 vars:
   'dbt_date:time_zone': 'Pacific Standard Time'
   dbt_utils_dispatch_list: ['tsql_utils']
-  dbt_date_dispatch_list: ['tsql_utils']
+  dbt_date_dispatch_list: ['tsql_utils', 'tsql_utils_dbt_date_integration_tests']
 
 quoting:
     database: true

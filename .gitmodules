@@ -13,4 +13,4 @@
 [submodule "dbt-audit-helper"]
 	path = dbt-audit-helper
 	url = https://github.com/alieus/dbt-audit-helper
-    branch = adapter_dispatch
+	branch = adapter_dispatch

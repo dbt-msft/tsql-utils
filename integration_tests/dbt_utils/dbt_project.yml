@@ -32,9 +32,13 @@ models:
       test_datediff: *not-synapse
       test_hash: *not-synapse
       test_last_day: *not-synapse
-    materializations:
-      test_insert_by_period: &disabled
+    geo:
+      # disable until https://github.com/fishtown-analytics/dbt-utils/pull/354  is approved
+      test_haversine_distance_km: &disabled
         +enabled: false
+      test_haversine_distance_mi: *disabled
+    materializations:
+      test_insert_by_period: *disabled
     sql: # BROKEN BC MACROS ARE UNPORTED STILL
       test_generate_series: *disabled
       test_get_column_values: *disabled
@@ -42,15 +46,22 @@ models:
       test_get_relations_by_prefix_and_union: *disabled
       test_groupby: *disabled # TSQL doesn't let you group by column numbers
       test_union: *not-synapse
-      emails: *disabled #TODO
-      timeseries_data: *disabled #TODO
-      data_test: *not-synapse # Need to implement for synapse
-      data_test_factored: *not-synapse # Need to implement for synapse
+      test_unpivot_bool: *disabled
     web: # BROKEN DUE TO TEST DEFS
       test_url_host: *disabled
       test_url_path: *disabled
       test_urls: *disabled
-
+  # intractable nested CTEs from
+  # https://github.com/calogica/dbt-date/pull/30
+  dbt_date_integration_tests:
+    dates: *disabled
+    dim_week: *disabled
+    dim_hour: *disabled
+  dbt_expectations_integration_tests:
+    emails: *disabled #TODO
+    timeseries_data: *disabled #TODO
+    data_test: *not-synapse # Need to implement for synapse
+    data_test_factored: *not-synapse # Need to implement for synapse
 seeds:
 
   +quote_columns: false
@@ -58,13 +69,22 @@ seeds:
     schema_tests:
       data_test_mutually_exclusive_ranges_no_gaps: *disabled
       data_test_mutually_exclusive_ranges_with_gaps: *disabled
+      data_test_sequential_timestamps:
+        # disabled until this PR is merged
+        # https://github.com/fishtown-analytics/dbt-utils/pull/376
+        <<: *not-synapse
+        +column_types:
+          my_timestamp: datetime
+      # needs to be shimmed to avoid boolean values in upstream macro def
+      data_test_accepted_range: *disabled
+      # something weird happening: `Incorrect syntax near '<'.`
+      data_test_mutually_exclusive_ranges_with_gaps_zero_length: *disabled
     cross_db:
       data_date_trunc:
         +column_types:
           updated_at: datetime
           day: date
           month: date
-      data_split_part: *not-synapse
 
       data_dateadd:
         +column_types:
@@ -75,3 +95,11 @@ seeds:
         +column_types:
           first_date: datetime
           second_date: datetime
+    geo:
+      # disable until https://github.com/fishtown-analytics/dbt-utils/pull/354  is approved
+      data_haversine_km: *disabled
+      data_haversine_mi: *disabled
+    sql:
+      data_unpivot_bool: *disabled
+      data_unpivot_bool_expected: *disabled
+      data_get_query_results_as_dict: *not-synapse

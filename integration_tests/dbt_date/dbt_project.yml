@@ -31,3 +31,14 @@ models:
   dbt_date_integration_tests:
     +schema: dbt_date_integration_tests
     +materialized: table
+    # needed bc of 
+    # https://github.com/calogica/dbt-date/pull/30
+    # +enabled: false (THIS SHOULD WORK BUT DOESN'T!?)
+    # test_dates:
+    #   +enabled: true
+    dates: &disabled
+      +enabled: false
+    dim_week: *disabled
+    dim_date: *disabled
+    dim_date_fiscal: *disabled
+    dim_hour: *disabled

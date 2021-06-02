@@ -57,11 +57,6 @@ models:
     dates: *disabled
     dim_week: *disabled
     dim_hour: *disabled
-  dbt_expectations_integration_tests:
-    emails: *disabled #TODO
-    timeseries_data: *disabled #TODO
-    data_test: *not-synapse # Need to implement for synapse
-    data_test_factored: *not-synapse # Need to implement for synapse
 seeds:
 
   +quote_columns: false

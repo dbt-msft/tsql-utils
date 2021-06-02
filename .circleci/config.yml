@@ -60,6 +60,13 @@ jobs:
       FOLDER: dbt_date
       TARGET: azuresql
 
+  integration-dbt-audit-helper-azuresql:
+    <<: *template
+    environment:
+      FOLDER: dbt_audit_helper
+      TARGET: azuresql
+
+
   integration-dbt-utils-synapse: &template-synapse
     docker:
       - image: dbtmsft/msodbc_py:0.5
@@ -98,6 +105,12 @@ jobs:
       FOLDER: dbt_date
       TARGET: synapse
 
+  integration-dbt-audit-helper-synapse:
+    <<: *template-synapse
+    environment:
+      FOLDER: dbt_audit_helper
+      TARGET: synapse
+
   start-synapse:
     docker:
       - image: dbtmsft/msodbc_py:0.5
@@ -130,9 +143,14 @@ workflows:
       - start-synapse: &dbt-context
           context: DBT_SYNAPSE_PROFILE
       - integration-dbt-utils-azuresql: *dbt-context
+      - integration-dbt-audit-helper-azuresql: *dbt-context
       # - integration-dbt-expectations-azuresql: *dbt-context
       # - integration-dbt-date-azuresql: *dbt-context
       - integration-dbt-utils-synapse: &syn-step
+          <<: *dbt-context
+          requires:
+            - start-synapse
+      - integration-dbt-audit-helper-synapse: &syn-step
           <<: *dbt-context
           requires:
             - start-synapse
@@ -142,5 +160,6 @@ workflows:
           <<: *dbt-context
           requires:
             - integration-dbt-utils-synapse
+            - integration-dbt-audit-helper-synapse
             # - integration-dbt-expectations-synapse
             # - integration-dbt-date-synapse

@@ -30,7 +30,11 @@ models:
       emails: &disabled #TODO
           +enabled: false 
       timeseries_data: *disabled
-      # Need to implement for synapse
-      data_test: &not-synapse
+      # anders's weird NoneType error
+      # (see https://github.com/calogica/dbt-expectations/pull/63)
+      data_test: *disabled
+      # # Need to implement for synapse
+      # data_test: &not-synapse
+      #     +enabled: "{{ target.name != 'synapse' }}" 
+      data_test_factored: &not-synapse
           +enabled: "{{ target.name != 'synapse' }}" 
-      data_test_factored: *not-synapse

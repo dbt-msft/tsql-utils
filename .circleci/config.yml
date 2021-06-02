@@ -146,8 +146,8 @@ workflows:
           context: DBT_SYNAPSE_PROFILE
       - integration-dbt-utils-azuresql: *dbt-context
       - integration-dbt-audit-helper-azuresql: *dbt-context
-      # - integration-dbt-expectations-azuresql: *dbt-context
-      # - integration-dbt-date-azuresql: *dbt-context
+      - integration-dbt-expectations-azuresql: *dbt-context
+      - integration-dbt-date-azuresql: *dbt-context
       - integration-dbt-utils-synapse: &syn-step
           <<: *dbt-context
           requires:
@@ -156,12 +156,12 @@ workflows:
           <<: *dbt-context
           requires:
             - start-synapse
-      # - integration-dbt-expectations-synapse: *syn-step
-      # - integration-dbt-date-synapse: *syn-step
+      - integration-dbt-expectations-synapse: *syn-step
+      - integration-dbt-date-synapse: *syn-step
       - pause-synapse:
           <<: *dbt-context
           requires:
             - integration-dbt-utils-synapse
             - integration-dbt-audit-helper-synapse
-            # - integration-dbt-expectations-synapse
-            # - integration-dbt-date-synapse
+            - integration-dbt-expectations-synapse
+            - integration-dbt-date-synapse

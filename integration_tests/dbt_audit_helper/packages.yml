@@ -1,0 +1,5 @@
+
+packages:
+  - local: ../../ # tsql_utils main macros
+  - local: ../../dbt-audit-helper # actual dbt-audit-helper package as submodule
+  - local: ../../dbt-audit-helper/integration_tests # dbt-audit-helper integration_tests macros

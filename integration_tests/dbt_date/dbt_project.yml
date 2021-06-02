@@ -31,3 +31,6 @@ models:
   dbt_date_integration_tests:
     +schema: dbt_date_integration_tests
     +materialized: table
+    +enabled: false
+    test_dates:
+      +enabled: true

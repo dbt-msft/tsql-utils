@@ -6,9 +6,12 @@ orbs:
 
 jobs:
   
-  integration-dbt-utils-azuresql:
+  integration-dbt-utils-azuresql: &template
     docker:
       - image: dbtmsft/msodbc_py:0.5
+    environment:
+      FOLDER: dbt_utils
+      TARGET: azuresql
     steps:
       - checkout
       - azure-cli/install
@@ -33,137 +36,69 @@ jobs:
             cp integration_tests/ci/sample.profiles.yml ~/.dbt/profiles.yml
       
       - run:
-          name: "Run Tests - dbt-utils"
-          # TODO re-implement dbt-utils's data tests
+          name: "Run Tests"
           command: |
             . venv/bin/activate
-            cd integration_tests/dbt_utils
-            dbt deps --target azuresql
-            dbt seed --target azuresql --full-refresh
-            dbt run --target azuresql --full-refresh
-            dbt test --target azuresql
+            cd "integration_tests/${FOLDER}"
+            dbt deps --target ${TARGET}
+            dbt seed --target ${TARGET} --full-refresh
+            dbt run --target ${TARGET} --full-refresh
+            dbt test --target ${TARGET}
 
       - store_artifacts:
           path: ./logs
 
   integration-dbt-expectations-azuresql:
-    docker:
-      - image: dbtmsft/msodbc_py:0.5
-    steps:
-      - checkout
-      - azure-cli/install
-      - azure-cli/login-with-service-principal: *azure-creds
-      - run: *pull-submodules
-      - run: *setup-dbt
-      - run:
-          name: "Run Tests - dbt-expectations"
-          # TODO port core dbt-expectations test logic
-          # TODO re-implement dbt-utils's data tests
-          command: |
-            . venv/bin/activate
-            cd integration_tests/dbt_expectations
-            dbt deps --target azuresql
-            dbt run --target azuresql --full-refresh
-            # dbt test --target azuresql
-      - store_artifacts:
-          path: /root/project/integration_tests/dbt_expectations/logs/dbt.log
-      - store_artifacts:
-          path: /root/project/integration_tests/dbt_expectations/target
+    <<: *template
+    environment:
+      FOLDER: dbt_expectations
+      TARGET: azuresql
 
   integration-dbt-date-azuresql:
-    docker:
-      - image: dbtmsft/msodbc_py:0.5
-    steps:
-      - checkout
-      - azure-cli/install
-      - azure-cli/login-with-service-principal: *azure-creds
-      - run: *pull-submodules
-      - run: *setup-dbt
-      - run:
-          name: "Run Tests - dbt-date"
-          command: |
-            . venv/bin/activate
-            cd integration_tests/dbt_date
-            dbt deps --target azuresql
-            dbt run --target azuresql --full-refresh
-            dbt test --target azuresql
-      - store_artifacts:
-          path: /root/project/integration_tests/dbt_date/logs/dbt.log
-      - store_artifacts:
-          path: /root/project/integration_tests/dbt_date/target
+    <<: *template
+    environment:
+      FOLDER: dbt_date
+      TARGET: azuresql
 
-  integration-dbt-audit-helper-azuresql:
+  integration-dbt-utils-synapse: &template-synapse
     docker:
       - image: dbtmsft/msodbc_py:0.5
-    steps:
-      - checkout
-      - azure-cli/install
-      - azure-cli/login-with-service-principal: *azure-creds
-      - run: *pull-submodules
-      - run: *setup-dbt
-      - run:
-          name: "Run Tests - dbt-audit-helper"
-          command: |
-            . venv/bin/activate
-            cd integration_tests/dbt_audit_helper
-            dbt deps --target azuresql
-            dbt run --target azuresql --full-refresh
-            dbt test --target azuresql
-
-  integration-dbt-utils-synapse:
-    docker:
-      - image: dbtmsft/msodbc_py:0.5
+    environment:
+      FOLDER: dbt_utils
+      TARGET: synapse
     steps:
       - checkout
       - run: *pull-submodules
       - azure-cli/install
       - azure-cli/login-with-service-principal: *azure-creds
       - run: *setup-dbt
-      - run: &start-synapse
-          name: resume Synapse pool/db
-          command: az synapse sql pool resume --name $DBT_SYNAPSE_DB --workspace-name $DBT_SYNAPSE_SERVER --resource-group dbt-msft
       - run:
-          name: "Run Tests - dbt-utils"
-          # TODO: data test is faailing
-          # assert_get_query_results_as_dict_objects_equal
+          name: "Run Tests"
           command: |
             . venv/bin/activate
-            cd integration_tests/dbt_utils
-            dbt deps --target synapse
-            dbt seed --target synapse --full-refresh
-            dbt run --target synapse --full-refresh
-            dbt test --target synapse --schema
+            cd "integration_tests/${FOLDER}"
+            dbt deps --target ${TARGET}
+            dbt seed --target ${TARGET} --full-refresh
+            dbt run --target ${TARGET} --full-refresh
+            dbt test --target ${TARGET}
       - run: &pause-synapse
           name: pause Synapse pool/db
-          command: az synapse sql pool resume --name $DBT_SYNAPSE_DB --workspace-name $DBT_SYNAPSE_SERVER --resource-group dbt-msft
-          when: always
-      - store_artifacts:
-          path: ./logs
+          command: az synapse sql pool pause --name $DBT_SYNAPSE_DB --workspace-name $DBT_SYNAPSE_SERVER --resource-group dbt-msft
+          when: on_fail
 
   integration-dbt-expectations-synapse:
-    docker:
-      - image: dbtmsft/msodbc_py:0.5
-    steps:
-      - checkout
-      - run: *pull-submodules
-      - azure-cli/install
-      - azure-cli/login-with-service-principal: *azure-creds
-      - run: *setup-dbt
-      - run: *start-synapse
-      - run:
-          # TODO port core dbt-expectations test logic
-          name: "Run Tests - dbt-expectations"
-          command: |
-            . venv/bin/activate
-            cd integration_tests/dbt_expectations
-            dbt deps --target synapse
-            dbt run --target synapse --full-refresh
-            # dbt test --target synapse
-      - run: *pause-synapse
-      - store_artifacts:
-          path: ./logs
+    <<: *template-synapse
+    environment:
+      FOLDER: dbt_expectations
+      TARGET: synapse
 
   integration-dbt-date-synapse:
+    <<: *template-synapse
+    environment:
+      FOLDER: dbt_date
+      TARGET: synapse
+
+  start-synapse:
     docker:
       - image: dbtmsft/msodbc_py:0.5
     steps:
@@ -171,21 +106,11 @@ jobs:
       - run: *pull-submodules
       - azure-cli/install
       - azure-cli/login-with-service-principal: *azure-creds
-      - run: *setup-dbt
-      - run: *start-synapse
       - run:
-          name: "Run Tests - dbt-date"
-          command: |
-            . venv/bin/activate
-            cd integration_tests/dbt_date
-            dbt deps --target synapse
-            dbt run --target synapse --full-refresh
-            dbt test --target synapse
-      - run: *pause-synapse
-      - store_artifacts:
-          path: ./logs
-          
-  integration-dbt-audit-helper-synapse:
+          name: resume Synapse pool/db
+          command: az synapse sql pool resume --name $DBT_SYNAPSE_DB --workspace-name $DBT_SYNAPSE_SERVER --resource-group dbt-msft
+
+  pause-synapse:
     docker:
       - image: dbtmsft/msodbc_py:0.5
     steps:
@@ -193,30 +118,29 @@ jobs:
       - run: *pull-submodules
       - azure-cli/install
       - azure-cli/login-with-service-principal: *azure-creds
-      - run: *setup-dbt
-      - run: *start-synapse
       - run:
-          name: "Run Tests - dbt-audit-helper"
-          command: |
-            . venv/bin/activate
-            cd integration_tests/dbt_audit_helper
-            dbt deps --target synapse
-            dbt run --target synapse --full-refresh
-            dbt test --target synapse
-      - run: *pause-synapse
-      - store_artifacts:
-          path: ./logs
+          <<: *pause-synapse
+          when: always
+
 
 workflows:
   version: 2
   test-all:
     jobs:
-      - integration-dbt-utils-azuresql: &dbt-context
+      - start-synapse: &dbt-context
           context: DBT_SYNAPSE_PROFILE
-      - integration-dbt-utils-synapse: *dbt-context
-      - integration-dbt-expectations-azuresql: *dbt-context
-      - integration-dbt-expectations-synapse: *dbt-context
-      - integration-dbt-date-azuresql: *dbt-context
-      - integration-dbt-date-synapse: *dbt-context
-      - integration-dbt-audit-helper-azuresql: *dbt-context
-      - integration-dbt-audit-helper-synapse: *dbt-context
+      - integration-dbt-utils-azuresql: *dbt-context
+      # - integration-dbt-expectations-azuresql: *dbt-context
+      # - integration-dbt-date-azuresql: *dbt-context
+      - integration-dbt-utils-synapse: &syn-step
+          <<: *dbt-context
+          requires:
+            - start-synapse
+      # - integration-dbt-expectations-synapse: *syn-step
+      # - integration-dbt-date-synapse: *syn-step
+      - pause-synapse:
+          <<: *dbt-context
+          requires:
+            - integration-dbt-utils-synapse
+            # - integration-dbt-expectations-synapse
+            # - integration-dbt-date-synapse

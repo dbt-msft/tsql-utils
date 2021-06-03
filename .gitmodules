@@ -12,5 +12,5 @@
 	branch = main
 [submodule "dbt-audit-helper"]
 	path = dbt-audit-helper
-	url = https://github.com/alieus/dbt-audit-helper
-	branch = adapter_dispatch
+	url = https://github.com/fishtown-analytics/dbt-audit-helper
+	branch = master

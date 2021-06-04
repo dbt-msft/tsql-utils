@@ -10,7 +10,8 @@ that:
 This package provides "shims" for:
 - [dbt-utils](https://github.com/fishtown-analytics/dbt-utils) (partial)
 - [dbt-date](https://github.com/calogica/dbt-date) (partial)
-- (coming soon!) [dbt-expectations](https://github.com/calogica/dbt-expectations) (coming soon!)
+- [dbt-expectations](https://github.com/calogica/dbt-expectations) (limited regex & timeseries functionalities)
+- [dbt-audit-helper](https://github.com/fishtown-analytics/dbt-audit-helper) (except [compare_relation_columns](https://github.com/fishtown-analytics/dbt-audit-helper#compare_relation_columns-source))
 
 
 ## Usage

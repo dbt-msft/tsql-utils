@@ -92,7 +92,12 @@ jobs:
             dbt test --target ${TARGET}
       - run: &pause-synapse
           name: pause Synapse pool/db
-          command: az synapse sql pool pause --name $DBT_SYNAPSE_DB --workspace-name $DBT_SYNAPSE_SERVER --resource-group dbt-msft
+          command: |
+            state=$(az synapse sql pool show --name $DBT_SYNAPSE_DB --resource-group dbt-msft --workspace-name $DBT_SYNAPSE_SERVER --query "status")
+
+            if [ "$state" = "Online" ]; then
+              az synapse sql pool pause --name $DBT_SYNAPSE_DB --resource-group dbt-msft --workspace-name $DBT_SYNAPSE_SERVER
+            fi
           when: on_fail
 
   integration-dbt-expectations-synapse:
@@ -123,7 +128,12 @@ jobs:
       - azure-cli/login-with-service-principal: *azure-creds
       - run:
           name: resume Synapse pool/db
-          command: az synapse sql pool resume --name $DBT_SYNAPSE_DB --workspace-name $DBT_SYNAPSE_SERVER --resource-group dbt-msft
+          command: |
+            state=$(az synapse sql pool show --name $DBT_SYNAPSE_DB --resource-group dbt-msft --workspace-name $DBT_SYNAPSE_SERVER --query "status")
+
+            if [ "$state" = "Paused" ]; then
+              az synapse sql pool resume --name $DBT_SYNAPSE_DB --resource-group dbt-msft --workspace-name $DBT_SYNAPSE_SERVER
+            fi
 
   pause-synapse:
     docker:

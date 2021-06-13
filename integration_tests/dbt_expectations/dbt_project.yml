@@ -30,6 +30,7 @@ models:
       emails: &disabled #TODO
           +enabled: false 
       timeseries_data: *disabled
+      timeseries_hourly_data_extended: *disabled
       # anders's weird NoneType error
       # (see https://github.com/calogica/dbt-expectations/pull/63)
       data_test: *disabled

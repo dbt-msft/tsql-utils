@@ -1,8 +1,25 @@
 # Changelog
 
+## `v0.7.1`
+
+### New features
+
+- additional shim support for dbt_date.from_unixtimestamp() 
+
+## `v0.7.0`
+
+### New features
+
+- shim dbt-audit-helper, currently supports [v0.3.0](https://github.com/fishtown-analytics/dbt-audit-helper/releases/tag/0.3.0) : [compare_relations](https://github.com/fishtown-analytics/dbt-audit-helper#compare_relations-source), [compare_queries](https://github.com/fishtown-analytics/dbt-audit-helper#compare_queries-source) and [compare_column_values](https://github.com/fishtown-analytics/dbt-audit-helper#compare_column_values-source). Target to support [compare_relation_columns](https://github.com/fishtown-analytics/dbt-audit-helper#compare_relation_columns-source) in the next release. Thanks [@clrcrl](https://github.com/clrcrl) for the support!
+- shim dbt-expectations, currently supports [v0.3.3](https://github.com/calogica/dbt-expectations/releases/tag/0.3.3) with most functionalities implemented. Limitations with regex and timeseries functionalities mostly for Synapse (Target next release to implement these). Thanks [@b-per](https://github.com/b-per) and [@clausherther](https://github.com/clausherther) for the support!
+
+### Also supports
+-  [dbt-utils - v0.6.6](https://github.com/fishtown-analytics/dbt-utils/releases/tag/0.6.6) (partial)
+- [dbt-date - v0.2.6](https://github.com/calogica/dbt-date/releases/tag/0.2.6) (partial)
+
 ## `0.6.7`
 
-## New features
+### New features
 
 - add support for `dbt_utils.surrogate_key()` [#32](https://github.com/dbt-msft/tsql-utils/pull/32) thanks [@infused-kim](https://github.com/infused-kim)
 - shim dbt-date, currently passing all tests! [#36](https://github.com/dbt-msft/tsql-utils/pull/36)

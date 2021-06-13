@@ -36,4 +36,4 @@ models:
         +enabled: "{{ target.type != 'synapse' }}"
       
       data_test_factored: *not-synapse
-      timeseries_data_extended: *not-synapse
+      timeseries_data_extended: *disabled

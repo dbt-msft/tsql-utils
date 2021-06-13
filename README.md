@@ -10,7 +10,8 @@ that:
 This package provides "shims" for:
 - [dbt-utils](https://github.com/fishtown-analytics/dbt-utils) (partial)
 - [dbt-date](https://github.com/calogica/dbt-date) (partial)
-- (coming soon!) [dbt-expectations](https://github.com/calogica/dbt-expectations) (coming soon!)
+- [dbt-expectations](https://github.com/calogica/dbt-expectations) (limited regex & timeseries functionalities)
+- [dbt-audit-helper](https://github.com/fishtown-analytics/dbt-audit-helper) (except [compare_relation_columns](https://github.com/fishtown-analytics/dbt-audit-helper#compare_relation_columns-source))
 
 
 ## Usage
@@ -24,7 +25,7 @@ To make use of these TSQL adaptations in your dbt project, you must do two thing
 1. Install both and `tsql-utils` and any of the compatible packages listed above by them to your `packages.yml`
     ```yaml
     packages:
-      # and/or calogica/dbt-date; calogica/dbt-expectations
+      # and/or calogica/dbt-date; calogica/dbt-expectations; fishtown-analytics/dbt-audit-helper
       - package: fishtown-analytics/dbt_utils 
         version: {SEE DBT HUB FOR NEWEST VERSION}
       - package: dbt-msft/tsql_utils
@@ -35,6 +36,7 @@ To make use of these TSQL adaptations in your dbt project, you must do two thing
     vars:
       dbt_utils_dispatch_list: ['tsql_utils']
       dbt_date_dispatch_list: ['tsql_utils']
+      audit_helper_dispatch_list: ['tsql_utils']
       dbt_expectations_dispatch_list: ['tsql_utils']
     ```
 Check [dbt Hub](https://hub.getdbt.com) for the latest installation 

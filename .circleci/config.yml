@@ -96,6 +96,7 @@ jobs:
             state=$(az synapse sql pool show --name $DBT_SYNAPSE_DB --resource-group dbt-msft --workspace-name $DBT_SYNAPSE_SERVER --query "status")
 
             if [ "$state" = "Online" ]; then
+              echo "Pausing pool!"
               az synapse sql pool pause --name $DBT_SYNAPSE_DB --resource-group dbt-msft --workspace-name $DBT_SYNAPSE_SERVER
             fi
           when: on_fail
@@ -132,6 +133,7 @@ jobs:
             state=$(az synapse sql pool show --name $DBT_SYNAPSE_DB --resource-group dbt-msft --workspace-name $DBT_SYNAPSE_SERVER --query "status")
 
             if [ "$state" = "Paused" ]; then
+              echo "Resuming pool!"
               az synapse sql pool resume --name $DBT_SYNAPSE_DB --resource-group dbt-msft --workspace-name $DBT_SYNAPSE_SERVER
             fi
 

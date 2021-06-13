@@ -4,7 +4,7 @@
 
 ### New features
 
-- additional shim support for dbt_date.from_unixtimestamp() 
+- additional shim support for dbt_date.from_unixtimestamp() [#53](https://github.com/dbt-msft/tsql-utils/pull/53)
 
 ## `v0.7.0`
 

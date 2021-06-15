@@ -25,7 +25,7 @@ models:
     +enabled: true
     cross_db_utils:
       test_split_part: &not-synapse
-        +enabled: "{{ target.name != 'synapse' }}"
+        +enabled: "{{ target.type != 'synapse' }}"
       # BROKEN DUE TO SYNAPSE SEED LOADING EMPTY CSV VALS AS EMPTY STRINGS
       # see: https://github.com/dbt-msft/dbt-synapse/issues/36
       test_dateadd: *not-synapse

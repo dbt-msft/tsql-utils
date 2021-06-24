@@ -1,5 +1,9 @@
 # Changelog
 
+## `v0.7.2`
+
+- fix to make the commented out SQL in `audit_helper.compare_queries()` TSQL compatible [#54](https://github.com/dbt-msft/tsql-utils/pull/54)
+
 ## `v0.7.1`
 
 ### New features

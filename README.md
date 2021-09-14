@@ -18,6 +18,35 @@ This package provides "shims" for:
 
 Wherever a custom tsql macro exists, dbt_utils adapter dispatch will pass to tsq_utils. This means you can just do `{{dbt_utils.hash('mycolumnname')}}` just like your friends with Snowflake. 
 
+### Cleanup Macros
+
+Some helper macros have been added to simplfy development database cleanup. Usage is as follows:
+
+Drop all schemas for each prefix with the provided prefix list (dev and myschema being a sample prefixes):
+```bash
+dbt run-operation sqlserver__drop_schemas_by_prefixes --args "{prefixes: ['dev', 'myschema']}"
+```
+
+Drop all schemas with the single provided prefix (dev being a sample prefix):
+```bash
+dbt run-operation sqlserver__drop_schemas_by_prefixes --args "{prefixes: myschema}"
+```
+
+Drop a schema with a specific name (myschema_seed being a sample schema name used in the project):
+```bash
+dbt run-operation sqlserver__drop_schema_by_name --args "{schema_name: myschema_seed}"
+```
+
+Drop any models that are no longer included in the project (dependent on the current target):
+```bash
+dbt run-operation sqlserver__drop_old_relations
+```
+or for a dry run to preview dropped models:
+```bash
+dbt run-operation sqlserver__drop_old_relations --args "{dry_run: true}"
+```
+
+
 
 ## Installation Instructions
 

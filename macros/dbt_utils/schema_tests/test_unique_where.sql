@@ -7,7 +7,7 @@
       {% set where = '_deleted = 0' %}
   {% endif %}
 
-  {{ return(dbt_utils.default__test_unique_where(model, column_name=column_name, where=where)) }}
+  {{ return(dbt_utils.default__test_unique_where(model, column_name=column_name)) }}
 
 {% endmacro %}
 
@@ -21,5 +21,5 @@
       {% set where = '_deleted = 0' %}
   {% endif %}
 
-    {% do return( tsql_utils.sqlserver__test_unique_where(model, column_name, **kwargs)) %}
+    {% do return( tsql_utils.sqlserver__test_unique_where(model, column_name)) %}
 {% endmacro %}

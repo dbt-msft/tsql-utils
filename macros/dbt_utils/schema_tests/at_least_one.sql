@@ -1,6 +1,4 @@
-{% macro sqlserver__test_at_least_one(model) %}
-
-{% set column_name = kwargs.get('column_name', kwargs.get('arg')) %}
+{% macro sqlserver__test_at_least_one(model, column_name) %}
 
 select count(*)
 from (
@@ -17,7 +15,6 @@ from (
 
 {% endmacro %}
 
-{% macro synapse__test_at_least_one(model) %}
-    {% set column_name = kwargs.get('column_name', kwargs.get('arg')) %}
-    {% do return( tsql_utils.sqlserver__test_at_least_one(model, **kwargs)) %}
+{% macro synapse__test_at_least_one(model, column_name) %}
+    {% do return( tsql_utils.sqlserver__test_at_least_one(model,, column_name)) %}
 {% endmacro %}

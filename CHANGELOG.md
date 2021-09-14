@@ -1,5 +1,8 @@
 # Changelog
 
+## `v0.8.0`
+
+- make compatible with dbt-core v0.20.0 [#59](https://github.com/dbt-msft/tsql-utils/pull/59) [#52](https://github.com/dbt-msft/tsql-utils/pull/52)
 ## `v0.7.2`
 
 - fix to make the commented out SQL in `audit_helper.compare_queries()` TSQL compatible [#54](https://github.com/dbt-msft/tsql-utils/pull/54)

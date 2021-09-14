@@ -31,13 +31,17 @@ To make use of these TSQL adaptations in your dbt project, you must do two thing
       - package: dbt-msft/tsql_utils
         version: {SEE DBT HUB FOR NEWEST VERSION}
     ```
-2. Tell the supported package to also look for the `tsql-utils` macros by adding the relevant variables to your `dbt_project.yml`
+2. Tell the supported package to also look for the `tsql-utils` macros by adding the relevant `dispatches` to your `dbt_project.yml`
     ```yaml
-    vars:
-      dbt_utils_dispatch_list: ['tsql_utils']
-      dbt_date_dispatch_list: ['tsql_utils']
-      audit_helper_dispatch_list: ['tsql_utils']
-      dbt_expectations_dispatch_list: ['tsql_utils']
+    dispatch:
+      - macro_namespace: dbt_utils
+        search_order: ['tsql_utils', 'dbt_utils']
+      - macro_namespace: dbt_date
+        search_order: ['tsql_utils', 'dbt_date']
+      - macro_namespace: dbt_expectations
+        search_order: ['tsql_utils', 'dbt_expectations']
+      - macro_namespace: audit_helper
+        search_order: ['tsql_utils', 'audit_helper']
     ```
 Check [dbt Hub](https://hub.getdbt.com) for the latest installation 
 instructions, or [read the docs](https://docs.getdbt.com/docs/package-management) 

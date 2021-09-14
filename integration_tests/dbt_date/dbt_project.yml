@@ -21,7 +21,7 @@ dispatch:
   - macro_namespace: dbt_utils
     search_order: ['tsql_utils', 'dbt_utils']
   - macro_namespace: dbt_date
-    search_order: ['tsql_utils_dbt_utils_integration_tests', 'tsql_utils', 'dbt_date']
+    search_order: ['tsql_utils_dbt_date_integration_tests', 'tsql_utils', 'dbt_date']
 
 # TODO remove these variables in the next release
 vars:

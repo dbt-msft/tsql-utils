@@ -2,6 +2,10 @@
     convert(varchar(50), hashbytes('md5', {{field}}), 2)
 {% endmacro %}
 
+{% macro synapse__hash(field) %}
+    convert(varchar(50), hashbytes('SHA2_256', {{field}}), 2)
+{% endmacro %}
+
 
 {#
     Imagine an adapter plugin, dbt-synapse, that inherits from dbt-sqlserver.
@@ -12,6 +16,3 @@
     that will make the inheritance of dispatched macros work just like the 
     inheritance of other adapter objects, and render the following code redundant.
 #}
-{% macro synapse__hash(field) %}
-    {% do return( tsql_utils.sqlserver__hash(field)) %}
-{% endmacro %}

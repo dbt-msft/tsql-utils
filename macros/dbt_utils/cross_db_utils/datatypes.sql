@@ -2,6 +2,10 @@
     VARCHAR(900)
 {%- endmacro -%}
 
+{% macro synapse__type_string() %}
+    varchar
+{% endmacro %}
+
 -- TEMP UNTIL synapse is standalone adapter type
 {% macro sqlserver__type_timestamp() %}
     {# in TSQL timestamp is really datetime #}
@@ -18,9 +22,6 @@
     that will make the inheritance of dispatched macros work just like the 
     inheritance of other adapter objects, and render the following code redundant.
 #}
-{% macro synapse__type_string() %}
-    {% do return( tsql_utils.sqlserver__type_string()) %}
-{% endmacro %}
 
 {% macro synapse__type_timestamp() %}
     {% do return( tsql_utils.sqlserver__type_timestamp()) %}

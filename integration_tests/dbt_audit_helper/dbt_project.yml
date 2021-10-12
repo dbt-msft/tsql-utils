@@ -15,8 +15,13 @@ clean-targets:
     - "target"
     - "dbt_modules"
 
-require-dbt-version: ">=0.18.1"
+require-dbt-version: ">=0.20.0"
 
+dispatch:
+  - macro_namespace: audit_helper
+    search_order: ['tsql_utils', 'audit_helper']
+
+# TODO remove these variables in the next release
 vars:
   audit_helper_dispatch_list: ['tsql_utils']
 

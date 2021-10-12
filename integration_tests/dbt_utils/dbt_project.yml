@@ -16,6 +16,13 @@ clean-targets:         # directories to be removed by `dbt clean`
     - "target"
     - "dbt_modules"
 
+require-dbt-version: ">=0.20.0"
+
+dispatch:
+  - macro_namespace: dbt_utils
+    search_order: ['tsql_utils_dbt_utils_integration_tests', 'tsql_utils', 'dbt_utils']
+
+# TODO remove these variables in the next release
 vars:
   dbt_utils_dispatch_list: ['tsql_utils', 'tsql_utils_dbt_utils_integration_tests']
 
@@ -39,6 +46,10 @@ models:
       test_haversine_distance_mi: *disabled
     materializations:
       test_insert_by_period: *disabled
+    web: # BROKEN DUE TO TEST DEFS
+      test_url_host: *disabled
+      test_url_path: *disabled
+      test_urls: *disabled
     sql: # BROKEN BC MACROS ARE UNPORTED STILL
       test_generate_series: *disabled
       test_get_column_values: *disabled
@@ -47,10 +58,19 @@ models:
       test_groupby: *disabled # TSQL doesn't let you group by column numbers
       test_union: *not-synapse
       test_unpivot_bool: *disabled
-    web: # BROKEN DUE TO TEST DEFS
-      test_url_host: *disabled
-      test_url_path: *disabled
-      test_urls: *disabled
+      # macros with CTEs can't be tested without refactoring
+      test_unpivot: *disabled
+      test_unpivot_original_api: *disabled
+      test_pivot: *disabled
+      test_star: *disabled
+      test_union: *disabled
+    datetime:
+      # macros with CTEs can't be tested without refactoring
+      test_date_spine: *disabled
+    schema_tests:
+      test_recency: *disabled
+      test_equal_column_subset: *disabled
+      test_equal_rowcount: *disabled
   # intractable nested CTEs from
   # https://github.com/calogica/dbt-date/pull/30
   dbt_date_integration_tests:
@@ -74,6 +94,15 @@ seeds:
       data_test_accepted_range: *disabled
       # something weird happening: `Incorrect syntax near '<'.`
       data_test_mutually_exclusive_ranges_with_gaps_zero_length: *disabled
+      # macros with CTEs can't be tested without refactoring
+      data_cardinality_equality_a: *disabled
+      data_people: *disabled
+      data_test_unique_where: *disabled
+      data_unique_combination_of_columns: *disabled
+      data_test_relationships_where_table_2: *disabled
+      data_test_not_accepted_values: *disabled
+      data_test_expression_is_true: *disabled
+      data_test_at_least_one: *disabled
     cross_db:
       data_date_trunc:
         +column_types:

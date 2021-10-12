@@ -26,7 +26,7 @@ To make use of these TSQL adaptations in your dbt project, you must do two thing
     ```yaml
     packages:
       # and/or calogica/dbt-date; calogica/dbt-expectations; fishtown-analytics/dbt-audit-helper
-      - package: fishtown-analytics/dbt_utils 
+      - package: dbt-labs/dbt_utils 
         version: {SEE DBT HUB FOR NEWEST VERSION}
       - package: dbt-msft/tsql_utils
         version: {SEE DBT HUB FOR NEWEST VERSION}

@@ -119,31 +119,3 @@ where
     )
 {%- endmacro -%}
 
-
-{% macro synapse__test_expect_column_values_to_be_within_n_moving_stdevs(model,
-                                  column_name,
-                                  date_column_name,
-                                  period,
-                                  lookback_periods,
-                                  trend_periods,
-                                  test_periods,
-                                  sigma_threshold,
-                                  sigma_threshold_upper,
-                                  sigma_threshold_lower,
-                                  take_diffs,
-                                  take_logs
-                                ) %}
-    {% do return( tsql_utils.sqlserver__test_expect_column_values_to_be_within_n_moving_stdevs(model,
-                                  column_name,
-                                  date_column_name,
-                                  period,
-                                  lookback_periods,
-                                  trend_periods,
-                                  test_periods,
-                                  sigma_threshold,
-                                  sigma_threshold_upper,
-                                  sigma_threshold_lower,
-                                  take_diffs,
-                                  take_logs
-                                )) %}
-{%- endmacro -%}

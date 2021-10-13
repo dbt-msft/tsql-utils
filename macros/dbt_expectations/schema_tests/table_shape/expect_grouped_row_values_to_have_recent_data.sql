@@ -25,7 +25,3 @@ validation_errors as (
 )
 select count(*) from validation_errors
 {% endmacro %}
-
-{% macro synapse__test_expect_grouped_row_values_to_have_recent_data(model, group_by, timestamp_column, datepart, interval) %}
-     {% do return( tsql_utils.sqlserver__test_expect_grouped_row_values_to_have_recent_data(model, group_by, timestamp_column, datepart, interval)) %}
-{% endmacro %}

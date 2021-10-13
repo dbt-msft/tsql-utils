@@ -84,25 +84,3 @@
         expression_difference > {{ tolerance }}
         {% endif %}
 {%- endmacro -%}
-
-{%- macro synapse__test_equal_expression(model, expression,
-                                compare_model,
-                                compare_expression,
-                                group_by,
-                                compare_group_by,
-                                row_condition,
-                                compare_row_condition,
-                                tolerance,
-                                tolerance_percent,
-                                return_difference) -%}
-    {% do return( tsql_utils.sqlserver__test_equal_expression(model, expression,
-                                compare_model,
-                                compare_expression,
-                                group_by,
-                                compare_group_by,
-                                row_condition,
-                                compare_row_condition,
-                                tolerance,
-                                tolerance_percent,
-                                return_difference)) -%}
-{%- endmacro -%}

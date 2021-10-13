@@ -112,8 +112,3 @@
     {% endfor -%}
 
 {% endmacro %}
-
-
-{% macro synapse__date_spine(start_date, end_date, datepart) -%}
-    {% do return( tsql_utils.sqlserver__date_spine(start_date, end_date, datepart)) %}
-{%- endmacro %}

@@ -56,14 +56,13 @@ models:
       test_get_relations_by_pattern: *disabled
       test_get_relations_by_prefix_and_union: *disabled
       test_groupby: *disabled # TSQL doesn't let you group by column numbers
-      test_union: *not-synapse
+      test_union: *disabled
       test_unpivot_bool: *disabled
       # macros with CTEs can't be tested without refactoring
       test_unpivot: *disabled
       test_unpivot_original_api: *disabled
       test_pivot: *disabled
       test_star: *disabled
-      test_union: *disabled
     datetime:
       # macros with CTEs can't be tested without refactoring
       test_date_spine: *disabled

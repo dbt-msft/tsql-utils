@@ -25,13 +25,13 @@ jobs:
             git submodule sync --recursive
             git submodule update --recursive --init
 
-      - run: &setup-dbt
+      - run: &setup-dbt-azsql
           name: "Setup dbt"
           command: |
             python3 -m venv venv
             . venv/bin/activate
             pip install --upgrade pip setuptools
-            pip install git+https://github.com/dbt-msft/dbt-synapse.git#egg=dbt-synapse
+            pip install dbt-sqlserver==0.21.0rc1
             mkdir -p ~/.dbt
             cp integration_tests/ci/sample.profiles.yml ~/.dbt/profiles.yml
             dbt --version
@@ -80,7 +80,17 @@ jobs:
       - run: *pull-submodules
       - azure-cli/install
       - azure-cli/login-with-service-principal: *azure-creds
-      - run: *setup-dbt
+      - run: &setup-dbt-synapse
+          name: "Setup dbt"
+          command: |
+            python3 -m venv venv
+            . venv/bin/activate
+            pip install --upgrade pip setuptools
+            pip install git+https://github.com/dbt-msft/dbt-synapse.git#egg=dbt-synapse
+            mkdir -p ~/.dbt
+            cp integration_tests/ci/sample.profiles.yml ~/.dbt/profiles.yml
+            dbt --version
+            pip list | grep "dbt"
       - run:
           name: "Run Tests"
           command: |

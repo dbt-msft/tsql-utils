@@ -71,14 +71,18 @@ models:
       test_recency: *disabled
       test_equal_column_subset: *disabled
       test_equal_rowcount: *disabled
+      data_test_not_null_where: *disabled
   # intractable nested CTEs from
   # https://github.com/calogica/dbt-date/pull/30
   dbt_date_integration_tests:
     dates: *disabled
     dim_week: *disabled
     dim_hour: *disabled
-seeds:
 
+tests:
+  dbt_utils_integration_tests:
+    jinja_helpers: *disabled
+seeds:
   +quote_columns: false
   dbt_utils_integration_tests:
     schema_tests:

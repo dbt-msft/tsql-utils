@@ -70,7 +70,6 @@ models:
       test_recency: *disabled
       test_equal_column_subset: *disabled
       test_equal_rowcount: *disabled
-      data_test_not_null_where: *disabled
   # intractable nested CTEs from
   # https://github.com/calogica/dbt-date/pull/30
   dbt_date_integration_tests:
@@ -106,6 +105,7 @@ seeds:
       data_test_not_accepted_values: *disabled
       data_test_expression_is_true: *disabled
       data_test_at_least_one: *disabled
+      data_test_not_null_where: *disabled
     cross_db:
       data_date_trunc:
         +column_types:

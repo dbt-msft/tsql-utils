@@ -96,16 +96,9 @@ seeds:
       data_test_accepted_range: *disabled
       # something weird happening: `Incorrect syntax near '<'.`
       data_test_mutually_exclusive_ranges_with_gaps_zero_length: *disabled
-      # macros with CTEs can't be tested without refactoring
-      data_cardinality_equality_a: *disabled
-      data_people: *disabled
       data_test_unique_where: *disabled
-      data_unique_combination_of_columns: *disabled
-      data_test_relationships_where_table_2: *disabled
-      data_test_not_accepted_values: *disabled
-      data_test_expression_is_true: *disabled
-      data_test_at_least_one: *disabled
       data_test_not_null_where: *disabled
+
     cross_db:
       data_date_trunc:
         +column_types:

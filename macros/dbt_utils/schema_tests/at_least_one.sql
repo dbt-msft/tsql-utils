@@ -1,4 +1,4 @@
-{% macro sqlserver__test_at_least_one(model, column_name) %}
+{# {% macro sqlserver__test_at_least_one(model, column_name) %}
 
 select count(*)
 from (
@@ -17,4 +17,4 @@ from (
 
 {% macro synapse__test_at_least_one(model, column_name) %}
     {% do return( tsql_utils.sqlserver__test_at_least_one(model, column_name)) %}
-{% endmacro %}
+{% endmacro %} #}

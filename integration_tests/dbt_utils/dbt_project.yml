@@ -32,6 +32,7 @@ models:
     +enabled: true
     cross_db_utils:
       test_split_part: &not-synapse
+        # no XML datatype in synapse
         +enabled: "{{ target.type != 'synapse' }}"
       # BROKEN DUE TO SYNAPSE SEED LOADING EMPTY CSV VALS AS EMPTY STRINGS
       # see: https://github.com/dbt-msft/dbt-synapse/issues/36
@@ -113,4 +114,4 @@ seeds:
       # not yet ported, or can't be??
       data_unpivot_bool: *disabled
       data_unpivot_bool_expected: *disabled
-      data_get_query_results_as_dict: *not-synapse
+      # data_get_query_results_as_dict: *not-synapse

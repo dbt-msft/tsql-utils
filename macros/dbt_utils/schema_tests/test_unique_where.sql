@@ -11,7 +11,7 @@
 
 {% endmacro %}
 
-{% macro synapse__test_unique_where(model) %}
+{% macro synapse__test_unique_where(model, column_name) %}
 
   {% set where = kwargs.get('where', kwargs.get('arg')) %}
   {# override dbt-utils' integration tests args default see: #}

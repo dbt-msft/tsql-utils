@@ -5,7 +5,7 @@
 
     {%- set target_relation = this -%}
     {%- set existing_relation = load_relation(this) -%}
-    {%- set tmp_relation = sqlserver__make_temp_relation(this) -%}
+    {%- set tmp_relation = make_temp_relation(this) -%}
 
     {%- set target_relation = api.Relation.create(
         database = target_relation.database,
@@ -20,13 +20,13 @@
     {%- set date_source_models = config.get('date_source_models', default=none) -%}
     {%- set unique_key = config.get('unique_key', default=none) -%}
 
-    {%- set start_stop_dates = get_start_stop_dates(timestamp_field, date_source_models) | as_native -%}
+    {%- set start_stop_dates = tsql_utils.get_start_stop_dates(timestamp_field, date_source_models) | as_native -%}
 
     {%- set period = config.get('period', default='day') -%}
 
     {%- set to_drop = [] -%}
 
-    {%- do check_placeholder(sql) -%}
+    {%- do tsql_utils.check_placeholder(sql) -%}
 
     {{ run_hooks(pre_hooks, inside_transaction=False) }}
 
@@ -35,11 +35,11 @@
 
     {% if existing_relation is none %}
 
-        {% set filtered_sql = replace_placeholder_with_period_filter(sql, timestamp_field,
+        {% set filtered_sql = tsql_utils.replace_placeholder_with_period_filter(sql, timestamp_field,
                                                                        start_stop_dates.start_date,
                                                                        start_stop_dates.stop_date,
                                                                        0, period) %}
-        {% set build_sql = sqlserver__create_table_as(False, target_relation, filtered_sql) %}
+        {% set build_sql = create_table_as(False, target_relation, filtered_sql) %}
 
         {% do to_drop.append(tmp_relation) %}
 
@@ -51,17 +51,17 @@
         {% do adapter.drop_relation(backup_relation) %}
         {% do adapter.rename_relation(target_relation, backup_relation) %}
 
-        {% set filtered_sql = replace_placeholder_with_period_filter(sql, timestamp_field,
+        {% set filtered_sql = tsql_utils.replace_placeholder_with_period_filter(sql, timestamp_field,
                                                                        start_stop_dates.start_date,
                                                                        start_stop_dates.stop_date,
                                                                        0, period) %}
-        {% set build_sql = sqlserver__create_table_as(False, target_relation, filtered_sql) %}
+        {% set build_sql = create_table_as(False, target_relation, filtered_sql) %}
 
         {% do to_drop.append(tmp_relation) %}
         {% do to_drop.append(backup_relation) %}
     {% else %}
 
-        {% set period_boundaries = get_period_boundaries(schema,
+        {% set period_boundaries = tsql_utils.get_period_boundaries(schema,
                                                                   target_relation.name,
                                                                   timestamp_field,
                                                                   start_stop_dates.start_date,
@@ -75,7 +75,7 @@
         {% for i in range(1, period_boundaries.num_periods) -%}
 
             {%- set iteration_number = i + 1 -%}
-            {%- set period_of_load = get_period_of_load(period, i, period_boundaries.start_timestamp) -%}
+            {%- set period_of_load = tsql_utils.get_period_of_load(period, i, period_boundaries.start_timestamp) -%}
 
             {{ dbt_utils.log_info("Running for {} {} of {} ({}) [{}]".format(period, iteration_number, period_boundaries.num_periods, period_of_load, model.unique_id)) }}
 
@@ -87,12 +87,12 @@
                                                type='table') -%}
 
 
-            {% set tmp_table_sql = get_period_filter_sql(target_cols_csv, sql, timestamp_field, period,
+            {% set tmp_table_sql = tsql_utils.get_period_filter_sql(target_cols_csv, sql, timestamp_field, period,
                                                                   period_boundaries.start_timestamp,
                                                                   period_boundaries.stop_timestamp, i) %}
 
             {% call statement() -%}
-                {{ sqlserver__create_table_as(True, tmp_relation, tmp_table_sql) }}
+                {{ create_table_as(True, tmp_relation, tmp_table_sql) }}
             {%- endcall %}
 
             {{ adapter.expand_target_column_types(from_relation=tmp_relation,

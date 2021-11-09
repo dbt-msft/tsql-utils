@@ -84,20 +84,16 @@ seeds:
   +quote_columns: false
   dbt_utils_integration_tests:
     schema_tests:
-      data_test_mutually_exclusive_ranges_no_gaps: *disabled
-      data_test_mutually_exclusive_ranges_with_gaps: *disabled
       data_test_sequential_timestamps:
-        # disabled until this PR is merged
-        # https://github.com/fishtown-analytics/dbt-utils/pull/376
-        <<: *not-synapse
         +column_types:
-          my_timestamp: datetime
-      # needs to be shimmed to avoid boolean values in upstream macro def
-      data_test_accepted_range: *disabled
-      # something weird happening: `Incorrect syntax near '<'.`
-      data_test_mutually_exclusive_ranges_with_gaps_zero_length: *disabled
+          my_timestamp: datetime2
+      # can't override dbt_utils's test def args
       data_test_unique_where: *disabled
       data_test_not_null_where: *disabled
+      # more like above: something weird happening: `Incorrect syntax near '<'.`
+      data_test_mutually_exclusive_ranges_with_gaps_zero_length: *disabled
+      data_test_mutually_exclusive_ranges_no_gaps: *disabled
+      data_test_mutually_exclusive_ranges_with_gaps: *disabled
 
     cross_db:
       data_date_trunc:
@@ -115,11 +111,20 @@ seeds:
         +column_types:
           first_date: datetime
           second_date: datetime
+
+      data_width_bucket:
+        +column_types:
+          num_buckets: integer
+          min_value: float
+          max_value: float
     geo:
       # disable until https://github.com/fishtown-analytics/dbt-utils/pull/354  is approved
       data_haversine_km: *disabled
       data_haversine_mi: *disabled
     sql:
+      data_events_20180103:
+        +schema: events
+      # not yet ported, or can't be??
       data_unpivot_bool: *disabled
       data_unpivot_bool_expected: *disabled
       data_get_query_results_as_dict: *not-synapse

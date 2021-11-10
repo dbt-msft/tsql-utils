@@ -57,10 +57,6 @@ models:
       test_groupby: *disabled
       test_union: *disabled
       test_unpivot_bool: *disabled
-    materializations:
-      # TODO: fix error
-      # https://github.com/dbt-msft/tsql-utils/issues/67
-      test_insert_by_period: *disabled
   # intractable nested CTEs from
   # https://github.com/calogica/dbt-date/pull/30
   dbt_date_integration_tests:

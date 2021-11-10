@@ -69,8 +69,7 @@ models:
     dim_hour: *disabled
 
 tests:
-  dbt_utils_integration_tests:
-    jinja_helpers: *disabled
+  dbt_utils_integration_tests: *disabled
 seeds:
   +quote_columns: false
   dbt_utils_integration_tests:

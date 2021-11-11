@@ -191,5 +191,5 @@ workflows:
           requires:
             - integration-dbt-utils-synapse
             - integration-dbt-audit-helper-synapse
-            - integration-dbt-expectations-synapse
+            # - integration-dbt-expectations-synapse
             - integration-dbt-date-synapse

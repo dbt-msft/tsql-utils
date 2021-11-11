@@ -86,7 +86,7 @@ jobs:
             python3 -m venv venv
             . venv/bin/activate
             pip install --upgrade pip setuptools
-            pip install dbt-synapse==0.21.0rc2
+            pip install dbt-synapse==0.21.0rc3
             mkdir -p ~/.dbt
             cp integration_tests/ci/sample.profiles.yml ~/.dbt/profiles.yml
             dbt --version

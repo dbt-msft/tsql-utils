@@ -21,9 +21,6 @@ full outer join b_cols using (column_name)
 
 {% endmacro %}
 
-{% macro synapse__compare_relation_columns(a_relation, b_relation) -%}
-    {% do return( tsql_utils.sqlserver__compare_relation_columns(a_relation, b_relation)) %}
-{%- endmacro %}
 
 {% macro sqlserver__get_columns_in_relation_sql(relation) %}
   SELECT
@@ -54,7 +51,3 @@ full outer join b_cols using (column_name)
             from tempdb.INFORMATION_SCHEMA.COLUMNS
             where table_name like '{{ relation.identifier }}%') cols
 {% endmacro %}
-
-{% macro synapse__get_columns_in_relation_sql(relation) -%}
-    {% do return( tsql_utils.sqlserver__get_columns_in_relation_sql(relation)) %}
-{%- endmacro %}

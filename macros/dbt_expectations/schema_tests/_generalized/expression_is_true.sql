@@ -42,7 +42,3 @@ select count(*)
 from validation_errors
 
 {% endmacro %}
-
-{% macro synapse__expression_is_true(model, expression, test_condition, group_by_columns, row_condition) %}
-    {% do return( tsql_utils.sqlserver__expression_is_true(model, expression, test_condition, group_by_columns, row_condition)) %}
-{% endmacro %}

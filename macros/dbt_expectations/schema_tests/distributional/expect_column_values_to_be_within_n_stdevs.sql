@@ -48,16 +48,3 @@ from
 where
     abs({{ column_name }}_sigma) > {{ sigma_threshold }}
 {%- endmacro %}
-
-
-{% macro synapse__test_expect_column_values_to_be_within_n_stdevs(model,
-                                  column_name,
-                                  group_by,
-                                  sigma_threshold
-                                ) %}
-    {% do return( tsql_utils.sqlserver__test_expect_column_values_to_be_within_n_stdevs(model,
-                                  column_name,
-                                  group_by,
-                                  sigma_threshold
-                                )) %}
-{%- endmacro %}

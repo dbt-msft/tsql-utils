@@ -82,19 +82,3 @@ select count(*) as validation_errors
 from validation_errors
 
 {% endmacro %}
-
-{% macro synapse__test_expect_column_most_common_value_to_be_in_set(model, column_name,
-                                                            value_set,
-                                                            top_n,
-                                                            quote_values,
-                                                            data_type,
-                                                            row_condition
-                                                            ) -%}
-    {% do return( tsql_utils.sqlserver__test_expect_column_most_common_value_to_be_in_set(model, column_name,
-                                                            value_set,
-                                                            top_n,
-                                                            quote_values=False,
-                                                            data_type="decimal",
-                                                            row_condition=None
-                                                            )) -%}
-{% endmacro %}

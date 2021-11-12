@@ -31,7 +31,3 @@
     {# order by generated_number #}
 
 {% endmacro %}
-
-{% macro synapse__generate_series(upper_bound) %}
-    {% do return( tsql_utils.sqlserver__generate_series(upper_bound)) %}
-{% endmacro %}

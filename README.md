@@ -153,10 +153,50 @@ Read more about these macros in the [dbt-utils package repo](https://github.com/
 ### dbt-date
 
 Read more about these macros in the [dbt-date package repo](https://github.com/calogica/dbt-date).
+
+| category       | name               | supported               | integration test        |
+|----------------|--------------------|-------------------------|-------------------------|
+| Date Dimension | get_date_dimension | :white_check_mark:      | :white_check_mark:      |
+| Fiscal Periods | get_fiscal_periods | :white_check_mark:      | :x:                     |
+| Date           | convert_timezone   | :white_check_mark:      | :white_check_mark:      |
+| Date           | date_part          | :white_check_mark:      | :white_check_mark:      |
+| Date           | day_name           | :white_check_mark:      | :white_check_mark:      |
+| Inner          | day_of_month       | :white_check_mark:      | :white_check_mark:      |
+| Inner          | day_of_week        | :white_check_mark:      | :white_check_mark:      |
+| Inner          | day_of_year        | :white_check_mark:      | :white_check_mark:      |
+| Inner          | week_start         | :white_check_mark:      | :white_check_mark:      |
+| Inner          | week_end           | :white_check_mark:      | :white_check_mark:      |
+| Inner          | week_of_year       | :white_check_mark:      | :white_check_mark:      |
+| Inner          | iso_week_start     | :white_check_mark:      | :white_check_mark:      |
+| Inner          | iso_week_end       | :white_check_mark:      | :white_check_mark:      |
+| Inner          | iso_week_of_year   | :white_check_mark:      | :white_check_mark:      |
+| Date           | last_week          | :white_check_mark:      | :x:                     |
+| Date           | month_name         | :white_check_mark:      | :x:                     |
+| Date           | n_days_ago         | :white_check_mark:      | :x:                     |
+| Date           | n_days_away        | :white_check_mark:      | :x:                     |
+| Date           | n_months_ago       | :white_check_mark:      | :x:                     |
+| Date           | n_months_away      | :white_check_mark:      | :x:                     |
+| Date           | n_weeks_ago        | :white_check_mark:      | :x:                     |
+| Date           | n_weeks_away       | :white_check_mark:      | :x:                     |
+| Date           | now                | :white_check_mark:      | :x:                     |
+| Date           | periods_since      | :white_check_mark:      | :x:                     |
+| Date           | this_week          | :white_check_mark:      | :x:                     |
+| Date           | from_unixtimestamp | :white_check_mark:      | :white_check_mark:      |
+| Date           | to_unixtimestamp   | :white_check_mark:      | :white_check_mark:      |
+| Date           | today              | :white_check_mark:      | :white_check_mark:      |
+| Date           | tomorrow           | :white_check_mark:      | :white_check_mark:      |
+| Date           | yesterday          | :white_check_mark:      | :white_check_mark:      |
 ### dbt-audit-helper
 
 Read more about these macros in the [audit-helper package repo](https://github.com/dbt-labs/dbt-audit-helper).
 
+
+| name                     | supported          | integration test   |
+|--------------------------|--------------------|--------------------|
+| compare_relations        | :white_check_mark: | :white_check_mark: |
+| compare_queries          | :white_check_mark: | :white_check_mark: |
+| compare_column_values    | :white_check_mark: | :white_check_mark: |
+| compare_relation_columns | :x:                | :x:                |
 
 
 ### dbt-expectations

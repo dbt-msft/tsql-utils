@@ -75,3 +75,92 @@ or for a dry run to preview dropped models:
 ```bash
 dbt run-operation sqlserver__drop_old_relations --args "{dry_run: true}"
 ```
+
+## macro support
+
+### Legend
+
+Macro Support
+
+generally, SQL Server and Azure SQL have a larger scope of SQL commands that are implemented. So sometimes commands are not supported on Synapse. Additionally, some common SQL conventions are not supported in TSQL, so it will never be possible to port a macro that uses it.
+
+- :sparkle:: dbt-utils's version works without modification
+- :white_check_mark:: works in dbt-synapse and dbt-sqlserver
+- :ballot_box_with_check:: works only in dbt-sqlserver
+- :o:: still needs to be ported to TSQL
+- :x:: will never work in TSQL
+
+Integration test support:
+
+Sometimes, the macros work, but the integration tests used to let us know if they're working when making pull requests do not work. So we disable the test. The takeaway is to be somewhat-leery of building a dependency on this macro.
+
+- :white_check_mark:: works in dbt-synapse and dbt-sqlserver
+- :ballot_box_with_check:: works only in dbt-sqlserver
+- :o:: strange bugfix going onL
+- :x:: doesn't work
+
+### dbt-utils
+
+Read more about these macros in the [dbt-utils package repo](https://github.com/dbt-labs/dbt-utils).
+
+| category             | name                          | supported               | integration test   |
+|----------------------|-------------------------------|-------------------------|--------------------|
+| schema test          | equal_rowcount                | :sparkle:               | :white_check_mark: |
+| schema test          | equality                      | :sparkle:               | :white_check_mark: |
+| schema test          | expression_is_true            | :sparkle:               | :white_check_mark: |
+| schema test          | recency                       | :sparkle:               | :white_check_mark: |
+| schema test          | at_least_one                  | :sparkle:               | :white_check_mark: |
+| schema test          | not_constant                  | :sparkle:               | :white_check_mark: |
+| schema test          | cardinality_equality          | :sparkle:               | :white_check_mark: |
+| schema test          | unique_where                  | :white_check_mark:      | :x:                |
+| schema test          | not_null_where                | :white_check_mark:      | :x:                |
+| schema test          | not_null_proportion           | :sparkle:               | :white_check_mark: |
+| schema test          | relationships_where           | :white_check_mark:      | :white_check_mark: |
+| schema test          | mutually_exclusive_ranges     | :o:                     | :x:                |
+| schema test          | unique_combination_of_columns | :sparkle:               | :white_check_mark: |
+| schema test          | accepted_range                | :sparkle:               | :white_check_mark: |
+| introspective macros | get_column_values             | :x:                     | :x:                |
+| introspective macros | get_relations_by_pattern      | :x:                     | :x:                |
+| introspective macros | get_relations_by_prefix       | :x:                     | :x:                |
+| introspective macros | get_query_results_as_dict     | :white_check_mark:      | :white_check_mark: |
+| SQL generators       | date_spine                    | :white_check_mark:      | :white_check_mark: |
+| SQL generators       | haversine_distance            | :white_check_mark:      | :white_check_mark: |
+| SQL generators       | group_by                      | :x:                     | :x:                |
+| SQL generators       | star                          | :sparkle:               | :white_check_mark: |
+| SQL generators       | union_relations               | :sparkle:               | :x:                    |
+| SQL generators       | generate_series               | :white_check_mark:      | :x:                    |
+| SQL generators       | hash                          | :ballot_box_with_check: | :ballot_box_with_check: |
+| SQL generators       | surrogate_key                 | :white_check_mark:      | :white_check_mark: |
+| SQL generators       | safe_add                      | :sparkle:               | :white_check_mark: |
+| SQL generators       | pivot                         | :sparkle:               | :white_check_mark: |
+| SQL generators       | unpivot                       | :x:                     | :x:                |
+| SQL generators       | unpivot_bool                  | :x:                     | :x:                |
+| web                  | get_url_parameter             | :x:                     | :x:                |
+| web                  | get_url_host                  | :x:                     | :x:                |
+| web                  | get_url_path                  | :x:                     | :x:                |
+| cross database       | current_timestamp             | :white_check_mark:      | :white_check_mark: |
+| cross database       | dateadd                       | :ballot_box_with_check: | :ballot_box_with_check:|
+| cross database       | datediff                      | :ballot_box_with_check: | :ballot_box_with_check:|
+| cross database       | split_part                    | :ballot_box_with_check: | :ballot_box_with_check:|
+| cross database       | last_day                      | :white_check_mark:      | :white_check_mark: |
+| cross database       | width_bucket                  | :white_check_mark:      | :white_check_mark: |
+| jinja helpers        | pretty_time                   | :white_check_mark:      | :x:                |
+| jinja helpers        | pretty_log_format             | :white_check_mark:      | :x:                |
+| jinja helpers        | log_info                      | :white_check_mark:      | :x:                |
+| materializations     | insert_by_period              | :white_check_mark:      | :x:                |
+
+
+### dbt-date
+
+Read more about these macros in the [dbt-date package repo](https://github.com/calogica/dbt-date).
+### dbt-audit-helper
+
+Read more about these macros in the [audit-helper package repo](https://github.com/dbt-labs/dbt-audit-helper).
+
+
+
+### dbt-expectations
+
+Read more about these macros in the [dbt-expectations package repo](https://github.com/calogica/dbt-expectations/).
+
+use at your own risk! it was supported at once point, but the code base has evolved significantly since to include many nested CTEs, which aren't suported today in TSQL. [Click here](https://feedback.azure.com/d365community/idea/ae896b78-7c37-ec11-a819-000d3ae2b306) to upvote and get the feature supported!

@@ -1,9 +1,29 @@
 # Changelog
 
+## `v0.8.1`
+
+
+We're back!!! dbt test definitions have been broken for a very long time in TSQL, this is now resolved. As such this package was finally able to be brought back under control again and up-to-date
+### dependent pacakge versions
+
+This pacakge will work best with dbt-sqlserver and dbtsynapse versions 0.21.0 and greater. Below are the package versions with which this package was built/tested.
+- dbt-utils 0.7.4
+- dbt-date 0.4.1
+- dbt-audit-helper 0.4.0
+- dbt-expectations ???
+## What's Changed
+* Updated docs to show current support model
+* Fishtown -> dbt-labs by @visch in https://github.com/dbt-msft/tsql-utils/pull/55
+* The insert by period materialization for TSQL by @davidclarance in https://github.com/dbt-msft/tsql-utils/pull/56
+
+## New Contributors
+* @visch made their first contribution in https://github.com/dbt-msft/tsql-utils/pull/55
+* @davidclarance made their first contribution in https://github.com/dbt-msft/tsql-utils/pull/56
+* @timdenouden made their first contribution in https://github.com/dbt-msft/tsql-utils/pull/58
 ## `v0.8.0`
 
 - make compatible with dbt-core v0.20.0 [#59](https://github.com/dbt-msft/tsql-utils/pull/59) [#52](https://github.com/dbt-msft/tsql-utils/pull/52)
-- added macros `sqlserver__drop_schema_by_name`, `sqlserver__drop_schemas_by_prefixes`, and `sqlserver__drop_old_relations` to help manage out of date and unused schemas
+- added macros `sqlserver__drop_schema_by_name`, `sqlserver__drop_schemas_by_prefixes`, and `sqlserver__drop_old_relations` to help manage out of date and unused schemas by @timdenouden in https://github.com/dbt-msft/tsql-utils/pull/58
 
 ## `v0.7.2`
 

@@ -7,3 +7,8 @@
 {% macro synapse__get_test_week_of_year() -%}
      {{ return(sqlserver__get_test_week_of_year()) }}
 {%- endmacro %}
+
+{% macro sqlserver__get_test_timestamps() -%}
+    {{ return(['2021-06-07 07:35:20.000000 -07:00',
+                '2021-06-07 14:35:20.000000 +00:00']) }}
+{%- endmacro %}

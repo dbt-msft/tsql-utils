@@ -13,6 +13,7 @@ This pacakge will work best with dbt-sqlserver and dbtsynapse versions 0.21.0 an
 - dbt-expectations ???
 ## What's Changed
 * Updated docs to show current support model
+* drop the manual redispatch of `synapse__` macros to `sqlserver__`. as of v0.20.0, this isn't needed  https://github.com/dbt-msft/tsql-utils/pull/64
 * Fishtown -> dbt-labs by @visch in https://github.com/dbt-msft/tsql-utils/pull/55
 * The insert by period materialization for TSQL by @davidclarance in https://github.com/dbt-msft/tsql-utils/pull/56
 

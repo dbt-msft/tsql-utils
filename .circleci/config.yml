@@ -25,13 +25,13 @@ jobs:
             git submodule sync --recursive
             git submodule update --recursive --init
 
-      - run: &setup-dbt
+      - run: &setup-dbt-azsql
           name: "Setup dbt"
           command: |
             python3 -m venv venv
             . venv/bin/activate
             pip install --upgrade pip setuptools
-            pip install git+https://github.com/dbt-msft/dbt-synapse.git#egg=dbt-synapse
+            pip install dbt-sqlserver==0.21.0rc1
             mkdir -p ~/.dbt
             cp integration_tests/ci/sample.profiles.yml ~/.dbt/profiles.yml
             dbt --version
@@ -80,7 +80,17 @@ jobs:
       - run: *pull-submodules
       - azure-cli/install
       - azure-cli/login-with-service-principal: *azure-creds
-      - run: *setup-dbt
+      - run: &setup-dbt-synapse
+          name: "Setup dbt"
+          command: |
+            python3 -m venv venv
+            . venv/bin/activate
+            pip install --upgrade pip setuptools
+            pip install dbt-synapse==0.21.0rc3
+            mkdir -p ~/.dbt
+            cp integration_tests/ci/sample.profiles.yml ~/.dbt/profiles.yml
+            dbt --version
+            pip list | grep "dbt"
       - run:
           name: "Run Tests"
           command: |
@@ -164,7 +174,7 @@ workflows:
           context: DBT_SYNAPSE_PROFILE
       - integration-dbt-utils-azuresql: *dbt-context
       - integration-dbt-audit-helper-azuresql: *dbt-context
-      - integration-dbt-expectations-azuresql: *dbt-context
+      # - integration-dbt-expectations-azuresql: *dbt-context
       - integration-dbt-date-azuresql: *dbt-context
       - integration-dbt-utils-synapse: &syn-step
           <<: *dbt-context
@@ -174,12 +184,12 @@ workflows:
           <<: *dbt-context
           requires:
             - start-synapse
-      - integration-dbt-expectations-synapse: *syn-step
+      # - integration-dbt-expectations-synapse: *syn-step
       - integration-dbt-date-synapse: *syn-step
       - pause-synapse:
           <<: *dbt-context
           requires:
             - integration-dbt-utils-synapse
             - integration-dbt-audit-helper-synapse
-            - integration-dbt-expectations-synapse
+            # - integration-dbt-expectations-synapse
             - integration-dbt-date-synapse

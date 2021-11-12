@@ -32,6 +32,7 @@ models:
     +enabled: true
     cross_db_utils:
       test_split_part: &not-synapse
+        # no XML datatype in synapse
         +enabled: "{{ target.type != 'synapse' }}"
       # BROKEN DUE TO SYNAPSE SEED LOADING EMPTY CSV VALS AS EMPTY STRINGS
       # see: https://github.com/dbt-msft/dbt-synapse/issues/36
@@ -39,70 +40,51 @@ models:
       test_datediff: *not-synapse
       test_hash: *not-synapse
       test_last_day: *not-synapse
-    geo:
-      # disable until https://github.com/fishtown-analytics/dbt-utils/pull/354  is approved
-      test_haversine_distance_km: &disabled
+    web:
+      # TODO: fix these!
+      # see: https://github.com/dbt-msft/tsql-utils/issues/66
+      test_url_host: &disabled
         +enabled: false
-      test_haversine_distance_mi: *disabled
-    materializations:
-      test_insert_by_period: *disabled
-    web: # BROKEN DUE TO TEST DEFS
-      test_url_host: *disabled
       test_url_path: *disabled
       test_urls: *disabled
-    sql: # BROKEN BC MACROS ARE UNPORTED STILL
+    sql:
+      # BROKEN BC MACROS ARE UNPORTED STILL
       test_generate_series: *disabled
       test_get_column_values: *disabled
       test_get_relations_by_pattern: *disabled
       test_get_relations_by_prefix_and_union: *disabled
-      test_groupby: *disabled # TSQL doesn't let you group by column numbers
-      test_union: *not-synapse
-      test_unpivot_bool: *disabled
-      # macros with CTEs can't be tested without refactoring
-      test_unpivot: *disabled
-      test_unpivot_original_api: *disabled
-      test_pivot: *disabled
-      test_star: *disabled
+      # broken bc TSQL will never support
+      test_groupby: *disabled
       test_union: *disabled
-    datetime:
-      # macros with CTEs can't be tested without refactoring
-      test_date_spine: *disabled
-    schema_tests:
-      test_recency: *disabled
-      test_equal_column_subset: *disabled
-      test_equal_rowcount: *disabled
+      test_unpivot_bool: *disabled
+    materializations:
+      # TODO: fix error
+      # https://github.com/dbt-msft/tsql-utils/issues/67
+      test_insert_by_period: *disabled
   # intractable nested CTEs from
   # https://github.com/calogica/dbt-date/pull/30
   dbt_date_integration_tests:
     dates: *disabled
     dim_week: *disabled
     dim_hour: *disabled
-seeds:
 
+tests:
+  dbt_utils_integration_tests: *disabled
+seeds:
   +quote_columns: false
   dbt_utils_integration_tests:
     schema_tests:
+      data_test_sequential_timestamps:
+        +column_types:
+          my_timestamp: datetime2
+      # can't override dbt_utils's test def args
+      data_test_unique_where: *disabled
+      data_test_not_null_where: *disabled
+      # more like above: something weird happening: `Incorrect syntax near '<'.`
+      data_test_mutually_exclusive_ranges_with_gaps_zero_length: *disabled
       data_test_mutually_exclusive_ranges_no_gaps: *disabled
       data_test_mutually_exclusive_ranges_with_gaps: *disabled
-      data_test_sequential_timestamps:
-        # disabled until this PR is merged
-        # https://github.com/fishtown-analytics/dbt-utils/pull/376
-        <<: *not-synapse
-        +column_types:
-          my_timestamp: datetime
-      # needs to be shimmed to avoid boolean values in upstream macro def
-      data_test_accepted_range: *disabled
-      # something weird happening: `Incorrect syntax near '<'.`
-      data_test_mutually_exclusive_ranges_with_gaps_zero_length: *disabled
-      # macros with CTEs can't be tested without refactoring
-      data_cardinality_equality_a: *disabled
-      data_people: *disabled
-      data_test_unique_where: *disabled
-      data_unique_combination_of_columns: *disabled
-      data_test_relationships_where_table_2: *disabled
-      data_test_not_accepted_values: *disabled
-      data_test_expression_is_true: *disabled
-      data_test_at_least_one: *disabled
+
     cross_db:
       data_date_trunc:
         +column_types:
@@ -119,11 +101,16 @@ seeds:
         +column_types:
           first_date: datetime
           second_date: datetime
-    geo:
-      # disable until https://github.com/fishtown-analytics/dbt-utils/pull/354  is approved
-      data_haversine_km: *disabled
-      data_haversine_mi: *disabled
+
+      data_width_bucket:
+        +column_types:
+          num_buckets: integer
+          min_value: float
+          max_value: float
     sql:
+      data_events_20180103:
+        +schema: events
+      # not yet ported, or can't be??
       data_unpivot_bool: *disabled
       data_unpivot_bool_expected: *disabled
-      data_get_query_results_as_dict: *not-synapse
+      # data_get_query_results_as_dict: *not-synapse

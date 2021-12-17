@@ -1,5 +1,16 @@
 # Changelog
 
+## `v0.9.0`
+
+### :rotating_light: breaking change
+
+this package will only be compatible with dbt-core `v1.0.0` and greater which means it uses the following versions of packages:
+
+- [dbt-utils v0.8.0](https://github.com/dbt-labs/dbt-utils/releases/tag/0.8.0)
+- [dbt-external tables v0.8.0](https://github.com/dbt-labs/dbt-external-tables/releases/tag/0.8.0)
+- [dbt-audit-helper v0.5.0](https://github.com/dbt-labs/dbt-audit-helper/releases/tag/0.5.0)
+- [dbt-date v0.5.0](https://github.com/calogica/dbt-date/releases/tag/0.5.0)
+
 ## `v0.8.1`
 
 

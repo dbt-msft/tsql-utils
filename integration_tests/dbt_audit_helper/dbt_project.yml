@@ -4,18 +4,18 @@ config-version: 2
 
 profile: 'integration_tests'
 
-source-paths: ["models"]
+model-paths: ["models"]
 analysis-paths: ["analysis"]
 test-paths: ["tests"]
-data-paths: ["data"]
+seed-paths: ["seeds"]
 macro-paths: ["macros"]
 
 target-path: "target"
 clean-targets:
     - "target"
-    - "dbt_modules"
+    - "dbt_packages"
 
-require-dbt-version: ">=0.20.0"
+require-dbt-version: [">=1.0.0", "<2.0.0"]
 
 dispatch:
   - macro_namespace: audit_helper

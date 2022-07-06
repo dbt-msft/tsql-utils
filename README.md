@@ -103,51 +103,51 @@ Sometimes, the macros work, but the integration tests used to let us know if the
 
 Read more about these macros in the [dbt-utils package repo](https://github.com/dbt-labs/dbt-utils).
 
-| category             | name                          | supported               | integration test   |
-|----------------------|-------------------------------|-------------------------|--------------------|
-| schema test          | equal_rowcount                | :sparkle:               | :white_check_mark: |
-| schema test          | equality                      | :sparkle:               | :white_check_mark: |
-| schema test          | expression_is_true            | :sparkle:               | :white_check_mark: |
-| schema test          | recency                       | :sparkle:               | :white_check_mark: |
-| schema test          | at_least_one                  | :sparkle:               | :white_check_mark: |
-| schema test          | not_constant                  | :sparkle:               | :white_check_mark: |
-| schema test          | cardinality_equality          | :sparkle:               | :white_check_mark: |
-| schema test          | unique_where                  | :white_check_mark:      | :x:                |
-| schema test          | not_null_where                | :white_check_mark:      | :x:                |
-| schema test          | not_null_proportion           | :sparkle:               | :white_check_mark: |
-| schema test          | relationships_where           | :white_check_mark:      | :white_check_mark: |
-| schema test          | mutually_exclusive_ranges     | :o:                     | :x:                |
-| schema test          | unique_combination_of_columns | :sparkle:               | :white_check_mark: |
-| schema test          | accepted_range                | :sparkle:               | :white_check_mark: |
-| introspective macros | get_column_values             | :x:                     | :x:                |
-| introspective macros | get_relations_by_pattern      | :x:                     | :x:                |
-| introspective macros | get_relations_by_prefix       | :x:                     | :x:                |
-| introspective macros | get_query_results_as_dict     | :white_check_mark:      | :white_check_mark: |
-| SQL generators       | date_spine                    | :white_check_mark:      | :white_check_mark: |
-| SQL generators       | haversine_distance            | :white_check_mark:      | :white_check_mark: |
-| SQL generators       | group_by                      | :x:                     | :x:                |
-| SQL generators       | star                          | :sparkle:               | :white_check_mark: |
-| SQL generators       | union_relations               | :sparkle:               | :x:                    |
-| SQL generators       | generate_series               | :white_check_mark:      | :x:                    |
-| SQL generators       | hash                          | :ballot_box_with_check: | :ballot_box_with_check: |
-| SQL generators       | surrogate_key                 | :white_check_mark:      | :white_check_mark: |
-| SQL generators       | safe_add                      | :sparkle:               | :white_check_mark: |
-| SQL generators       | pivot                         | :sparkle:               | :white_check_mark: |
-| SQL generators       | unpivot                       | :x:                     | :x:                |
-| SQL generators       | unpivot_bool                  | :x:                     | :x:                |
-| web                  | get_url_parameter             | :x:                     | :x:                |
-| web                  | get_url_host                  | :x:                     | :x:                |
-| web                  | get_url_path                  | :x:                     | :x:                |
-| cross database       | current_timestamp             | :white_check_mark:      | :white_check_mark: |
-| cross database       | dateadd                       | :ballot_box_with_check: | :ballot_box_with_check:|
-| cross database       | datediff                      | :ballot_box_with_check: | :ballot_box_with_check:|
-| cross database       | split_part                    | :ballot_box_with_check: | :ballot_box_with_check:|
-| cross database       | last_day                      | :white_check_mark:      | :white_check_mark: |
-| cross database       | width_bucket                  | :white_check_mark:      | :white_check_mark: |
-| jinja helpers        | pretty_time                   | :white_check_mark:      | :x:                |
-| jinja helpers        | pretty_log_format             | :white_check_mark:      | :x:                |
-| jinja helpers        | log_info                      | :white_check_mark:      | :x:                |
-| materializations     | insert_by_period              | :white_check_mark:      | :x:                |
+| category             | name                          | supported               | integration test        | dbt-utils docs |
+|----------------------|-------------------------------|-------------------------|-------------------------|----------------|
+| schema test          | equal_rowcount                | :sparkle:               | :white_check_mark:      | [:link:](https://github.com/dbt-labs/dbt-utils#equal_rowcount-source) |
+| schema test          | equality                      | :sparkle:               | :white_check_mark:      | [:link:](https://github.com/dbt-labs/dbt-utils#equality-source) |
+| schema test          | expression_is_true            | :sparkle:               | :white_check_mark:      | [:link:](https://github.com/dbt-labs/dbt-utils#expression_is_true-source) |
+| schema test          | recency                       | :sparkle:               | :white_check_mark:      | [:link:](https://github.com/dbt-labs/dbt-utils#recency-source) |
+| schema test          | at_least_one                  | :sparkle:               | :white_check_mark:      | [:link:](https://github.com/dbt-labs/dbt-utils#at_least_one-source) |
+| schema test          | not_constant                  | :sparkle:               | :white_check_mark:      | [:link:](https://github.com/dbt-labs/dbt-utils#not_constant-source) |
+| schema test          | cardinality_equality          | :sparkle:               | :white_check_mark:      | [:link:](https://github.com/dbt-labs/dbt-utils#cardinality_equality-source) |
+| schema test          | unique_where                  | :white_check_mark:      | :x:                     | [:link:](https://github.com/dbt-labs/dbt-utils#unique_where-source) |
+| schema test          | not_null_where                | :white_check_mark:      | :x:                     | [:link:](https://github.com/dbt-labs/dbt-utils#not_null_where-source) |
+| schema test          | not_null_proportion           | :sparkle:               | :white_check_mark:      | [:link:](https://github.com/dbt-labs/dbt-utils#not_null_proportion-source) |
+| schema test          | relationships_where           | :white_check_mark:      | :white_check_mark:      | [:link:](https://github.com/dbt-labs/dbt-utils#relationships_where-source) |
+| schema test          | mutually_exclusive_ranges     | :o:                     | :x:                     | [:link:](https://github.com/dbt-labs/dbt-utils#mutually_exclusive_ranges-source) |
+| schema test          | unique_combination_of_columns | :sparkle:               | :white_check_mark:      | [:link:](https://github.com/dbt-labs/dbt-utils#unique_combination_of_columns-source) |
+| schema test          | accepted_range                | :sparkle:               | :white_check_mark:      | [:link:](https://github.com/dbt-labs/dbt-utils#accepted_range-source) |
+| introspective macros | get_column_values             | :x:                     | :x:                     | [:link:](https://github.com/dbt-labs/dbt-utils#get_column_values-source) |
+| introspective macros | get_relations_by_pattern      | :x:                     | :x:                     | [:link:](https://github.com/dbt-labs/dbt-utils#get_relations_by_pattern-source) |
+| introspective macros | get_relations_by_prefix       | :x:                     | :x:                     | [:link:](https://github.com/dbt-labs/dbt-utils#get_relations_by_prefix-source) |
+| introspective macros | get_query_results_as_dict     | :white_check_mark:      | :white_check_mark:      | [:link:](https://github.com/dbt-labs/dbt-utils#get_query_results_as_dict-source) |
+| SQL generators       | date_spine                    | :white_check_mark:      | :white_check_mark:      | [:link:](https://github.com/dbt-labs/dbt-utils#date_spine-source) |
+| SQL generators       | haversine_distance            | :white_check_mark:      | :white_check_mark:      | [:link:](https://github.com/dbt-labs/dbt-utils#haversine_distance-source) |
+| SQL generators       | group_by                      | :x:                     | :x:                     | [:link:](https://github.com/dbt-labs/dbt-utils#group_by-source) |
+| SQL generators       | star                          | :sparkle:               | :white_check_mark:      | [:link:](https://github.com/dbt-labs/dbt-utils#star-source) |
+| SQL generators       | union_relations               | :sparkle:               | :x:                     | [:link:](https://github.com/dbt-labs/dbt-utils#union_relations-source) |
+| SQL generators       | generate_series               | :white_check_mark:      | :x:                     | [:link:](https://github.com/dbt-labs/dbt-utils#generate_series-source) |
+| SQL generators       | hash                          | :ballot_box_with_check: | :ballot_box_with_check: | [:link:](https://github.com/dbt-labs/dbt-utils#hash-source) |
+| SQL generators       | surrogate_key                 | :white_check_mark:      | :white_check_mark:      | [:link:](https://github.com/dbt-labs/dbt-utils#surrogate_key-source) |
+| SQL generators       | safe_add                      | :sparkle:               | :white_check_mark:      | [:link:](https://github.com/dbt-labs/dbt-utils#safe_add-source) |
+| SQL generators       | pivot                         | :sparkle:               | :white_check_mark:      | [:link:](https://github.com/dbt-labs/dbt-utils#pivot-source) |
+| SQL generators       | unpivot                       | :x:                     | :x:                     | [:link:](https://github.com/dbt-labs/dbt-utils#unpivot-source) |
+| SQL generators       | unpivot_bool                  | :x:                     | :x:                     | [:link:](https://github.com/dbt-labs/dbt-utils#unpivot_bool-source) |
+| web                  | get_url_parameter             | :x:                     | :x:                     | [:link:](https://github.com/dbt-labs/dbt-utils#get_url_parameter-source) |
+| web                  | get_url_host                  | :x:                     | :x:                     | [:link:](https://github.com/dbt-labs/dbt-utils#get_url_host-source) |
+| web                  | get_url_path                  | :x:                     | :x:                     | [:link:](https://github.com/dbt-labs/dbt-utils#get_url_path-source) |
+| cross database       | current_timestamp             | :white_check_mark:      | :white_check_mark:      | [:link:](https://github.com/dbt-labs/dbt-utils#current_timestamp-source) |
+| cross database       | dateadd                       | :ballot_box_with_check: | :ballot_box_with_check: | [:link:](https://github.com/dbt-labs/dbt-utils#dateadd-source) |
+| cross database       | datediff                      | :ballot_box_with_check: | :ballot_box_with_check: | [:link:](https://github.com/dbt-labs/dbt-utils#datediff-source) |
+| cross database       | split_part                    | :ballot_box_with_check: | :ballot_box_with_check: | [:link:](https://github.com/dbt-labs/dbt-utils#split_part-source) |
+| cross database       | last_day                      | :white_check_mark:      | :white_check_mark:      | [:link:](https://github.com/dbt-labs/dbt-utils#last_day-source) |
+| cross database       | width_bucket                  | :white_check_mark:      | :white_check_mark:      | [:link:](https://github.com/dbt-labs/dbt-utils#width_bucket-source) |
+| jinja helpers        | pretty_time                   | :white_check_mark:      | :x:                     | [:link:](https://github.com/dbt-labs/dbt-utils#pretty_time-source) |
+| jinja helpers        | pretty_log_format             | :white_check_mark:      | :x:                     | [:link:](https://github.com/dbt-labs/dbt-utils#pretty_log_format-source) |
+| jinja helpers        | log_info                      | :white_check_mark:      | :x:                     | [:link:](https://github.com/dbt-labs/dbt-utils#log_info-source) |
+| materializations     | insert_by_period              | :white_check_mark:      | :x:                     | [:link:](https://github.com/dbt-labs/dbt-utils#insert_by_period-source) |
 
 
 ### dbt-date

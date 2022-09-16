@@ -1,5 +1,5 @@
 {% macro sqlserver__type_string() %}
-    VARCHAR(900)
+    VARCHAR(MAX)
 {%- endmacro -%}
 
 -- TEMP UNTIL synapse is standalone adapter type

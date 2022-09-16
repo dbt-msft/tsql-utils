@@ -33,6 +33,8 @@ To make use of these TSQL adaptations in your dbt project, you must do two thing
 2. Tell the supported package to also look for the `tsql-utils` macros by adding the relevant `dispatches` to your `dbt_project.yml`
     ```yaml
     dispatch:
+      - macro_namespace: dbt
+        search_order: ['tsql_utils', 'dbt']
       - macro_namespace: dbt_utils
         search_order: ['tsql_utils', 'dbt_utils']
       - macro_namespace: dbt_date

@@ -4,40 +4,20 @@ config-version: 2
 
 profile: "integration_tests"
 
-source-paths: ["models"]
-analysis-paths: ["analysis"]
-test-paths: ["tests"]
-data-paths: ["data"]
-macro-paths: ["macros"]
-
-target-path: "target" # directory which will store compiled SQL files
-clean-targets: # directories to be removed by `dbt clean`
-  - "target"
-  - "dbt_modules"
-
 dispatch:
   - macro_namespace: dbt_utils
     search_order:
-      ["tsql_utils_dbt_utils_integration_tests", "tsql_utils", "dbt_utils"]
-
-# TODO remove these variables in the next release
-vars:
-  dbt_utils_dispatch_list:
-    ["tsql_utils", "tsql_utils_dbt_utils_integration_tests"]
+      [
+        "tsql_utils_dbt_utils_integration_tests",
+        "tsql_utils",
+        "dbt_utils_integration_tests",
+        "dbt_utils",
+      ]
 
 models:
   dbt_utils_integration_tests:
-    +as_columnstore: "{{ target.type != 'sqlserver' }}"
+    as_columnstore: "{{ target.type != 'sqlserver' }}"
     enabled: true
-    cross_db_utils:
-      test_split_part: &not-synapse # no XML datatype in synapse
-        enabled: "{{ target.type != 'synapse' }}"
-      # BROKEN DUE TO SYNAPSE SEED LOADING EMPTY CSV VALS AS EMPTY STRINGS
-      # see: https://github.com/dbt-msft/dbt-synapse/issues/36
-      test_dateadd: *not-synapse
-      test_datediff: *not-synapse
-      test_hash: *not-synapse
-      test_last_day: *not-synapse
     web:
       # TODO: fix these!
       # see: https://github.com/dbt-msft/tsql-utils/issues/66
@@ -61,19 +41,13 @@ models:
       test_insert_by_period: *disabled
   # intractable nested CTEs from
   # https://github.com/calogica/dbt-date/pull/30
-  dbt_date_integration_tests:
-    dates: *disabled
-    dim_week: *disabled
-    dim_hour: *disabled
-
 tests:
   dbt_utils_integration_tests: *disabled
 seeds:
-  +quote_columns: false
   dbt_utils_integration_tests:
     schema_tests:
       data_test_sequential_timestamps:
-        +column_types:
+        column_types:
           my_timestamp: datetime2
       # can't override dbt_utils's test def args
       data_test_unique_where: *disabled
@@ -83,31 +57,12 @@ seeds:
       data_test_mutually_exclusive_ranges_no_gaps: *disabled
       data_test_mutually_exclusive_ranges_with_gaps: *disabled
 
-    cross_db:
-      data_date_trunc:
-        +column_types:
-          updated_at: datetime
-          day: date
-          month: date
-
-      data_dateadd:
-        +column_types:
-          from_time: datetime
-          result: datetime
-
-      data_datediff:
-        +column_types:
-          first_date: datetime
-          second_date: datetime
-
+    sql:
       data_width_bucket:
-        +column_types:
+        column_types:
           num_buckets: integer
           min_value: float
           max_value: float
-    sql:
-      data_events_20180103:
-        +schema: events
       # not yet ported, or can't be??
       data_unpivot_bool: *disabled
       data_unpivot_bool_expected: *disabled

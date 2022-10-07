@@ -8,10 +8,6 @@ dispatch:
   - macro_namespace: audit_helper
     search_order: ["tsql_utils", "audit_helper"]
 
-# TODO remove these variables in the next release
-vars:
-  audit_helper_dispatch_list: ["tsql_utils"]
-
 models:
   audit_helper_integration_tests:
     materialized: table

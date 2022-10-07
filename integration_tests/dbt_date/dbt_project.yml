@@ -6,7 +6,13 @@ profile: "integration_tests"
 
 dispatch:
   - macro_namespace: dbt_utils
-    search_order: ["tsql_utils", "dbt_utils"]
+    search_order:
+      [
+        "tsql_utils_dbt_date_integration_tests",
+        "tsql_utils",
+        "dbt",
+        "dbt_utils",
+      ]
   - macro_namespace: dbt_date
     search_order:
       ["tsql_utils_dbt_date_integration_tests", "tsql_utils", "dbt_date"]

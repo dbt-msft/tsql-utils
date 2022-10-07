@@ -1,0 +1,8 @@
+services:
+  sqlserver:
+    image: ghcr.io/dbt-msft/dbt-sqlserver:server-2022
+    environment:
+      SA_PASSWORD: "L0calTesting!"
+      ACCEPT_EULA: "Y"
+    ports:
+      - "1433:1433"

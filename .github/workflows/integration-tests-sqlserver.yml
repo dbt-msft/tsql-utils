@@ -35,7 +35,7 @@ jobs:
       - name: Copy profiles
         run: |
           mkdir -p ~/.dbt
-          cp devops/profiles.yml ~/.dbt/profiles.yml
+          cp devops/ci/profiles.yml ~/.dbt/profiles.yml
 
       - name: Run integration tests
         run: |

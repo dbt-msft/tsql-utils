@@ -1,0 +1,19 @@
+config:
+  send_anonymous_usage_stats: False
+  use_colors: True
+
+integration_tests:
+  target: sqlserver
+  outputs:
+    sqlserver:
+      type: sqlserver
+      driver: "ODBC Driver 18 for SQL Server"
+      port: 1433
+      host: "localhost"
+      database: "msdb"
+      username: "SA"
+      password: "L0calTesting!"
+      schema: tsql_utils_integration_tests_sqlserver
+      threads: 4
+      encrypt: true
+      trust_cert: true

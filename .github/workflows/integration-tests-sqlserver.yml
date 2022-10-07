@@ -14,10 +14,10 @@ jobs:
         sqlserver_version: ["2017", "2019", "2022"]
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/dbt-sqlserver:CI-3.10-msodbc18
+      image: ghcr.io/dbt-msft/dbt-sqlserver:CI-3.10-msodbc18
     services:
       sqlserver:
-        image: ghcr.io/dbt-sqlserver:server-${{ matrix.sqlserver_version }}
+        image: ghcr.io/dbt-msft/dbt-sqlserver:server-${{ matrix.sqlserver_version }}
         env:
           ACCEPT_EULA: "Y"
           SA_PASSWORD: 5atyaNadella

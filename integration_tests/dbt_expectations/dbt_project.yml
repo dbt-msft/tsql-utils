@@ -1,33 +1,50 @@
-
-name: 'tsql_utils_dbt_expectations_integration_tests'
-version: '1.0'
+name: "tsql_utils_dbt_expectations_integration_tests"
+version: "1.0"
 config-version: 2
 
-profile: 'integration_tests'
+profile: "integration_tests"
 
 dispatch:
   - macro_namespace: dbt_utils
-    search_order: ['tsql_utils_dbt_expectations_integration_tests', 'tsql_utils', 'dbt', 'dbt_utils']
+    search_order:
+      [
+        "tsql_utils_dbt_expectations_integration_tests",
+        "tsql_utils",
+        "dbt",
+        "dbt_utils",
+      ]
   - macro_namespace: dbt_date
-    search_order: ['tsql_utils_dbt_expectations_integration_tests', 'tsql_utils', 'dbt', 'dbt_date']
+    search_order:
+      [
+        "tsql_utils_dbt_expectations_integration_tests",
+        "tsql_utils",
+        "dbt",
+        "dbt_date",
+      ]
   - macro_namespace: dbt_expectations
-    search_order: ['tsql_utils_dbt_expectations_integration_tests', 'tsql_utils', 'dbt', 'dbt_expectations']
+    search_order:
+      [
+        "tsql_utils_dbt_expectations_integration_tests",
+        "tsql_utils",
+        "dbt",
+        "dbt_expectations",
+      ]
 
 vars:
-  'dbt_date:time_zone': 'Pacific Standard Time'
+  "dbt_date:time_zone": "Pacific Standard Time"
 
 models:
   dbt_expectations_integration_tests:
     schema_tests:
       data_test_factored:
         materialized: table
+        enabled: "{{ target.type != 'synapse' }}"
       emails: &disabled #TODO
-          enabled: false
+        enabled: false
       timeseries_data: *disabled
       timeseries_hourly_data_extended: *disabled
       # Need to implement for synapse
-      data_test: &not-synapse
-        enabled: "{{ target.type != 'synapse' }}"
-
-      data_test_factored: *not-synapse
+      data_test: *disabled
       timeseries_data_extended: *disabled
+      data_text: *disabled
+      timeseries_data_grouped: *disabled

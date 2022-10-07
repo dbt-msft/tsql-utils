@@ -33,10 +33,10 @@ jobs:
 
       - name: Run integration tests
         run: |
-          cd integration_tests/${{ matrix.dbt_package }}
           dbt deps --target sqlserver
           dbt seed --target sqlserver --full-refresh
           dbt run --target sqlserver --full-refresh
           dbt test --target sqlserver
+        working-directory: integration_tests/${{ matrix.dbt_package }}
         env:
           DBT_PROFILES_DIR: "${GITHUB_WORKSPACE}/devops"

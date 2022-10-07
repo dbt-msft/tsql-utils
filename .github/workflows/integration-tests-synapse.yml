@@ -40,11 +40,11 @@ jobs:
 
       - name: Run integration tests
         run: |
-          cd integration_tests/${{ matrix.dbt_package }}
           dbt deps --target synapse
           dbt seed --target synapse --full-refresh
           dbt run --target synapse --full-refresh
           dbt test --target synapse
+        working-directory: integration_tests/${{ matrix.dbt_package }}
         env:
           DBT_SYNAPSE_SERVER: ${{ secrets.DBT_SYNAPSE_SERVER }}
           DBT_SYNAPSE_DB: ${{ secrets.DBT_SYNAPSE_DB }}

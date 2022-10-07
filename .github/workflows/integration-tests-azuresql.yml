@@ -38,11 +38,11 @@ jobs:
 
       - name: Run integration tests
         run: |
-          cd integration_tests/${{ matrix.dbt_package }}
           dbt deps --target azuresql
           dbt seed --target azuresql --full-refresh
           dbt run --target azuresql --full-refresh
           dbt test --target azuresql
+        working-directory: integration_tests/${{ matrix.dbt_package }}
         env:
           DBT_AZURESQL_SERVER: ${{ secrets.DBT_AZURESQL_SERVER }}
           DBT_AZURESQL_DB: ${{ secrets.DBT_AZURESQL_DB }}

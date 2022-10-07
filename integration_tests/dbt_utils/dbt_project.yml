@@ -17,6 +17,7 @@ dispatch:
 
 models:
   dbt_utils_integration_tests:
+    index: HEAP # Synapse only
     as_columnstore: "{{ target.type != 'sqlserver' }}"
     enabled: true
     web:

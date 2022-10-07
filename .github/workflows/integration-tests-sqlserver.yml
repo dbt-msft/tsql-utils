@@ -3,7 +3,7 @@ name: Integration tests on SQL Server
 on: # yamllint disable-line rule:truthy
   push:
     branches:
-      - master
+      - main
       - v*
 
 jobs:

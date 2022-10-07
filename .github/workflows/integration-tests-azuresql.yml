@@ -12,6 +12,10 @@ jobs:
   integration-tests-azure:
     name: Integration tests on Azure SQL DB
     if: contains(github.event.pull_request.labels.*.name, 'safe to test') || github.ref_name == 'main' || startsWith(github.ref_name, 'v')
+    strategy:
+      matrix:
+        dbt_package:
+          ["dbt-audit-helper", "dbt-date", "dbt-expectations", "dbt-utils"]
     runs-on: ubuntu-latest
     container:
       image: ghcr.io/dbt-msft/dbt-sqlserver:CI-3.10-msodbc18
@@ -23,6 +27,9 @@ jobs:
       - name: Install dependencies
         run: pip install -r dev_requirements.txt
 
+      - name: Copy profiles
+        run: cp integration_tests/ci/sample.profiles.yml ~/.dbt/profiles.yml
+
       - name: Wake up server
         env:
           DBT_AZURESQL_SERVER: ${{ secrets.DBT_AZURESQL_SERVER }}
@@ -31,3 +38,17 @@ jobs:
           DBT_AZURESQL_PWD: ${{ secrets.DBT_AZURESQL_PWD }}
           MSODBC_VERSION: 18
         run: python devops/wakeup_azure.py
+
+      - name: Run integration tests
+        run: |
+          cd integration_tests/${{ matrix.dbt_package }}
+          dbt deps --target azuresql
+          dbt seed --target azuresql --full-refresh
+          dbt run --target azuresql --full-refresh
+          dbt test --target azuresql
+        env:
+          DBT_AZURESQL_SERVER: ${{ secrets.DBT_AZURESQL_SERVER }}
+          DBT_AZURESQL_DB: ${{ secrets.DBT_AZURESQL_DB }}
+          AZURE_CLIENT_ID: ${{ secrets.DBT_AZURE_SP_NAME }}
+          AZURE_CLIENT_SECRET: ${{ secrets.DBT_AZURE_SP_SECRET }}
+          AZURE_TENANT_ID: ${{ secrets.DBT_AZURE_TENANT }}

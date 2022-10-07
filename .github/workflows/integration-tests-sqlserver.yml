@@ -12,6 +12,8 @@ jobs:
     strategy:
       matrix:
         sqlserver_version: ["2017", "2019", "2022"]
+        dbt_package:
+          ["dbt-audit-helper", "dbt-date", "dbt-expectations", "dbt-utils"]
     runs-on: ubuntu-latest
     container:
       image: ghcr.io/dbt-msft/dbt-sqlserver:CI-3.10-msodbc18
@@ -28,3 +30,14 @@ jobs:
 
       - name: Install dependencies
         run: pip install -r dev_requirements.txt
+
+      - name: Copy profiles
+        run: cp integration_tests/ci/sample.profiles.yml ~/.dbt/profiles.yml
+
+      - name: Run integration tests
+        run: |
+          cd integration_tests/${{ matrix.dbt_package }}
+          dbt deps --target sqlserver
+          dbt seed --target sqlserver --full-refresh
+          dbt run --target sqlserver --full-refresh
+          dbt test --target sqlserver

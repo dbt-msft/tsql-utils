@@ -12,6 +12,10 @@ jobs:
   integration-tests-azure:
     name: Integration tests on Azure Synapse Dedicated SQL
     if: contains(github.event.pull_request.labels.*.name, 'safe to test') || github.ref_name == 'main' || startsWith(github.ref_name, 'v')
+    strategy:
+      matrix:
+        dbt_package:
+          ["dbt-audit-helper", "dbt-date", "dbt-expectations", "dbt-utils"]
     runs-on: ubuntu-latest
     container:
       image: ghcr.io/dbt-msft/dbt-sqlserver:CI-3.10-msodbc18
@@ -23,6 +27,9 @@ jobs:
       - name: Install dependencies
         run: pip install -r dev_requirements.txt
 
+      - name: Copy profiles
+        run: cp integration_tests/ci/sample.profiles.yml ~/.dbt/profiles.yml
+
       - name: Resume server
         env:
           DBT_SYNAPSE_SERVER: ${{ secrets.DBT_SYNAPSE_SERVER }}
@@ -33,3 +40,17 @@ jobs:
           DBT_AZURE_RESOURCE_GROUP_NAME: ${{ secrets.DBT_AZURE_RESOURCE_GROUP_NAME }}
           DBT_AZURE_SUBSCRIPTION_ID: ${{ secrets.DBT_AZURE_SUBSCRIPTION_ID }}
         run: python devops/synapse.py resume
+
+      - name: Run integration tests
+        run: |
+          cd integration_tests/${{ matrix.dbt_package }}
+          dbt deps --target synapse
+          dbt seed --target synapse --full-refresh
+          dbt run --target synapse --full-refresh
+          dbt test --target synapse
+        env:
+          DBT_SYNAPSE_SERVER: ${{ secrets.DBT_SYNAPSE_SERVER }}
+          DBT_SYNAPSE_DB: ${{ secrets.DBT_SYNAPSE_DB }}
+          AZURE_CLIENT_ID: ${{ secrets.DBT_AZURE_SP_NAME }}
+          AZURE_CLIENT_SECRET: ${{ secrets.DBT_AZURE_SP_SECRET }}
+          AZURE_TENANT_ID: ${{ secrets.DBT_AZURE_TENANT }}

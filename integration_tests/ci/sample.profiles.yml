@@ -1,31 +1,44 @@
-
-# HEY! This file is used in the tsql_utils integrations tests with CircleCI.
+# HEY! This file is used in the tsql_utils integrations tests in CI.
 # You should __NEVER__ check credentials into version control. Thanks for reading :)
 
 config:
-    send_anonymous_usage_stats: False
-    use_colors: True
+  send_anonymous_usage_stats: False
+  use_colors: True
 
 integration_tests:
   target: synapse
   outputs:
-  
     synapse:
       type: synapse
-      driver: "ODBC Driver 17 for SQL Server"
+      driver: "ODBC Driver 18 for SQL Server"
       port: 1433
       host: "{{ env_var('DBT_SYNAPSE_SERVER') }}.sql.azuresynapse.net"
       database: "{{ env_var('DBT_SYNAPSE_DB') }}"
-      authentication: CLI
+      authentication: environment
       schema: tsql_utils_integration_tests_synapse
+      threads: 2
+      encrypt: true
+      trust_cert: true
+    sqlserver:
+      type: sqlserver
+      driver: "ODBC Driver 18 for SQL Server"
+      port: 1433
+      host: "sqlserver"
+      database: "msdb"
+      username: "SA"
+      password: "5atyaNadella"
+      schema: tsql_utils_integration_tests_sqlserver
       threads: 4
+      encrypt: true
+      trust_cert: true
     azuresql:
       type: sqlserver
-      driver: "ODBC Driver 17 for SQL Server"
+      driver: "ODBC Driver 18 for SQL Server"
       port: 1433
       host: "{{ env_var('DBT_AZURESQL_SERVER') }}"
       database: "{{ env_var('DBT_AZURESQL_DB') }}"
-      username: "{{ env_var('DBT_AZURESQL_UID') }}"
-      password: "{{ env_var('DBT_AZURESQL_PWD') }}"
+      authentication: environment
       schema: tsql_utils_integration_tests_azuresql
       threads: 4
+      encrypt: true
+      trust_cert: true

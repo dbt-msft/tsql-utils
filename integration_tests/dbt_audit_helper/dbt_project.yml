@@ -4,17 +4,6 @@ config-version: 2
 
 profile: "integration_tests"
 
-source-paths: ["models"]
-analysis-paths: ["analysis"]
-test-paths: ["tests"]
-data-paths: ["data"]
-macro-paths: ["macros"]
-
-target-path: "target"
-clean-targets:
-  - "target"
-  - "dbt_modules"
-
 dispatch:
   - macro_namespace: audit_helper
     search_order: ["tsql_utils", "audit_helper"]
@@ -25,4 +14,4 @@ vars:
 
 models:
   audit_helper_integration_tests:
-    +materialized: table
+    materialized: table

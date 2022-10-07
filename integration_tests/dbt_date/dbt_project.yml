@@ -4,17 +4,6 @@ config-version: 2
 
 profile: "integration_tests"
 
-source-paths: ["models"]
-analysis-paths: ["analysis"]
-test-paths: ["tests"]
-data-paths: ["data"]
-macro-paths: ["macros"]
-
-target-path: "target"
-clean-targets:
-  - "target"
-  - "dbt_modules"
-
 dispatch:
   - macro_namespace: dbt_utils
     search_order: ["tsql_utils", "dbt_utils"]
@@ -37,14 +26,14 @@ quoting:
 models:
   dbt_date_integration_tests:
     +schema: dbt_date_integration_tests
-    +materialized: table
+    materialized: table
     # needed bc of
     # https://github.com/calogica/dbt-date/pull/30
-    # +enabled: false (THIS SHOULD WORK BUT DOESN'T!?)
+    # enabled: false (THIS SHOULD WORK BUT DOESN'T!?)
     # test_dates:
-    #   +enabled: true
+    #   enabled: true
     dates: &disabled
-      +enabled: false
+      enabled: false
     dim_week: *disabled
     dim_date: *disabled
     dim_date_fiscal: *disabled

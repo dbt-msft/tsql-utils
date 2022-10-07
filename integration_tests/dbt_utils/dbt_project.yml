@@ -28,10 +28,10 @@ vars:
 models:
   dbt_utils_integration_tests:
     +as_columnstore: "{{ target.type != 'sqlserver' }}"
-    +enabled: true
+    enabled: true
     cross_db_utils:
       test_split_part: &not-synapse # no XML datatype in synapse
-        +enabled: "{{ target.type != 'synapse' }}"
+        enabled: "{{ target.type != 'synapse' }}"
       # BROKEN DUE TO SYNAPSE SEED LOADING EMPTY CSV VALS AS EMPTY STRINGS
       # see: https://github.com/dbt-msft/dbt-synapse/issues/36
       test_dateadd: *not-synapse
@@ -42,7 +42,7 @@ models:
       # TODO: fix these!
       # see: https://github.com/dbt-msft/tsql-utils/issues/66
       test_url_host: &disabled
-        +enabled: false
+        enabled: false
       test_url_path: *disabled
       test_urls: *disabled
     sql:

@@ -5,16 +5,6 @@ config-version: 2
 
 profile: 'integration_tests'
 
-source-paths: ["models"]
-analysis-paths: ["analysis"]
-test-paths: ["tests"]
-data-paths: ["data"]
-macro-paths: ["macros"]
-
-target-path: "target"  # directory which will store compiled SQL files
-clean-targets:         # directories to be removed by `dbt clean`
-    - "target"
-    - "dbt_modules"
 dispatch:
   - macro_namespace: dbt_utils
     search_order: ['tsql_utils', 'dbt_utils']
@@ -34,14 +24,14 @@ models:
   dbt_expectations_integration_tests:
     schema_tests:
       data_test_factored:
-        +materialized: table
+        materialized: table
       emails: &disabled #TODO
-          +enabled: false 
+          enabled: false
       timeseries_data: *disabled
       timeseries_hourly_data_extended: *disabled
       # Need to implement for synapse
       data_test: &not-synapse
-        +enabled: "{{ target.type != 'synapse' }}"
-      
+        enabled: "{{ target.type != 'synapse' }}"
+
       data_test_factored: *not-synapse
       timeseries_data_extended: *disabled

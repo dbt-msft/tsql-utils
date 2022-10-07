@@ -1,0 +1,33 @@
+---
+name: Integration tests on Azure SQL DB
+on: # yamllint disable-line rule:truthy
+  push:
+    branches:
+      - master
+      - v*
+  pull_request_target:
+    types: [labeled]
+
+jobs:
+  integration-tests-azure:
+    name: Integration tests on Azure SQL DB
+    if: contains(github.event.pull_request.labels.*.name, 'safe to test') || github.ref_name == 'master' || startsWith(github.ref_name, 'v')
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/dbt-sqlserver:CI-3.10-msodbc18
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: recursive
+
+      - name: Install dependencies
+        run: pip install -r dev_requirements.txt
+
+      - name: Wake up server
+        env:
+          DBT_AZURESQL_SERVER: ${{ secrets.DBT_AZURESQL_SERVER }}
+          DBT_AZURESQL_DB: ${{ secrets.DBT_AZURESQL_DB }}
+          DBT_AZURESQL_UID: ${{ secrets.DBT_AZURESQL_UID }}
+          DBT_AZURESQL_PWD: ${{ secrets.DBT_AZURESQL_PWD }}
+          MSODBC_VERSION: 18
+        run: python devops/wakeup_azure.py

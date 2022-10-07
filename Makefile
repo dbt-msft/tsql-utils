@@ -16,7 +16,6 @@ server: ## Spins up a local MS SQL Server instance for development. Docker-compo
 test-dbt-utils: ## Runs integration tests for dbt-utils
 	@\
 	cd integration_tests/dbt_utils && \
-	DBT_PROFILES_DIR=$(ROOT_DIR)devops/local dbt debug && \
 	DBT_PROFILES_DIR=$(ROOT_DIR)devops/local dbt deps && \
 	DBT_PROFILES_DIR=$(ROOT_DIR)devops/local dbt seed --full-refresh && \
 	DBT_PROFILES_DIR=$(ROOT_DIR)devops/local dbt run --full-refresh && \
@@ -26,7 +25,6 @@ test-dbt-utils: ## Runs integration tests for dbt-utils
 test-dbt-date: ## Runs integration tests for dbt-date
 	@\
 	cd integration_tests/dbt_date && \
-	DBT_PROFILES_DIR=$(ROOT_DIR)devops/local dbt debug && \
 	DBT_PROFILES_DIR=$(ROOT_DIR)devops/local dbt deps && \
 	DBT_PROFILES_DIR=$(ROOT_DIR)devops/local dbt seed --full-refresh && \
 	DBT_PROFILES_DIR=$(ROOT_DIR)devops/local dbt run --full-refresh && \
@@ -36,7 +34,6 @@ test-dbt-date: ## Runs integration tests for dbt-date
 test-dbt-expectations: ## Runs integration tests for dbt-expectations
 	@\
 	cd integration_tests/dbt_expectations && \
-	DBT_PROFILES_DIR=$(ROOT_DIR)devops/local dbt debug && \
 	DBT_PROFILES_DIR=$(ROOT_DIR)devops/local dbt deps && \
 	DBT_PROFILES_DIR=$(ROOT_DIR)devops/local dbt seed --full-refresh && \
 	DBT_PROFILES_DIR=$(ROOT_DIR)devops/local dbt run --full-refresh && \
@@ -46,7 +43,6 @@ test-dbt-expectations: ## Runs integration tests for dbt-expectations
 test-dbt-audit-helper: ## Runs integration tests for dbt-audit-helper
 	@\
 	cd integration_tests/dbt_audit_helper && \
-	DBT_PROFILES_DIR=$(ROOT_DIR)devops/local dbt debug && \
 	DBT_PROFILES_DIR=$(ROOT_DIR)devops/local dbt deps && \
 	DBT_PROFILES_DIR=$(ROOT_DIR)devops/local dbt seed --full-refresh && \
 	DBT_PROFILES_DIR=$(ROOT_DIR)devops/local dbt run --full-refresh && \

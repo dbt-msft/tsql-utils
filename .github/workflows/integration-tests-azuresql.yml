@@ -16,6 +16,7 @@ jobs:
       matrix:
         dbt_package:
           ["dbt_audit_helper", "dbt_date", "dbt_expectations", "dbt_utils"]
+      fail-fast: false
     runs-on: ubuntu-latest
     container:
       image: ghcr.io/dbt-msft/dbt-sqlserver:CI-3.10-msodbc18

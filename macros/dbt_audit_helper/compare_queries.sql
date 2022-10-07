@@ -70,13 +70,8 @@ summary_stats as (
         in_b,
         count(*) as count
     from all_records
-
     group by in_a, in_b
-)
-{# use this if you want to see all mismatching rows! #}
--- select * from all_records
--- where not (in_a=1 and in_b=1)
--- order by {{ primary_key ~ ", " if primary_key is not none }} in_a desc, in_b desc
+),
 
 final as (
 

@@ -80,21 +80,21 @@ final as (
     round(100.0 * count / sum(count) over (), 2) as percent_of_total
 
     from summary_stats
-    order by in_a desc, in_b desc
 )
 
 {%- else %}
 
 final as (
 
-    select * from all_records
-    where not (in_a and in_b)
-    order by {{ primary_key ~ ", " if primary_key is not none }} in_a desc, in_b desc
+    select *
+    from all_records
+    where not (in_a = 1 and in_b = 1)
 
 )
 
 {%- endif %}
 
-select * from final
+select *
+from final
 
 {% endmacro %}

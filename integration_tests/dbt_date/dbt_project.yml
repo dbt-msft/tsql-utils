@@ -20,14 +20,9 @@ dispatch:
 vars:
   "dbt_date:time_zone": "Pacific Standard Time"
 
-quoting:
-  database: true
-  identifier: true
-  schema: true
-
 models:
   dbt_date_integration_tests:
-    +schema: dbt_date_integration_tests
+    schema: dbt_date_integration_tests
     materialized: table
     # needed bc of
     # https://github.com/calogica/dbt-date/pull/30

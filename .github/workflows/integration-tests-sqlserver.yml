@@ -31,6 +31,11 @@ jobs:
       - name: Install dependencies
         run: pip install -r dev_requirements.txt
 
+      - name: Copy profiles
+        run: |
+          mkdir -p ~/.dbt
+          cp devops/profiles.yml ~/.dbt/profiles.yml
+
       - name: Run integration tests
         run: |
           dbt deps --target sqlserver
@@ -38,5 +43,3 @@ jobs:
           dbt run --target sqlserver --full-refresh
           dbt test --target sqlserver
         working-directory: integration_tests/${{ matrix.dbt_package }}
-        env:
-          DBT_PROFILES_DIR: "${GITHUB_WORKSPACE}/devops"

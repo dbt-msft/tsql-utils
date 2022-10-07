@@ -27,6 +27,11 @@ jobs:
       - name: Install dependencies
         run: pip install -r dev_requirements.txt
 
+      - name: Copy profiles
+        run: |
+          mkdir -p ~/.dbt
+          cp devops/profiles.yml ~/.dbt/profiles.yml
+
       - name: Wake up server
         env:
           DBT_AZURESQL_SERVER: ${{ secrets.DBT_AZURESQL_SERVER }}
@@ -49,4 +54,3 @@ jobs:
           AZURE_CLIENT_ID: ${{ secrets.DBT_AZURE_SP_NAME }}
           AZURE_CLIENT_SECRET: ${{ secrets.DBT_AZURE_SP_SECRET }}
           AZURE_TENANT_ID: ${{ secrets.DBT_AZURE_TENANT }}
-          DBT_PROFILES_DIR: "${GITHUB_WORKSPACE}/devops"

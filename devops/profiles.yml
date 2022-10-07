@@ -6,7 +6,7 @@ config:
   use_colors: True
 
 integration_tests:
-  target: synapse
+  target: sqlserver
   outputs:
     synapse:
       type: synapse

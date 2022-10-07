@@ -27,6 +27,11 @@ jobs:
       - name: Install dependencies
         run: pip install -r dev_requirements.txt
 
+      - name: Copy profiles
+        run: |
+          mkdir -p ~/.dbt
+          cp devops/profiles.yml ~/.dbt/profiles.yml
+
       - name: Resume server
         env:
           DBT_SYNAPSE_SERVER: ${{ secrets.DBT_SYNAPSE_SERVER }}
@@ -51,4 +56,3 @@ jobs:
           AZURE_CLIENT_ID: ${{ secrets.DBT_AZURE_SP_NAME }}
           AZURE_CLIENT_SECRET: ${{ secrets.DBT_AZURE_SP_SECRET }}
           AZURE_TENANT_ID: ${{ secrets.DBT_AZURE_TENANT }}
-          DBT_PROFILES_DIR: "${GITHUB_WORKSPACE}/devops"

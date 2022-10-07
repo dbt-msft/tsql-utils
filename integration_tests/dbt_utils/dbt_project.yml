@@ -10,6 +10,7 @@ dispatch:
       [
         "tsql_utils_dbt_utils_integration_tests",
         "tsql_utils",
+        "dbt",
         "dbt_utils_integration_tests",
         "dbt_utils",
       ]
@@ -25,6 +26,7 @@ models:
         enabled: false
       test_url_path: *disabled
       test_urls: *disabled
+    cross_db_utils: *disabled
     sql:
       # BROKEN BC MACROS ARE UNPORTED STILL
       test_generate_series: *disabled
@@ -45,9 +47,10 @@ tests:
   dbt_utils_integration_tests: *disabled
 seeds:
   dbt_utils_integration_tests:
+    cross_db: *disabled
     schema_tests:
       data_test_sequential_timestamps:
-        column_types:
+        +column_types:
           my_timestamp: datetime2
       # can't override dbt_utils's test def args
       data_test_unique_where: *disabled
@@ -58,11 +61,6 @@ seeds:
       data_test_mutually_exclusive_ranges_with_gaps: *disabled
 
     sql:
-      data_width_bucket:
-        column_types:
-          num_buckets: integer
-          min_value: float
-          max_value: float
       # not yet ported, or can't be??
       data_unpivot_bool: *disabled
       data_unpivot_bool_expected: *disabled

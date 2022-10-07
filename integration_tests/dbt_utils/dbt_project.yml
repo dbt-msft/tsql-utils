@@ -1,9 +1,8 @@
-
-name: 'tsql_utils_dbt_utils_integration_tests'
-version: '1.0'
+name: "tsql_utils_dbt_utils_integration_tests"
+version: "1.0"
 config-version: 2
 
-profile: 'integration_tests'
+profile: "integration_tests"
 
 source-paths: ["models"]
 analysis-paths: ["analysis"]
@@ -11,28 +10,27 @@ test-paths: ["tests"]
 data-paths: ["data"]
 macro-paths: ["macros"]
 
-target-path: "target"  # directory which will store compiled SQL files
-clean-targets:         # directories to be removed by `dbt clean`
-    - "target"
-    - "dbt_modules"
-
-require-dbt-version: ">=0.20.0"
+target-path: "target" # directory which will store compiled SQL files
+clean-targets: # directories to be removed by `dbt clean`
+  - "target"
+  - "dbt_modules"
 
 dispatch:
   - macro_namespace: dbt_utils
-    search_order: ['tsql_utils_dbt_utils_integration_tests', 'tsql_utils', 'dbt_utils']
+    search_order:
+      ["tsql_utils_dbt_utils_integration_tests", "tsql_utils", "dbt_utils"]
 
 # TODO remove these variables in the next release
 vars:
-  dbt_utils_dispatch_list: ['tsql_utils', 'tsql_utils_dbt_utils_integration_tests']
+  dbt_utils_dispatch_list:
+    ["tsql_utils", "tsql_utils_dbt_utils_integration_tests"]
 
 models:
   dbt_utils_integration_tests:
     +as_columnstore: "{{ target.type != 'sqlserver' }}"
     +enabled: true
     cross_db_utils:
-      test_split_part: &not-synapse
-        # no XML datatype in synapse
+      test_split_part: &not-synapse # no XML datatype in synapse
         +enabled: "{{ target.type != 'synapse' }}"
       # BROKEN DUE TO SYNAPSE SEED LOADING EMPTY CSV VALS AS EMPTY STRINGS
       # see: https://github.com/dbt-msft/dbt-synapse/issues/36

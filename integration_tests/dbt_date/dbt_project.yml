@@ -15,7 +15,7 @@ dispatch:
       ]
   - macro_namespace: dbt_date
     search_order:
-      ["tsql_utils_dbt_date_integration_tests", "tsql_utils", "dbt_date"]
+      ["tsql_utils_dbt_date_integration_tests", "tsql_utils", "dbt", "dbt_date"]
 
 vars:
   "dbt_date:time_zone": "Pacific Standard Time"

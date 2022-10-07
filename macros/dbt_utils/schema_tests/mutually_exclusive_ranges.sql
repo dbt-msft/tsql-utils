@@ -57,7 +57,7 @@ calc as (
     -- the `not` function with `and` statements so we can write our assumptions nore cleanly
     select
         *,
-        
+
         --TODO turn thesse into null ifs or case whens...
 
         -- For each record: lower_bound should be < upper_bound.
@@ -93,5 +93,6 @@ validation_errors as (
     )
 )
 
-select count(*) from validation_errors
+select *
+from validation_errors
 {% endmacro %}

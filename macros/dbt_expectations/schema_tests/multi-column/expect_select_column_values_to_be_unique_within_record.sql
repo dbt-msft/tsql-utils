@@ -64,5 +64,6 @@ validation_errors as (
     having count(distinct column_value) < {{ columns | length }}
 
 )
-select count(*) from validation_errors
+select *
+from validation_errors
 {% endmacro %}

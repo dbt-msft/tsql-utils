@@ -13,7 +13,7 @@ jobs:
       matrix:
         sqlserver_version: ["2017", "2019", "2022"]
         dbt_package:
-          ["dbt-audit-helper", "dbt-date", "dbt-expectations", "dbt-utils"]
+          ["dbt_audit_helper", "dbt_date", "dbt_expectations", "dbt_utils"]
     runs-on: ubuntu-latest
     container:
       image: ghcr.io/dbt-msft/dbt-sqlserver:CI-3.10-msodbc18

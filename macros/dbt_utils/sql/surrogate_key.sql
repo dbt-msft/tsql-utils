@@ -78,9 +78,9 @@
     {%- endfor -%}
 
     {%- if use_binary_hash == True -%}
-        {%- set key = "hashbytes('md5', " ~ dbt_utils.concat(fields) ~ ")" -%}
+        {%- set key = "hashbytes('md5', " ~ dbt.concat(fields) ~ ")" -%}
     {%- else -%}
-        {%- set key = dbt_utils.hash(dbt_utils.concat(fields)) -%}
+        {%- set key = dbt.hash(dbt.concat(fields)) -%}
     {%- endif -%}
 
     {{ key }}

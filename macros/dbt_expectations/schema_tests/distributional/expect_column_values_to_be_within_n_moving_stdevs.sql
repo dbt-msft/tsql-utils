@@ -35,13 +35,13 @@ coalesce({{ metric_column }}, 0)
 with grouped_metric_values as (
 
         select
-            {{ dbt_utils.date_trunc(period, date_column_name) }} as metric_period,
+            {{ dbt.date_trunc(period, date_column_name) }} as metric_period,
             {{ group_by | join(",") ~ "," if group_by }}
             sum({{ column_name }}) as agg_metric_value
         from
             {{ model }}
         group by
-            {{ dbt_utils.date_trunc(period, date_column_name) }}
+            {{ dbt.date_trunc(period, date_column_name) }}
             {% if group_by %}
                 , {{ group_by | join(",") }}
             {% endif %}
@@ -114,10 +114,10 @@ from
 where
 
     metric_period >= cast(
-            {{ dbt_utils.dateadd(period, -test_periods, dbt_utils.date_trunc(period, dbt_date.now())) }}
-            as {{ dbt_utils.type_timestamp() }})
+            {{ dbt.dateadd(period, -test_periods, dbt.date_trunc(period, dbt_date.now())) }}
+            as {{ dbt.type_timestamp() }})
     and
-    metric_period < {{ dbt_utils.date_trunc(period, dbt_date.now()) }}
+    metric_period < {{ dbt.date_trunc(period, dbt_date.now()) }}
     and
 
     not (

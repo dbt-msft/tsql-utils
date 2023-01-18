@@ -11,7 +11,7 @@
         from {{ model }}
     ) required_alias_for_tsql
     {% if datepart %}
-    where not(cast({{ column_name }} as {{ dbt_utils.type_timestamp() }})= cast({{ dbt_utils.dateadd(datepart, interval, 'previous_' + column_name) }} as {{ dbt_utils.type_timestamp() }}))
+    where not(cast({{ column_name }} as {{ dbt.type_timestamp() }})= cast({{ dbt.dateadd(datepart, interval, 'previous_' + column_name) }} as {{ dbt.type_timestamp() }}))
     {% else %}
     where not({{ column_name }} = previous_{{ column_name }} + {{ interval }})
     {% endif %}

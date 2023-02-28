@@ -3,7 +3,7 @@
         SELECT DISTINCT
             table_schema AS "table_schema",
             table_name AS "table_name"
-        FROM [{{database}}].information_schema.tables
+        FROM [{{database}}].information_schema.tables -- Escape DB name
         WHERE table_schema LIKE '{{ schema_pattern }}'
         AND table_name LIKE '{{ table_pattern }}'
         AND table_name NOT LIKE '{{ exclude }}'

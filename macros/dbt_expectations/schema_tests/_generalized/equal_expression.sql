@@ -72,9 +72,9 @@
     -- select * from final
     select
         {% if return_difference %}
-        coalesce(sum(expression_difference), 0)
+        coalesce(sum(expression_difference), 0) as final_expression
         {% else %}
-        count(*)
+        count(*) as final_expression
         {% endif %}
     from final
     where

@@ -72,14 +72,14 @@
         with data as (
             select
                 coalesce(max({{ timestamp_field }}), '{{ start_date }}') as start_timestamp,
-                coalesce({{ dbt_utils.dateadd('millisecond', 86399999, "nullif('" ~ stop_date | lower ~ "','none')") }},
+                coalesce({{ dbt.dateadd('millisecond', 86399999, "nullif('" ~ stop_date | lower ~ "','none')") }},
                          {{ dbt_utils.current_timestamp() }} ) as stop_timestamp
             from {{ target_schema }}.{{ target_table }}
         )
         select
             start_timestamp,
             stop_timestamp,
-            {{ dbt_utils.datediff('start_timestamp',
+            {{ dbt.datediff('start_timestamp',
                                   'stop_timestamp',
                                   period) }} + 1 as num_periods
         from data

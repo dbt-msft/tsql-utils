@@ -19,7 +19,7 @@
                     ELSE concat_ws('.', table_catalog, table_schema, table_name) 
                 END as relation_name
             from
-                "{{ target.database }}".information_schema.tables -- Added quotes for any whitespace in target db
+                [{{ target.database }}].information_schema.tables -- Escape DB name
             where
                 table_schema like '{{ target.schema }}%'
                 and table_name not in (

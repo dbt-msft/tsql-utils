@@ -34,7 +34,6 @@ models:
       test_groupby: *disabled
       test_union: *disabled
       test_unpivot_bool: *disabled
-      test_width_bucket: *disabled
     materializations:
       test_insert_by_period: *disabled
     

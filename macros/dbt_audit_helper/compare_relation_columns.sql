@@ -1,11 +1,11 @@
-{% macro sqlserver__compare_relation_columns(a_relation, b_relation) %}
+{% macro fabric__compare_relation_columns(a_relation, b_relation) %}
 
 with a_cols as (
-    {{ tsql_utils.sqlserver__get_columns_in_relation_sql(a_relation) }}
+    {{ tsql_utils.fabric__get_columns_in_relation_sql(a_relation) }}
 ),
 
 b_cols as (
-    {{ tsql_utils.sqlserver__get_columns_in_relation_sql(b_relation) }}
+    {{ tsql_utils.fabric__get_columns_in_relation_sql(b_relation) }}
 )
 
 select
@@ -22,7 +22,7 @@ full outer join b_cols using (column_name)
 {% endmacro %}
 
 
-{% macro sqlserver__get_columns_in_relation_sql(relation) %}
+{% macro fabric__get_columns_in_relation_sql(relation) %}
   SELECT
             column_name,
             data_type,

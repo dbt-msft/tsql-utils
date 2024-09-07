@@ -1,4 +1,4 @@
-{% macro sqlserver__get_tables_by_pattern_sql(schema_pattern, table_pattern, exclude='', database=target.database) %}
+{% macro fabric__get_tables_by_pattern_sql(schema_pattern, table_pattern, exclude='', database=target.database) %}
 
         SELECT DISTINCT
             table_schema AS "table_schema",

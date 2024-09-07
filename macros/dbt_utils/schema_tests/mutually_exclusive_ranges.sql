@@ -1,4 +1,4 @@
-{% macro sqlserver__test_mutually_exclusive_ranges(model, lower_bound_column, upper_bound_column, partition_by=None, gaps='allowed', zero_length_range_allowed=False) %}
+{% macro fabric__test_mutually_exclusive_ranges(model, lower_bound_column, upper_bound_column, partition_by=None, gaps='allowed', zero_length_range_allowed=False) %}
 
 {% if gaps == 'not_allowed' %}
     {% set allow_gaps_operator='=' %}

@@ -18,7 +18,7 @@ dispatch:
 models:
   dbt_utils_integration_tests:
     index: HEAP # Synapse only
-    as_columnstore: "{{ target.type != 'sqlserver' }}"
+    as_columnstore: "{{ target.type != 'fabric' }}"
     enabled: true
     web:
       # TODO: fix these!
@@ -44,7 +44,7 @@ models:
       test_insert_by_period: *disabled
   # intractable nested CTEs from
   # https://github.com/calogica/dbt-date/pull/30
-tests:
+data_tests:
   dbt_utils_integration_tests: *disabled
 seeds:
   dbt_utils_integration_tests:

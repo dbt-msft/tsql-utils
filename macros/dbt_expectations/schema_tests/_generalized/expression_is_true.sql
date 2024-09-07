@@ -1,4 +1,4 @@
-{% macro sqlserver__expression_is_true(model, expression, test_condition, group_by_columns, row_condition) %}
+{% macro fabric__expression_is_true(model, expression, test_condition, group_by_columns, row_condition) %}
 
 {% if test_condition == "= true" %}
   {% set test_condition = "= 1" %}

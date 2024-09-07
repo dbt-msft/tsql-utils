@@ -1,4 +1,4 @@
-{% macro sqlserver__test_expect_grouped_row_values_to_have_recent_data(model, group_by, timestamp_column, datepart, interval, row_condition=None) %}
+{% macro fabric__test_expect_grouped_row_values_to_have_recent_data(model, group_by, timestamp_column, datepart, interval, row_condition=None) %}
 with latest_grouped_timestamps as (
 
     select

@@ -1,4 +1,4 @@
-{% macro sqlserver__width_bucket(expr, min_value, max_value, num_buckets) -%}
+{% macro fabric__width_bucket(expr, min_value, max_value, num_buckets) -%}
 
     {% set bin_size -%}
     (( {{ max_value }} - {{ min_value }} ) / {{ num_buckets }} )

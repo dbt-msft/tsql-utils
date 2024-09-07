@@ -1,4 +1,4 @@
-{%- macro sqlserver__from_unixtimestamp(epochs, format) -%}
+{%- macro fabric__from_unixtimestamp(epochs, format) -%}
     
     {%- if format == "seconds" -%}
     {%- set scale = "S" -%}

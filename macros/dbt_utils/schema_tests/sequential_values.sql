@@ -1,4 +1,4 @@
-{% macro sqlserver__test_sequential_values(model, column_name, interval=1, datepart=None) %}
+{% macro fabric__test_sequential_values(model, column_name, interval=1, datepart=None) %}
 
     select
         *

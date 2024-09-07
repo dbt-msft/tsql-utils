@@ -1,4 +1,4 @@
-{%- macro sqlserver__generate_surrogate_key(field_list) -%}
+{%- macro fabric__generate_surrogate_key(field_list) -%}
 
 {%- if var('surrogate_key_treat_nulls_as_empty_strings', False) -%}
     {%- set default_null_value = "" -%}

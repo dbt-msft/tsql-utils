@@ -1,5 +1,5 @@
 
-{%- macro sqlserver__day_of_week(date, isoweek) -%}
+{%- macro fabric__day_of_week(date, isoweek) -%}
 
     {%- set dow = dbt_date.date_part('weekday', date) -%}
 

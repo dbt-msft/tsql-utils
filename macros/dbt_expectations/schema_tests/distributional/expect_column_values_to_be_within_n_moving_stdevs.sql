@@ -10,7 +10,7 @@ coalesce({{ metric_column }}, 0)
 {%- endmacro -%}
 
 
-{% macro sqlserver__test_expect_column_values_to_be_within_n_moving_stdevs(model,
+{% macro fabric__test_expect_column_values_to_be_within_n_moving_stdevs(model,
                                   column_name,
                                   date_column_name,
                                   group_by,

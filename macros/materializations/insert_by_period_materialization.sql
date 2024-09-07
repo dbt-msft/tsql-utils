@@ -1,5 +1,5 @@
 
-{% materialization insert_by_period, adapter = 'sqlserver' -%}
+{% materialization insert_by_period, adapter = 'fabric' -%}
 
     {%- set full_refresh_mode = flags.FULL_REFRESH -%}
 

@@ -1,4 +1,4 @@
-{% macro sqlserver__compare_column_values(a_query, b_query, primary_key, column_to_compare) -%}
+{% macro fabric__compare_column_values(a_query, b_query, primary_key, column_to_compare) -%}
 with a_query as (
     {{ a_query }}
 ),

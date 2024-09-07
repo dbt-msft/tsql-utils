@@ -1,4 +1,4 @@
-{% macro sqlserver__drop_schemas_by_prefixes(prefixes) %}
+{% macro fabric__drop_schemas_by_prefixes(prefixes) %}
     {# Ensure input is a list to iterate later #}
     {% set prefix_list = [prefixes] if prefixes is string else prefixes %}
 
@@ -19,7 +19,7 @@
             {# Drop each found schema #}
             {% for schema_name in schema_names %}
                 {% do log('Dropping schema ' + schema_name, info=True) %}
-                {% do sqlserver__drop_schema_by_name(schema_name) %}
+                {% do fabric__drop_schema_by_name(schema_name) %}
             {% endfor %}
         {% endif %}
     {% endfor %}

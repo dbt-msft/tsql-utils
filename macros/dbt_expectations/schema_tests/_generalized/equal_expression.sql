@@ -1,4 +1,4 @@
-{%- macro sqlserver__get_select(model, expression, row_condition, group_by) %}
+{%- macro fabric__get_select(model, expression, row_condition, group_by) %}
     select
         {# {%- if group_by %} #}
             {% for g in group_by or [] -%}
@@ -22,7 +22,7 @@
     {% endif %}
 {% endmacro -%}
 
-{%- macro sqlserver__test_equal_expression(
+{%- macro fabric__test_equal_expression(
                                 model,
                                 expression,
                                 compare_model,

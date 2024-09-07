@@ -1,4 +1,4 @@
-{% macro sqlserver__test_expect_column_most_common_value_to_be_in_set(model, column_name,
+{% macro fabric__test_expect_column_most_common_value_to_be_in_set(model, column_name,
                                                             value_set,
                                                             top_n,
                                                             quote_values=False,

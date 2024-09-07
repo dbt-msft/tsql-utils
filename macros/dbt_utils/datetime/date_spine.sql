@@ -1,4 +1,4 @@
-{% macro sqlserver__date_spine_sql(datepart, start_date, end_date) %}
+{% macro fabric__date_spine_sql(datepart, start_date, end_date) %}
 
 
     with
@@ -86,11 +86,11 @@
 {% endmacro %}
 
 
-{% macro sqlserver__date_spine(datepart, start_date, end_date) -%}
+{% macro fabric__date_spine(datepart, start_date, end_date) -%}
 
     {% set date_spine_query %}
 
-        {{tsql_utils.sqlserver__date_spine_sql(datepart, start_date, end_date)}} order by 1
+        {{tsql_utils.fabric__date_spine_sql(datepart, start_date, end_date)}} order by 1
 
     {% endset %}
 

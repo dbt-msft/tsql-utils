@@ -1,6 +1,6 @@
 -- Tidyed up version of Jacob Matson's contribution in the dbt-sqlserver slack channel https://app.slack.com/client/T0VLPD22H/CMRMDDQ9W/thread/CMRMDDQ9W-1625096967.079800 
 
-{% macro sqlserver__drop_old_relations(dry_run='false') %}
+{% macro fabric__drop_old_relations(dry_run='false') %}
     {% if execute %}
         {% set current_models = [] %}
         {% for node in graph.nodes.values()|selectattr("resource_type", "in", ["model", "seed", "snapshot"])%}

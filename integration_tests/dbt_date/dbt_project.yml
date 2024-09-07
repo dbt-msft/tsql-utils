@@ -18,7 +18,7 @@ dispatch:
       ["tsql_utils_dbt_date_integration_tests", "tsql_utils", "dbt", "dbt_date"]
 
 vars:
-  "dbt_date:time_zone": "Pacific Standard Time"
+  "dbt_date:time_zone": "UTC"
 
 models:
   dbt_date_integration_tests:

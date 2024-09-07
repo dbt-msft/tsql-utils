@@ -1,0 +1,8 @@
+packages:
+  - local: ../../
+  - local: ../../dbt-expectations
+  - local: ../../dbt-expectations/integration_tests
+  - package: calogica/dbt_date
+    version: 0.10.1
+  - local: ../
+sha1_hash: 5723a05ef1d9b9d1f7961a55d573231dca0b0644

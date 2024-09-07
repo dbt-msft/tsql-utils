@@ -1,0 +1,6 @@
+packages:
+  - local: ../../
+  - local: ../../dbt-date
+  - local: ../../dbt-date/integration_tests
+  - local: ../
+sha1_hash: 23e06fdd28a6456704c5398f7e588a034e2a03de

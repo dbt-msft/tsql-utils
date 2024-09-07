@@ -25,7 +25,6 @@ models:
         enabled: false
       test_url_path: *disabled
       test_urls: *disabled
-    cross_db_utils: *disabled
     sql:
       test_generate_series: *disabled
       test_get_column_values: *disabled
@@ -34,21 +33,16 @@ models:
       test_groupby: *disabled
       test_union: *disabled
       test_unpivot_bool: *disabled
-    materializations:
-      test_insert_by_period: *disabled
+      test_get_single_value: *disabled
+      test_get_single_value_default: *disabled
     
 data_tests:
   dbt_utils_integration_tests: *disabled
 
 seeds:
   dbt_utils_integration_tests:
-    cross_db: *disabled
     schema_tests:
-      data_test_sequential_timestamps:
-        +column_types:
-          my_timestamp: datetime2
-      data_test_unique_where: *disabled
-      data_test_not_null_where: *disabled
+      data_test_sequential_timestamps: *disabled
       data_test_mutually_exclusive_ranges_with_gaps_zero_length: *disabled
       data_test_mutually_exclusive_ranges_no_gaps: *disabled
       data_test_mutually_exclusive_ranges_with_gaps: *disabled
@@ -56,3 +50,4 @@ seeds:
     sql:
       data_unpivot_bool: *disabled
       data_unpivot_bool_expected: *disabled
+      data_get_single_value: *disabled

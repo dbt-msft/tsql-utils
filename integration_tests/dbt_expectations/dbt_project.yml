@@ -31,7 +31,7 @@ dispatch:
       ]
 
 vars:
-  "dbt_date:time_zone": "Pacific Standard Time"
+  "dbt_date:time_zone": "UTC"
 
 models:
   dbt_expectations_integration_tests:

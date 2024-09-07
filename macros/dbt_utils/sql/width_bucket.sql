@@ -8,7 +8,7 @@
         case
             when
                 {{ dbt.safe_cast(expr, dbt.type_numeric() ) }} %
-                {{ dbt.safe_cast(bin_size, type.type_numeric() ) }}
+                {{ dbt.safe_cast(bin_size, dbt.type_numeric() ) }}
                  = 0
             then 1
             else 0

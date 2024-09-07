@@ -5,7 +5,7 @@ integration_tests:
       type: fabric
       driver: "ODBC Driver 18 for SQL Server"
       port: 1433
-      host: m7awjeefjdxubhzudbjsdcxkqy-d7lhvcyatxte7l3du3qd35b6im.datawarehouse.fabric.microsoft.com
-      database: dwh
+      host: "{{ env_var('FABRIC_ENDPOINT') }}"
+      database: "{{ env_var('FABRIC_DWH_NAME', 'dwh') }}"
       authentication: cli
       schema: tsql_utils_integration_tests_fabric

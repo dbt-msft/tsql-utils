@@ -51,6 +51,16 @@ Check [dbt Hub](https://hub.getdbt.com) for the latest installation
 instructions, or [read the docs](https://docs.getdbt.com/docs/package-management)
 for more information on installing packages.
 
+## Usage
+
+You can use the macros as documented in the original packages, but with the following caveat:
+
+dbt_date does not properly dispatch to the T-SQL implementation of the `get_fiscal_periods` macro. To use the T-SQL implementation, you must use the `tsql_utils` namespace:
+
+```sql
+{{ tsql_utils.get_fiscal_periods(...) }}
+```
+
 ## tsql-utils specific macros
 
 ### Cleanup Macros

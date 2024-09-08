@@ -24,14 +24,14 @@ models:
   dbt_date_integration_tests:
     schema: dbt_date_integration_tests
     materialized: table
-    # needed bc of
-    # https://github.com/calogica/dbt-date/pull/30
-    # enabled: false (THIS SHOULD WORK BUT DOESN'T!?)
-    # test_dates:
-    #   enabled: true
-    dates: &disabled
+    dim_hour: &disabled # overriden in this project as the default impl uses nested CTEs
       enabled: false
-    dim_week: *disabled
-    dim_date: *disabled
-    dim_date_fiscal: *disabled
-    dim_hour: *disabled
+    dim_week: *disabled # overriden in this project as the default impl uses nested CTEs
+    dim_date: *disabled # overriden in this project as the default impl uses nested CTEs
+    dim_date_fiscal: *disabled # overriden in this project as the default impl uses nested CTEs
+
+data_tests:
+  dbt_date_integration_tests:
+    expression_is_true_test_dates_rounded_timestamp_utc_dbt_date_round_timestamp_time_stamp_utc_: *disabled
+    expression_is_true_test_dates_time_stamp_utc_dbt_date_from_unixtimestamp_unix_epoch_: *disabled
+    expression_is_true_test_dates_unix_epoch_dbt_date_to_unixtimestamp_time_stamp_utc_: *disabled

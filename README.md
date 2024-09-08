@@ -11,7 +11,7 @@ that:
 This package provides "shims" for:
 
 - [dbt-utils](https://github.com/dbt-labs/dbt-utils) (partial)
-- [dbt-date](https://github.com/calogica/dbt-date) (partial)
+- [dbt-date](https://github.com/calogica/dbt-date)
 - [dbt-expectations](https://github.com/calogica/dbt-expectations) (partial)
 - [dbt-audit-helper](https://github.com/dbt-labs/dbt-audit-helper) (partial)
 

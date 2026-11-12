@@ -107,8 +107,19 @@
 
     {% endif %}
 
+    {%- set spine_type = 'date' if datepart | lower in ('day', 'week', 'month', 'quarter', 'year') else 'datetime2(6)' -%}
+
     {%- for date_field in results_list %}
-        select '{{ date_field }}' as date_{{datepart}} {{ 'union all ' if not loop.last else '' }}
+        select cast('{{ date_field }}' as {{ spine_type }}) as date_{{datepart}} {{ 'union all ' if not loop.last else '' }}
     {% endfor -%}
 
 {% endmacro %}
+
+
+{#- dbt-sqlserver no longer declares dbt-fabric as a parent adapter, so dispatch doesn't
+    find fabric__ macros on SQL Server. This makes date_spine work there too. -#}
+{% macro sqlserver__date_spine(datepart, start_date, end_date) -%}
+
+    {{ return(tsql_utils.fabric__date_spine(datepart, start_date, end_date)) }}
+
+{%- endmacro %}
